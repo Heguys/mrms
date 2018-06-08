@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.QbPaperMapper" >
+  <insert id="insertPaperList" parameterType="map">
+    insert into  qb_paper (id, trainplanid,duration,
+    summark, passmark, status,
+    createdate, papernums)
+    values
+    <foreach collection="papers" item="paper" separator=",">
+      (#{paper.id,jdbcType=VARCHAR}, #{paper.trainplanid,jdbcType=VARCHAR}, #{paper.duration,jdbcType=INTEGER},
+      #{paper.summark,jdbcType=INTEGER}, #{paper.passmark,jdbcType=INTEGER}, #{paper.status,jdbcType=INTEGER},
+      #{paper.createdate,jdbcType=TIMESTAMP}, #{paper.papernums,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+
+  <delete id="deletePaperByTrainPlanUid" parameterType="java.lang.String" >
+    delete from qb_paper
+    where  trainPlanId=#{trainPlanUid}
+  </delete>
+
+  <select id="selectPaperByTrainPlanUid" parameterType="java.lang.String" resultType="com.hxminco.mrms.comm.entry.QbPaper">
+    SELECT
+    id, trainplanid,duration,
+    summark, passmark, status,
+    createdate, papernums
+    FROM qb_paper
+    where
+    trainPlanId=#{trainPlanUid}
+  </select>
+</mapper>

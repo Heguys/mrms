@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.QbAnswerMapper" >
+  <resultMap id="BaseResultMap" type="com.hxminco.mrms.comm.entry.QbAnswer" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="description" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="questionId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="isValid" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, description, questionId, isValid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from qb_answer
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAnswersByPaperId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from qb_answer
+    where questionId in (select id from qb_question where paperId = #{paperId,jdbcType=VARCHAR})
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from qb_answer
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteAnswersByTrainPlanUid" parameterType="java.lang.String" >
+    delete from qb_answer
+    where questionId in
+    (SELECT id from qb_question where paperId=
+    (select id from qb_paper where trainPlanId=#{trainPlanUid}))
+  </delete>
+
+  <insert id="insert" parameterType="com.hxminco.mrms.comm.entry.QbAnswer" >
+    insert into qb_answer (id, description, questionId, 
+      isValid)
+    values (#{id,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{questionid,jdbcType=VARCHAR}, 
+      #{isvalid,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertAnswerList" parameterType="map" >
+    insert into qb_answer (id, description, questionId,
+    isValid)
+    values
+    <foreach collection="answers" item="answer" separator=",">
+    (#{answer.id,jdbcType=VARCHAR}, #{answer.description,jdbcType=VARCHAR}, #{answer.questionid,jdbcType=VARCHAR},
+    #{answer.isvalid,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hxminco.mrms.comm.entry.QbAnswer" >
+    insert into qb_answer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="questionid != null" >
+        questionId,
+      </if>
+      <if test="isvalid != null" >
+        isValid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="questionid != null" >
+        #{questionid,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalid != null" >
+        #{isvalid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxminco.mrms.comm.entry.QbAnswer" >
+    update qb_answer
+    <set >
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="questionid != null" >
+        questionId = #{questionid,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalid != null" >
+        isValid = #{isvalid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxminco.mrms.comm.entry.QbAnswer" >
+    update qb_answer
+    set description = #{description,jdbcType=VARCHAR},
+      questionId = #{questionid,jdbcType=VARCHAR},
+      isValid = #{isvalid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

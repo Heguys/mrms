@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.RsInstitutionMapper" >
+  <resultMap id="BaseResultMap" type="com.hxminco.mrms.comm.entry.RsInstitution" >
+    <constructor >
+      <idArg column="uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="parent_uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="locked" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uid, name, type_id, parent_uid, locked
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from rs_institution
+    where uid = #{uid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectLatestCreateTime" resultType="java.sql.Timestamp">
+     select create_time
+    from rs_institution
+    order by create_time desc limit 1
+  </select>
+
+  <select id="selectListInstitution" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rs_institution
+    where type_id='exam_institution'
+  </select>
+
+  <select id="selectParentUid" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT parent_uid
+    FROM
+    rs_institution
+    where
+    uid = #{institutionUid}
+    and type_id = 'exam_institution'
+  </select>
+
+  <select id="selectAllInstitution" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rs_institution
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from rs_institution
+    where uid = #{uid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hxminco.mrms.comm.entry.RsInstitution" >
+    insert into rs_institution (uid, name, type_id, 
+      parent_uid, locked)
+    values (#{uid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{typeId,jdbcType=VARCHAR}, 
+      #{parentUid,jdbcType=VARCHAR}, #{locked,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertInstitutionList" parameterType="map">
+    insert into rs_institution (uid, name, type_id,
+      parent_uid, locked)
+    values
+    <foreach collection="institutions" item="val" separator=",">
+    (#{val.uid,jdbcType=VARCHAR}, #{val.name,jdbcType=VARCHAR}, #{val.typeId,jdbcType=VARCHAR},
+      #{val.parentUid,jdbcType=VARCHAR}, #{val.locked,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <delete id="truncateTable">
+    TRUNCATE table rs_institution
+  </delete>
+  <insert id="insertSelective" parameterType="com.hxminco.mrms.comm.entry.RsInstitution" >
+    insert into rs_institution
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="parentUid != null" >
+        parent_uid,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUid != null" >
+        #{parentUid,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxminco.mrms.comm.entry.RsInstitution" >
+    update rs_institution
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUid != null" >
+        parent_uid = #{parentUid,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxminco.mrms.comm.entry.RsInstitution" >
+    update rs_institution
+    set name = #{name,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=VARCHAR},
+      parent_uid = #{parentUid,jdbcType=VARCHAR},
+      locked = #{locked,jdbcType=VARCHAR}
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+</mapper>

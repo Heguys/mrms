@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.QbExamInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hxminco.mrms.comm.entry.QbExamInfo" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="examCode" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="beginTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="endTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="passTime" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="examTime" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="makeup" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="score" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="paperOrder" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="passed" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rule_broken" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, examCode, beginTime, endTime, passTime, status, examTime, makeup, score,paperOrder,passed,rule_broken
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from qb_exam_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectExamInfoListByTrainPlanUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    qb_exam_info
+    where examCode in(
+    SELECT examCode FROM rs_student_info
+    where train_plan_uid=#{trainPlanUid})
+  </select>
+
+  <select id="selectExamInfoListByExamCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    qb_exam_info
+    where
+    examCode=#{examCode}
+    ORDER BY examTime ASC
+  </select>
+
+  <select id="selectMaxScoreQbExamInfoRecord" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    qb_exam_info
+    where
+    examCode=#{examCode}
+    ORDER BY score DESC
+    limit 1
+  </select>
+
+  <select id="selectPaperOrderListByExamCode" parameterType="java.lang.String" resultType="integer">
+    select paperOrder
+    from qb_exam_info
+    where examCode=#{examCode}
+  </select>
+
+  <select id="selectOnTestingExamInfoMap" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select qei.*
+    FROM rs_student_info rsi, qb_exam_info qei
+    where rsi.examCode=qei.examCode and rsi.train_plan_uid=#{uid}
+    and qei.status='2'
+  </select>
+
+  <select id="selectExamInfoListByExamCodeOrderDesc" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    qb_exam_info
+    where
+    examCode=#{examCode}
+    ORDER BY examTime
+    DESC
+    limit 1
+
+  </select>
+
+  <select id="selectExamInfoListByExamCodeAndStatus" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    qb_exam_info
+    where
+    examCode=#{examCode}AND status=#{status}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from qb_exam_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteExamInfoListByTrainPlanUid" parameterType="java.lang.String" >
+    delete from qb_exam_info
+    where examCode in(SELECT examCode from rs_student_info where train_plan_uid = #{trainPlanUid})
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.hxminco.mrms.comm.entry.QbExamInfo" >
+    insert into qb_exam_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="examcode != null" >
+        examCode,
+      </if>
+      <if test="begintime != null" >
+        beginTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="passtime != null" >
+        passTime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="examtime != null" >
+        examTime,
+      </if>
+      <if test="makeup != null" >
+        makeup,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="paperOrder != null" >
+        paperOrder,
+      </if>
+      <if test="passed != null" >
+        passed,
+      </if>
+      <if test="ruleBroken != null" >
+        rule_broken,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="examcode != null" >
+        #{examcode,jdbcType=VARCHAR},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passtime != null" >
+        #{passtime,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="examtime != null" >
+        #{examtime,jdbcType=INTEGER},
+      </if>
+      <if test="makeup != null" >
+        #{makeup,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="paperOrder != null" >
+        #{paperOrder,jdbcType=INTEGER},
+      </if>
+      <if test="passed != null" >
+        #{passed,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleBroken != null" >
+        #{ruleBroken,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxminco.mrms.comm.entry.QbExamInfo" >
+    update qb_exam_info
+    <set >
+      <if test="examcode != null" >
+        examCode = #{examcode,jdbcType=VARCHAR},
+      </if>
+      <if test="begintime != null" >
+        beginTime = #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passtime != null" >
+        passTime = #{passtime,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="examtime != null" >
+        examTime = #{examtime,jdbcType=INTEGER},
+      </if>
+      <if test="makeup != null" >
+        makeup = #{makeup,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="paperOrder != null" >
+        paperOrder = #{paperOrder,jdbcType=INTEGER},
+      </if>
+      <if test="passed != null" >
+        passed = #{passed,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleBroken != null" >
+        rule_broken = #{ruleBroken,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateExamInfoPassTime" parameterType="com.hxminco.mrms.comm.entry.QbExamInfo">
+    update qb_exam_info
+    set passTime = #{passtime,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

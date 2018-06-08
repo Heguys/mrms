@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<!--#set(path = request.contextPath)-->
+	<!--#set(Teacher teacher)-->
+	<!--#set(Teacher teacher = session.getAttribute("currentUser"))-->
+	<title>安全生产移动考试系统</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="${path}/res/css/base.css">
+	<link rel="stylesheet" href="${path}/res/css/bootstrap.min.css" media="screen">
+	<link rel="stylesheet" href="${path}/res/css/bootstrap-responsive.min.css">
+	<link rel="icon" href="${path}/res/img/logo.png">
+	<link rel="stylesheet" href="${path}/res/css/style.css">
+</head>
+
+<body>
+<!-- 顶部 -->
+<div class="header">
+	<!--<img class="testLogo" src="${path}/res/img/testLogo.png" alt=""/>-->
+	<span class="bannerLogo"></span>
+	<div class="headerTXT">
+		<div class="newTime">
+			<div class="timeTXT"></div>&emsp;&emsp;<a href="#"><i></i>&nbsp;注销</a>
+			<div class="welcome">你好,${teacher.username}</div>
+		</div>
+	</div>
+</div>
+
+<!-- 侧边栏 -->
+<div class="sideBar fl">
+	<ul>
+		<li><a href="${path}/main.html"><i class="dataMainIcon"></i>数据维护</a></li>
+		<li><a href="#" class="current"><i class="userManIcon"></i>用户管理</a></li>
+		<li><a href="${path}/teacher/toSystemUpdatePage.html"><i class="sysUpIcon"></i>系统升级</a></li>
+		<!--<li><a href="${path}/teacher/localdata.html"><i class="examManIcon"></i>考试管理</a></li>-->
+	</ul>
+</div>
+
+<!-- 右边内容 -->
+<div class="container fr">
+	<div class="curPage userManPage">用户管理</div>
+	<div class="centerCont">
+		<div class="keywordSearch">
+			关键词:&emsp;<input type="text" placeholder="用户名/所属机构"/><a href="#" class="seaBtn"></a>
+		</div>
+		<div class="tableBtn fr">
+			<button class="addUser commonBlueBtn">新增用户</button>
+		</div>
+		<div class="userManTab">
+			<table id="umTab" class="table table-hover"></table>
+		</div>
+	</div>
+	<!--新增用户模态框-->
+	<div class="userAddMod">
+		<div class="modHead">新增用户</div><i></i>
+		<div class="modCont">
+			<div class="userName">
+				&emsp;用户名:&emsp;<input type="text" name="username"/>
+			</div>
+			<div class="institute">
+				所属机构:&emsp;<select name="institutionuid" id="institutionId"></select>
+			</div>
+			<div class="pwd">
+				&emsp;&emsp;密码:&emsp;<input type="text" name="password"/>
+			</div>
+		</div>
+		<div class="modBtn">
+			<button class="save commonBlueBtn">保存</button>
+			<button class="back commonGreyBtn">返回</button>
+		</div>
+	</div>
+</div>
+<!--通用确认弹出框-->
+<div class="confMask">
+	<div class="confMod">
+		<div class="confTop clearfix">
+			<div class="leftConf fl"><i></i>确认提示</div>
+			<button class="confCloseBtn fr"></button>
+		</div>
+		<div class="confCont"></div>
+		<div class="confTwoBtn">
+			<button class="confBtn">确定</button>
+			<button class="cancelBtn">取消</button>
+		</div>
+	</div>
+</div>
+<!--成功提示模态框-->
+<div class="mask">
+	<div class="hintMod">
+		<div class="modHead hintModHead">成功提示</div><i></i>
+		<div class="modCont">
+			你选择的考试计划已上传成功~
+		</div>
+	</div>
+</div>
+
+<script src="${path}/res/js/jquery.min.js"></script>
+<script src="${path}/res/js/bootstrap.min.js"></script>
+<script src="${path}/res/js/bootstrap-table.js"></script>
+<script src="${path}/res/js/bootstrap-table-zh-CN.js"></script>
+<script src="${path}/res/js/common.js"></script>
+<script  type="text/javascript" src="${path}/res/js/userMan.js"></script>
+<script>
+	$(function(){
+
+		//打开新增用户模态框
+		$(".addUser").on("click", institutionSelect);
+
+		//所属机构下拉框加载
+		function institutionSelect(){
+			$.ajax({
+				url: "${path}/res/js/institution.js",
+				data: {},
+				dataType:"json",
+				error: function(){
+					$(".mask").show();
+					$(".mask .hintModHead").text("失败提示").addClass("hintModHeadFail");
+					$(".mask .modCont").text("基础信息及机构信息数据未同步,请到数据维护页面进行同步");
+					setTimeout(function(){ window.location.href = "${path}/main.html" },5000);
+				},
+				success: function(data){
+					$("#institutionId").empty();
+					$(data).each(function(i,json){
+						$("#institutionId").append("<option value='"+json.uid+"'>"+json.name+"</option>");
+					});
+					$(".userAddMod").fadeIn();
+					$(".modHead").text("新增用户");
+					$(".userName input").val("");
+					$(".pwd input").val("");
+					$("#institutionId>option:eq(0)").attr("selected","selected").siblings().removeAttr("selected");
+					$(".save").addClass("addSave");
+				}
+			})
+		}
+
+
+		//打开修改用户模态框
+		$(document).on("click",".modify",function(){
+			$.ajax({
+				url: "${path}/admin/edit.ajax",
+				data: {
+					uid: $(this).attr("uid")
+				},
+				success: function(data1){
+					$(".userName input").val(data1.teacher.username);
+//					$(".pwd input").val(data.teacher.password);
+					$(".save").attr("uid",data1.teacher.uid);
+
+					$.ajax({
+						url: "${path}/res/js/institution.js",
+						data: {},
+						dataType:"json",
+						error: function(){
+							$(".mask").show();
+							$(".mask .hintModHead").text("失败提示").addClass("hintModHeadFail");
+							$(".mask .modCont").text("基础信息及机构信息数据未同步,请到数据维护页面进行同步");
+							setTimeout(function(){ window.location.href = "${path}/main.html" },5000);
+						},
+						success: function(data){
+							$(".userAddMod").fadeIn();
+							$(".modHead").text("修改用户");
+							$(".save").addClass("modSave");
+							$(".pwd input").val("");
+							$("#institutionId").empty();
+							$(data).each(function(i,json){
+								if(json.uid == data1.teacher.institutionuid){
+									$("#institutionId").append("<option value='"+json.uid+"' selected>"+json.name+"</option>");
+								}else{
+									$("#institutionId").append("<option value='"+json.uid+"'>"+json.name+"</option>");
+								}
+							});
+						}
+					})
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown){
+					//捕获断网情况
+					if(XMLHttpRequest.readyState == 0){
+						$(".mask").show();
+						$(".mask .hintModHead").text("失败提示").addClass("hintModHeadFail");
+						$(".mask .modCont").text("网络已断开,请检查网络连接");
+					}else{
+						$(".mask").show();
+						$(".mask .hintModHead").text("失败提示").addClass("hintModHeadFail");
+						$(".mask .modCont").text("基础信息及机构信息数据未同步,请到数据维护页面进行同步");
+						setTimeout(function(){ window.location.href = "${path}/main.html" },5000);
+					}
+				}
+			})
+		})
+
+		//注销确认点击
+		$(document).on("click",".logoutMask .confBtn",function(){
+			window.location.href="${path}/logout.html";
+		})
+
+	})
+</script>
+</body>
+
+</html>

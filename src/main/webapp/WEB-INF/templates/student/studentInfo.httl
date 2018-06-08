@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>安全生产移动考试系统</title>
+	<!--#set(path = request.contextPath)-->
+	<!--#set(RsStudentInfo student = session.getAttribute("currentUser"))-->
+	<!--#set(QbExamInfo qbExamInfo)-->
+	<!--#set(List<QbExamInfo> qbExamInfos)-->
+	<!--#set(RsTrainPlan trainPlan)-->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="${path}/res/css/base.css">
+    <link rel="stylesheet" href="${path}/res/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="${path}/res/css/bootstrap-responsive.min.css">
+    <link rel="icon" href="${path}/res/img/logo.png">
+    <link rel="stylesheet" href="${path}/res/css/style.css">
+</head>
+ 
+<body>
+<!-- 顶部 -->
+<div class="header">
+	<span class="bannerLogo"></span>
+	<!--<img class="testLogo invigilateLogo" src="${path}/res/img/testLogo.png" alt=""/>-->
+	<div class="headerTXT">
+	<div class="newTime">
+		<div class="timeTXT"></div>&emsp;&emsp;
+		<!--<a href="#"><i></i>&nbsp;注销</a>&emsp;&emsp;&emsp;&emsp;&emsp;-->
+	</div>
+	</div>
+</div>
+
+<div class=" fr infoConfCont">
+	<div class="infoContCenter">
+		<button class="outSystem commonBlueBtn">退出系统</button>
+		<div class="personInfo clearfix">
+			<div class="moduleHead">个人信息</div>
+			<div class="someone fl">
+				<img src="${student.photoUrl}" alt="" class="headPhoto fl" />
+ 				<div class="basicInfo">
+					<div class="nameInfo">姓名: <span class="name">${student.name}</span></div>
+					<div class="genderInfo">性别: <span class="gender">
+						<!--#if(student.genderId == 'male')-->
+							男
+						<!--#else(student.genderId == 'female')-->
+							女
+						<!--#end-->
+					</span></div>
+
+					<div class="idInfo">证件号: <span class="idNumber">${student.identityId}</span></div>
+					<div class="licenseInfo">准考证号: <span class="license">${student.examCode}</span></div>
+					<div class="subjectInfo">考试科目: <span class="subject">
+						<!--#if(trainPlan.qualificationId == 'manager')-->
+								安全生产管理人员-${trainPlan.name}
+							<!--#else(trainPlan.qualificationId == 'sw')-->
+								特种作业人员-${trainPlan.name}
+							<!--#else(trainPlan.qualificationId == 'charge')-->
+								主要负责人-${trainPlan.name}
+						<!--#end-->
+					</span></div>
+				</div>
+				<div class="markBtn">
+					<!--#if(student.isExamFinished == '3')-->
+							<span class="examEndHint">考试已结束</span>
+					<!--#else(student.isExamFinished == '2')-->
+						<!--#if(qbExamInfo.status == '2')-->
+							<button class="commonBlueBtn continueExam" onclick="window.location.href='${path}/student/exam.html'">继续考试</button>
+						<!--#else-->
+							<button class="commonBlueBtn startReexam">开始补考</button>
+						<!--#end-->
+					<!--#else(student.isExamFinished == '1')-->
+						<button class="commonBlueBtn startExam" onclick="window.location.href='${path}/student/exam.html'">开始考试</button>
+					<!--#end-->
+					<span class="personHint"><i class="alertIcon"></i>请仔细核对个人信息,确认无误!</span>
+				</div>
+			</div>
+		</div>
+		<div class="gradeScore">
+			<div class="moduleHead">考试成绩</div>
+			<div class="scoreCase">
+				<!--#if(student.ruleBroken=='1')-->
+					<span class="disciplineInfo">最高分:0.0 考试违纪:${student.ruleBrokenAbout}</span>
+				<!--#else(student.missingExamination=='1')-->
+						<span class="disciplineInfo">最高分: 0.0 考试缺考</span>
+				<!--#else-->
+					<!--#if(qbExamInfo)-->
+						<!--#if(qbExamInfo.examtime == 1 && qbExamInfo.status=='2')-->
+								最高分:  没有已结束的考试
+						<!--#else-->
+							<!--#if(student.theoryExamPassed=='1')-->
+								最高分: <span class="passedScoreNum">${student.theoryExamScore} 已通过</span>
+							<!--#else-->
+								最高分: <span class="noPassedScoreNum">${student.theoryExamScore} 未通过</span>
+							<!--#end-->
+						<!--#end-->
+					<!--#else-->
+							最高分： 考试未开始
+					<!--#end-->
+				<!--#end-->
+			</div>
+		</div>
+		<div class="historyInfo clearfix">
+			<div class="moduleHead">历史记录</div>
+			<!--#if(qbExamInfos)-->
+				<!--#for(QbExamInfo one:qbExamInfos)-->
+					<div class="examInfo" id="record"+${for.index +1}>
+						<!--#if(one.passed=='1')-->
+							<img src="${path}/res/img/success.png" class="passImg" alt=""/>
+						<!--#else-->
+							<img src="${path}/res/img/fail.png" class="passImg" alt=""/>
+						<!--#end-->
+						<div class="hisHead">第${for.index +1}次考试情况:</div>
+						<div class="hisCont">
+							<div class="startTimeInfo">考试开始时间: <span class="stratTime">${one.begintime}</span></div>
+							<div class="endTimeInfo">考试结束时间: <span class="endTime">${one.endtime}</span></div>
+							<div class="gradeInfo">考试成绩:
+								<!--#if(one.passed=='1')-->
+									<span class="passGrade">${one.score}</span>
+								<!--#else-->
+									<span class="nopassGrade">${one.score}</span>
+								<!--#end-->
+							</div>
+							<div class="examStateInfo">考试状态: <span class="examState">
+								<!--#if(one.ruleBroken=='1')-->
+									违纪
+								<!--#else-->
+									<!--#if(one.status=='2')-->
+										未结束
+									<!--#else(one.status=='3')-->
+										已结束
+									<!--#end-->
+								<!--#end-->
+							</span></div>
+						</div>
+
+					</div>
+				<!--#end-->
+		<!--#end-->
+		</div>
+		<!--补考密码弹框-->
+		<div class="reexamPwdMod reexamInput">
+			<div class="pwdModHead"><i></i>补考密码</div>
+			<i class="closeButton"></i>
+			<div class="modCont">
+				<span class="pwdModHint"></span>
+				<input type="text" placeholder="请输入补考密码"/>
+			</div>
+			<div class="modBtn">
+				<button class="confirm commonBlueBtn">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--通用确认弹出框-->
+<div class="confMask">
+	<div class="confMod">
+		<div class="confTop clearfix">
+			<div class="leftConf fl"><i></i>确认提示</div>
+			<button class="confCloseBtn fr"></button>
+		</div>
+		<div class="confCont"></div>
+		<div class="confTwoBtn">
+			<button class="confBtn">确定</button>
+			<button class="cancelBtn">取消</button>
+		</div>
+	</div>
+</div>
+<!--成功提示模态框-->
+<div class="mask">
+	<div class="hintMod">
+		<div class="modHead hintModHead">成功提示</div><i></i>
+		<div class="modCont">
+			你选择的考试计划已上传成功~
+		</div>
+	</div>
+</div>
+<!--#if(msg)-->
+<div class="mask" style="display: block">
+	<div class="hintMod">
+		<div class="modHead hintModHead hintModHeadFail">失败提示</div><i></i>
+		<div class="modCont">${msg}</div>
+	</div>
+</div>
+<script>
+	document.documentElement.style.overflow='hidden';
+</script>
+<!--#end-->
+<script src="${path}/res/js/jquery.min.js"></script>
+<script src="${path}/res/js/bootstrap.min.js"></script>
+<script src="${path}/res/js/common.js"></script>
+<script>
+	$(function(){
+		$(document).on("click",".startReexam",function(){
+			$(".reexamPwdMod").slideDown();
+		})
+		$('.confirm').on("click",function(){
+			if($.trim($(".modCont input").val()) == ''){
+				$(".pwdModHint").text("补考密码不能为空");
+			}else{
+				window.location.href = '${path}/student/exam.html?makeUpPassword='+ $(".modCont input").val();
+			}
+		})
+
+		//注销按钮点击
+		$(".outSystem").on("click",function(){
+			$(".confMask").show().addClass("logoutMask").css("margin-top",$(document).scrollTop());
+			$(".confCont").text("是否确认退出系统?");
+			document.documentElement.style.overflow='hidden';
+		})
+
+		//注销确认点击
+		$(document).on("click",".logoutMask .confBtn",function(){
+			window.location.href="${path}/logout.html";
+		})
+
+
+//		window.onbeforeunload = function(event) { return alert("确定离开此页面吗？"); }
+
+		//防止页面后退
+		history.pushState(null, null, document.URL);
+		window.addEventListener('popstate', function () {
+			history.pushState(null, null, document.URL);
+		});
+
+		//补考密码框关闭按钮
+		$(".closeButton").on("click",function(){
+			$(".reexamPwdMod").fadeOut();
+		})
+
+	})
+</script>
+</body>
+
+</html>

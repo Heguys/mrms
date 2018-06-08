@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!--#set(path = request.contextPath)-->
+    <title>安全生产移动考试系统</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="${path}/res/css/base.css">
+    <link rel="stylesheet" href="${path}/res/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="${path}/res/css/bootstrap-responsive.min.css">
+    <link rel="icon" href="${path}/res/img/logo.png">
+    <link rel="stylesheet" href="${path}/res/css/style.css">
+</head>
+<body class="errorBody">
+<div class="errorCont">
+    <img src="${path}/res/img/noPermission.png" alt=""/>
+    <div class="errorHead">Permission denied</div>
+    <div class="errorTxt">很抱歉!您没有页面访问权限,请点击返回...</div>
+    <div class="errorBtn">
+        <button class="backToBefore commonBlueBtn">返回上一页</button>
+        <button class="backToIndex commonBlueBtn">返回首页</button>
+    </div>
+</div>
+<script>
+    document.getElementsByClassName("backToBefore")[0].onclick = function(){
+        window.history.go(-1);
+    }
+    document.getElementsByClassName("backToIndex")[0].onclick = function(){
+        window.location.href = "${path}/main.html";
+    }
+</script>
+</body>
+</html>

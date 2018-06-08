@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.RsTrainPlanMapper" >
+  <resultMap id="BaseResultMap" type="com.hxminco.mrms.comm.entry.RsTrainPlan" >
+    <constructor >
+      <idArg column="uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="institution_uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="qualification_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="certificate_type_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="company_type_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="work_class_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="work_item_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="assessment_nature_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="data_year" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="train_limit" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="exam_finished" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="theory_train_result_committed" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="exam_finished_time" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="make_up_password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="update_time" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uid, institution_uid, name, qualification_id, certificate_type_id, company_type_id, 
+    work_class_id, work_item_id, assessment_nature_id, data_year, train_limit, exam_finished, 
+    theory_train_result_committed, exam_finished_time,status,make_up_password,update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from rs_train_plan
+    where uid = #{uid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from rs_train_plan
+    where uid = #{uid,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="selectAllTrainPlanUid" resultType="java.lang.String">
+    select
+    uid
+    from rs_train_plan
+  </select>
+  <insert id="insert" parameterType="com.hxminco.mrms.comm.entry.RsTrainPlan" >
+    insert into rs_train_plan (uid, institution_uid, name, 
+      qualification_id, certificate_type_id, company_type_id, 
+      work_class_id, work_item_id, assessment_nature_id, 
+      data_year, train_limit, exam_finished, 
+      theory_train_result_committed, exam_finished_time,status,make_up_password,update_time
+      )
+    values (#{uid,jdbcType=VARCHAR}, #{institutionUid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{qualificationId,jdbcType=VARCHAR}, #{certificateTypeId,jdbcType=VARCHAR}, #{companyTypeId,jdbcType=VARCHAR}, 
+      #{workClassId,jdbcType=VARCHAR}, #{workItemId,jdbcType=VARCHAR}, #{assessmentNatureId,jdbcType=VARCHAR}, 
+      #{dataYear,jdbcType=INTEGER}, #{trainLimit,jdbcType=INTEGER}, #{examFinished,jdbcType=VARCHAR}, 
+      #{theoryTrainResultCommitted,jdbcType=VARCHAR}, #{examFinishedTime,jdbcType=BIGINT},#{status,jdbcType=VARCHAR},
+      #{makeUpPassword,jdbcType=VARCHAR},#{updateTime,jdbcType=BIGINT})
+  </insert>
+
+  <insert id="insertTainPlanList" parameterType="map" >
+    insert into rs_train_plan (uid, institution_uid, name,
+    qualification_id, certificate_type_id, company_type_id,
+    work_class_id, work_item_id, assessment_nature_id,
+    data_year, train_limit, exam_finished,
+    theory_train_result_committed, exam_finished_time,status,make_up_password,update_time)
+    values
+    <foreach collection="tainPlans" item="tainPlan" separator=",">
+    (#{tainPlan.uid,jdbcType=VARCHAR}, #{tainPlan.institutionUid,jdbcType=VARCHAR}, #{tainPlan.name,jdbcType=VARCHAR},
+    #{tainPlan.qualificationId,jdbcType=VARCHAR}, #{vcertificateTypeId,jdbcType=VARCHAR}, #{tainPlan.companyTypeId,jdbcType=VARCHAR},
+    #{tainPlan.workClassId,jdbcType=VARCHAR}, #{tainPlan.workItemId,jdbcType=VARCHAR}, #{tainPlan.assessmentNatureId,jdbcType=VARCHAR},
+    #{tainPlan.dataYear,jdbcType=INTEGER}, #{tainPlan.trainLimit,jdbcType=INTEGER}, #{tainPlan.examFinished,jdbcType=VARCHAR},
+    #{tainPlan.theoryTrainResultCommitted,jdbcType=VARCHAR}, #{tainPlan.examFinishedTime,jdbcType=BIGINT},#{tainPlan.status,jdbcType=VARCHAR},
+    #{tainPlan.makeUpPassword,jdbcType=VARCHAR},#{tainPlan.updateTime,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxminco.mrms.comm.entry.RsTrainPlan" >
+    update rs_train_plan
+    <set >
+      <if test="institutionUid != null" >
+        institution_uid = #{institutionUid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="qualificationId != null" >
+        qualification_id = #{qualificationId,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateTypeId != null" >
+        certificate_type_id = #{certificateTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTypeId != null" >
+        company_type_id = #{companyTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="workClassId != null" >
+        work_class_id = #{workClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="workItemId != null" >
+        work_item_id = #{workItemId,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentNatureId != null" >
+        assessment_nature_id = #{assessmentNatureId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataYear != null" >
+        data_year = #{dataYear,jdbcType=INTEGER},
+      </if>
+      <if test="trainLimit != null" >
+        train_limit = #{trainLimit,jdbcType=INTEGER},
+      </if>
+      <if test="examFinished != null" >
+        exam_finished = #{examFinished,jdbcType=VARCHAR},
+      </if>
+      <if test="theoryTrainResultCommitted != null" >
+        theory_train_result_committed = #{theoryTrainResultCommitted,jdbcType=VARCHAR},
+      </if>
+      <if test="examFinishedTime != null" >
+        exam_finished_time = #{examFinishedTime,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="makeUpPassword != null" >
+        make_up_password = #{makeUpPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateTrainPlanMap" parameterType="map">
+    update rs_train_plan set status=#{status,jdbcType=VARCHAR},
+    update_time=#{updateTime,jdbcType=BIGINT}
+    where uid=#{trainPlanUid}
+  </update>
+</mapper>

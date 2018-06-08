@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.RsCommonOptionMapper" >
+  <resultMap id="BaseResultMap" type="com.hxminco.mrms.comm.entry.RsCommonOption" >
+    <constructor >
+      <idArg column="uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="serial_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="description" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uid, type_id, id, name, serial_num, description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from rs_common_option
+    where uid = #{uid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectLatestCreateTime" resultType="java.sql.Timestamp">
+    select create_time
+    from rs_common_option
+    order by create_time desc limit 1
+  </select>
+
+  <select id="selectAllCommonOption" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rs_common_option
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from rs_common_option
+    where uid = #{uid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.hxminco.mrms.comm.entry.RsCommonOption" >
+    insert into rs_common_option (uid, type_id, id, 
+      name, serial_num, description
+      )
+    values (#{uid,jdbcType=VARCHAR}, #{typeId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{serialNum,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertCommonOptionList" parameterType="map">
+    insert into rs_common_option (uid, type_id, id,
+    name, serial_num, description)
+    values
+    <foreach collection="commonOptions" item="val" separator=",">
+      (#{val.uid,jdbcType=VARCHAR}, #{val.typeId,jdbcType=VARCHAR}, #{val.id,jdbcType=VARCHAR},
+      #{val.name,jdbcType=VARCHAR}, #{val.serialNum,jdbcType=INTEGER}, #{val.description,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <delete id="truncateTable">
+    TRUNCATE table rs_common_option
+  </delete>
+  <insert id="insertSelective" parameterType="com.hxminco.mrms.comm.entry.RsCommonOption" >
+    insert into rs_common_option
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="serialNum != null" >
+        serial_num,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNum != null" >
+        #{serialNum,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxminco.mrms.comm.entry.RsCommonOption" >
+    update rs_common_option
+    <set >
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNum != null" >
+        serial_num = #{serialNum,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxminco.mrms.comm.entry.RsCommonOption" >
+    update rs_common_option
+    set type_id = #{typeId,jdbcType=VARCHAR},
+      id = #{id,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      serial_num = #{serialNum,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+</mapper>

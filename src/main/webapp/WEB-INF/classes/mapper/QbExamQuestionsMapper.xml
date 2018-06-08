@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.QbExamQuestionsMapper" >
+  <resultMap id="BaseResultMap" type="com.hxminco.mrms.comm.entry.QbExamQuestions" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="examCode" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="questionId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="answerId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="score" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="examTime" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, examCode, questionId, answerId, score,examTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from qb_exam_questions
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectQbExamQuestionsByQbExamInfo" parameterType="com.hxminco.mrms.comm.entry.QbExamInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from qb_exam_questions
+    where examCode=#{examcode} and examTime=#{examtime}
+  </select>
+
+
+  <select id="countExamScore" parameterType="map" resultType="java.lang.Double">
+    SELECT
+    sum(score)
+    from qb_exam_questions
+    GROUP BY
+    examCode,examTime
+    HAVING
+    examCode=#{examCode} and
+    examTime=#{examtime}
+  </select>
+
+  <select id="selectQbExamQuestionsByQbExamQuestion" parameterType="com.hxminco.mrms.comm.entry.QbExamQuestions" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from qb_exam_questions
+    where examCode=#{examcode,jdbcType=VARCHAR} and
+    questionId = #{questionid,jdbcType=VARCHAR} and
+    examTime=#{examtime,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectQbExamQuestionsListByTrainPlanUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select
+    <include refid="Base_Column_List" />
+    from qb_exam_questions
+    where examCode in
+    (SELECT examCode FROM rs_student_info where train_plan_uid=#{trainPlanUid})
+  </select>
+
+  <select id="selectLstCorrectAnswerId" parameterType="java.lang.String" resultType="java.lang.String">
+    select
+    qa.id
+    from qb_question qq  ,qb_answer qa
+    where qq.id=qa.questionId and
+    qa.isValid='1' and
+    qq.id=#{questionid,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from qb_exam_questions
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteQbExamQuestionsListByTrainPlanUid" parameterType="java.lang.String" >
+    delete from qb_exam_questions
+    where examCode in(SELECT examCode from rs_student_info where train_plan_uid = #{trainPlanUid})
+  </delete>
+
+  <insert id="insert" parameterType="com.hxminco.mrms.comm.entry.QbExamQuestions" >
+    insert into qb_exam_questions (id, examCode, questionId, 
+      answerId, score,examTime)
+    values (#{id,jdbcType=VARCHAR}, #{examcode,jdbcType=VARCHAR}, #{questionid,jdbcType=VARCHAR},
+      #{answerid,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE},#{examtime,jdbcType=INTEGER})
+  </insert>
+
+  <insert id="insertQuestionList" parameterType="map">
+    insert into qb_exam_questions (id, examCode, questionId,
+    answerId, score,examTime)
+    values
+    <foreach collection="questions" item="question" separator=",">
+    (#{id,jdbcType=VARCHAR}, #{examcode,jdbcType=VARCHAR}, #{questionid,jdbcType=VARCHAR},
+    #{answerid,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE},#{examtime,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hxminco.mrms.comm.entry.QbExamQuestions" >
+    insert into qb_exam_questions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="examcode != null" >
+        examCode,
+      </if>
+      <if test="questionid != null" >
+        questionId,
+      </if>
+      <if test="answerid != null" >
+        answerId,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="examtime != null" >
+        examTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="examcode != null" >
+        #{examcode,jdbcType=VARCHAR},
+      </if>
+      <if test="questionid != null" >
+        #{questionid,jdbcType=VARCHAR},
+      </if>
+      <if test="answerid != null" >
+        #{answerid,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="examtime != null" >
+        #{examtime,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxminco.mrms.comm.entry.QbExamQuestions" >
+    update qb_exam_questions
+    <set >
+      <if test="examcode != null" >
+        examCode = #{examcode,jdbcType=VARCHAR},
+      </if>
+      <if test="questionid != null" >
+        questionId = #{questionid,jdbcType=VARCHAR},
+      </if>
+      <if test="answerid != null" >
+        answerId = #{answerid,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="examtime != null" >
+        examTime = #{examtime,jdbcType=INTEGER}
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxminco.mrms.comm.entry.QbExamQuestions" >
+    update qb_exam_questions
+    set examCode = #{examcode,jdbcType=VARCHAR},
+      questionId = #{questionid,jdbcType=VARCHAR},
+      answerId = #{answerid,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DOUBLE},
+      examTime = #{examtime,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

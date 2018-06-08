@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.QbQuestionMapper" >
+  <resultMap id="BaseResultMap" type="com.hxminco.mrms.comm.entry.QbQuestion" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tqid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="description" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="paperId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="paperOrder" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="questionTypeCode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="difficultyLevelCode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="score" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="sort" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="XX" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tqid, description, paperId, paperOrder, questionTypeCode, difficultyLevelCode, 
+    score, sort, type, XX
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from qb_question
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectQuestionRecordList" parameterType="java.lang.String" resultType="com.hxminco.mrms.comm.model.QuestionRecord">
+    SELECT
+    qa.id as answerId,
+    qa.description as answerDescription,
+    qa.questionId as questionId,
+    qa.isValid	as isValid,
+    qq.id as id,
+    qq.description as questionDescription,
+    qq.paperId as paperId,
+    qq.paperOrder as paperOrder,
+    qq.questionTypeCode as questionTypeCode,
+    qq.difficultyLevelCode as difficultyLevelCode,
+    qq.score as score,
+    qq.sort as sort,
+    qq.TYPE as type,
+    qq.XX  as xx
+    FROM
+    qb_answer qa,qb_question qq
+    WHERE
+    qa.questionId = qq.id
+    AND
+    qq.paperId = (SELECT id from qb_paper where trainPlanId = #{trainPlanUid})
+    ORDER BY
+    paperOrder,sort,qq.id,qa.description
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  delete from qb_question
+  where id = #{id,jdbcType=VARCHAR}
+</delete>
+
+  <delete id="deleteExamPlanByTrainPlanUid" parameterType="java.lang.String">
+    delete from rs_exam_plan
+    where train_plan_uid = #{trainPlamUid}
+  </delete>
+
+  <delete id="deleteTrainPlanByTrainPlanUid" parameterType="java.lang.String" >
+    delete from rs_train_plan
+    where uid = #{trainPlanUid,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteQuestionsByTrainPlanUid" parameterType="java.lang.String" >
+    delete from qb_question
+    where paperId=
+    (select id from qb_paper where trainPlanId=#{trainPlanUid})
+  </delete>
+
+  <insert id="insert" parameterType="com.hxminco.mrms.comm.entry.QbQuestion" >
+    insert into qb_question (id, tqid, description, 
+      paperId, paperOrder, questionTypeCode, 
+      difficultyLevelCode, score, sort, 
+      type, XX)
+    values (#{id,jdbcType=VARCHAR}, #{tqid,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{paperid,jdbcType=VARCHAR}, #{paperorder,jdbcType=INTEGER}, #{questiontypecode,jdbcType=INTEGER}, 
+      #{difficultylevelcode,jdbcType=INTEGER}, #{score,jdbcType=REAL}, #{sort,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{xx,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertQuestionList" parameterType="map">
+    insert into qb_question (id, description,
+      paperId, paperOrder, questionTypeCode,
+      difficultyLevelCode, score, sort,
+      type, XX)
+    values
+    <foreach collection="questions" item="question" separator=",">
+    (#{question.id,jdbcType=VARCHAR}, #{question.description,jdbcType=VARCHAR},
+      #{question.paperid,jdbcType=VARCHAR}, #{question.paperorder,jdbcType=INTEGER}, #{question.questiontypecode,jdbcType=INTEGER},
+      #{question.difficultylevelcode,jdbcType=INTEGER}, #{question.score,jdbcType=REAL}, #{question.sort,jdbcType=INTEGER},
+      #{question.type,jdbcType=INTEGER}, #{question.xx,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hxminco.mrms.comm.entry.QbQuestion" >
+    insert into qb_question
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tqid != null" >
+        tqid,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="paperid != null" >
+        paperId,
+      </if>
+      <if test="paperorder != null" >
+        paperOrder,
+      </if>
+      <if test="questiontypecode != null" >
+        questionTypeCode,
+      </if>
+      <if test="difficultylevelcode != null" >
+        difficultyLevelCode,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="xx != null" >
+        XX,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tqid != null" >
+        #{tqid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null" >
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="paperorder != null" >
+        #{paperorder,jdbcType=INTEGER},
+      </if>
+      <if test="questiontypecode != null" >
+        #{questiontypecode,jdbcType=INTEGER},
+      </if>
+      <if test="difficultylevelcode != null" >
+        #{difficultylevelcode,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=REAL},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="xx != null" >
+        #{xx,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxminco.mrms.comm.entry.QbQuestion" >
+    update qb_question
+    <set >
+      <if test="tqid != null" >
+        tqid = #{tqid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null" >
+        paperId = #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="paperorder != null" >
+        paperOrder = #{paperorder,jdbcType=INTEGER},
+      </if>
+      <if test="questiontypecode != null" >
+        questionTypeCode = #{questiontypecode,jdbcType=INTEGER},
+      </if>
+      <if test="difficultylevelcode != null" >
+        difficultyLevelCode = #{difficultylevelcode,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=REAL},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="xx != null" >
+        XX = #{xx,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxminco.mrms.comm.entry.QbQuestion" >
+    update qb_question
+    set tqid = #{tqid,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      paperId = #{paperid,jdbcType=VARCHAR},
+      paperOrder = #{paperorder,jdbcType=INTEGER},
+      questionTypeCode = #{questiontypecode,jdbcType=INTEGER},
+      difficultyLevelCode = #{difficultylevelcode,jdbcType=INTEGER},
+      score = #{score,jdbcType=REAL},
+      sort = #{sort,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      XX = #{xx,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

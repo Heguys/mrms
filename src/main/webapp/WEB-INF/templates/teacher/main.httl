@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+	<!--#set(path = request.contextPath)-->
+	<!--#set(Teacher teacher = session.getAttribute("currentUser"))-->
+    <title>安全生产移动考试系统</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="${path}/res/css/base.css">
+    <link rel="stylesheet" href="${path}/res/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="${path}/res/css/bootstrap-responsive.min.css">
+    <link rel="icon" href="${path}/res/img/logo.png">
+    <link rel="stylesheet" href="${path}/res/css/style.css">
+</head>
+
+<body>
+<!-- 顶部 -->
+<div class="header">
+	<!--<img class="testLogo" src="${path}/res/img/testLogo.png" alt=""/>-->
+	<span class="bannerLogo"></span>
+	<div class="headerTXT">
+	<div class="newTime">
+		<div class="timeTXT"></div>&emsp;&emsp;<a href="#"><i></i>&nbsp;注销</a>
+		<div class="welcome">你好,${teacher.username}</div>
+	</div>
+	</div>
+</div>
+
+<!-- 侧边栏 -->
+<div class="sideBar fl">
+	<ul>
+		<li><a href="#" class="current"><i class="dataMainIcon"></i>数据维护</a></li>
+		<!--#if(teacher.username == 'admin')-->
+		<li><a href="${path}/admin/userMan.html"><i class="userManIcon"></i>用户管理</a></li>
+		<!--#else-->
+		<li><a href="${path}/teacher/localdata.html"><i class="examManIcon"></i>考试管理</a></li>
+		<!--#end-->
+		<li><a href="${path}/teacher/toSystemUpdatePage.html"><i class="sysUpIcon"></i>系统升级</a></li>
+	</ul>
+</div>
+
+<!-- 右边内容 -->
+<div class="container fl">
+	<div class="curPage">数据维护</div>
+	<div class="dataMainCont">
+		<!--#if(error != null)-->
+		<h4>${error}</h4>
+		<!--#end-->
+		<div class="instSync" new="true">
+			<img src="${path}/res/img/instInfoSync.png" title="基础信息包括身份类型,民族,学历,工种,作业类型等,页面的显示需要借助这些信息进行关联。
+服务器第一次使用时需要同步，以后在线信息更新后需要同步"  onclick="institutionDownLoad()"/>
+			<div class="lastTime">上次同步时间: <span class="lastSyncTime"></span></div>
+		</div>
+		<div class="basicInfoSync" new="true">
+			<img src="${path}/res/img/basicInfoSync.png" title="机构信息维护各机构之间的关联关系，程序中的逻辑和创建监考账号时需要用到。服务器第一次使用时需要下载，以后在线机构信息更新后需要同步" onclick="commonOptionDownLoad()"/>
+			<div class="lastTime">上次同步时间: <span class="lastSyncTime"></span></div>
+		</div>
+
+	</div>
+</div>
+<!--通用确认弹出框-->
+<div class="confMask">
+	<div class="confMod">
+		<div class="confTop clearfix">
+			<div class="leftConf fl"><i></i>确认提示</div>
+			<button class="confCloseBtn fr"></button>
+		</div>
+		<div class="confCont"></div>
+		<div class="confTwoBtn">
+			<button class="confBtn">确定</button>
+			<button class="cancelBtn">取消</button>
+		</div>
+	</div>
+</div>
+<!--成功提示模态框-->
+<div class="mask">
+	<div class="loadingMod" hidden>
+		<div class="loadingTxt">正在同步中,请稍后...</div>
+		<img src="${path}/res/img/loading2.gif" class="loading"/>
+	</div>
+	<div class="hintMod">
+		<div class="modHead hintModHead">成功提示</div><i></i>
+		<div class="modCont">
+			你选择的考试计划已上传成功~
+		</div>
+	</div>
+</div>
+<script src="${path}/res/js/jquery.min.js"></script>
+<script src="${path}/res/layer/layer.js"></script>
+<script src="${path}/res/js/bootstrap.min.js"></script>
+<script src="${path}/res/js/common.js"></script>
+<script type="text/javascript">
+		function commonOptionDownLoad(){
+//			if($(".basicInfoSync").attr("new") == "true"){ // 基础信息已经是最新版本
+//				$(".mask").show();
+//				$(".hintModHead").text("失败提示").addClass("hintModHeadFail");
+//				$(".modCont").text("当前基础信息已是最新版本");
+//			}else{
+				layer.confirm("下载基本信息，是否继续?",  {icon: 3, title:'提示'}, function(cindex){
+					$.ajax({
+						url: "${path}/teacher/commonOptionDownLoad.ajax",
+						type: "POST",
+						beforeSend: function () {
+							$(".hintMod").hide();
+							$(".mask").show();
+							$(".loadingMod").show();
+						},
+						success: function (r) {
+							$(".mask").hide();
+							$(".hintMod").show();
+							$(".loadingMod").hide();
+							if (r.success) {
+								layer.msg("基本信息下载成功", {time: 1000, icon: 6, shift: 6}, function () {
+								});
+								$(".basicInfoSync img").attr("src","${path}/res/img/basicInfoSync.png");
+								$(".basicInfoSync").attr("new","true");
+								if($(".instSync").attr("new") == "true" && $(".basicInfoSync").attr("new") == "true"){
+									$(".dataMainIcon").removeClass("dataMainIconR");
+								}
+							} else {
+								layer.msg(r.error, {time: 1000, icon: 5, shift: 6});
+							}
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown){
+							//捕获断网情况
+							if(XMLHttpRequest.readyState == 0){
+								$(".hintMod").show();
+								$(".loadingMod").hide();
+								$(".hintModHead").text("失败提示").addClass("hintModHeadFail");
+								$(".modCont").text("网络已断开,请检查网络");
+							}
+						}
+					});
+					layer.close(cindex);
+				}, function(cindex){
+					layer.close(cindex);
+				});
+//			}
+
+		}
+
+		function institutionDownLoad(){
+//			if($(".instSync").attr("new") == "true"){ // 机构信息已经是最新版本
+//				$(".mask").show();
+//				$(".hintModHead").text("失败提示").addClass("hintModHeadFail");
+//				$(".modCont").text("当前机构信息已是最新版本");
+//			}else {
+				layer.confirm("下载机构信息，是否继续?", {icon: 3, title: '提示'}, function (cindex) {
+					$.ajax({
+						url: "${path}/teacher/institutionInfoDownLoad.ajax",
+						type: "POST",
+						beforeSend: function () {
+							$(".hintMod").hide();
+							$(".mask").show();
+							$(".loadingMod").show();
+						},
+						success: function (r) {
+							$(".mask").hide();
+							$(".hintMod").show();
+							$(".loadingMod").hide();
+							if (r.success) {
+								$.ajax({
+									url: "${path}/teacher/updateInstitutionJs.ajax",
+									type: "POST",
+									success: function (r) {
+										if (r.success) {
+
+										} else {
+											layer.msg("机构js文件更新失败", {time: 1000, icon: 5, shift: 6});
+										}
+									},
+									error: function (XMLHttpRequest, textStatus, errorThrown) {
+										//捕获断网情况
+										if (XMLHttpRequest.readyState == 0) {
+											$(".mask").show();
+											$(".hintModHead").text("失败提示").addClass("hintModHeadFail");
+											$(".modCont").text("网络已断开,请检查网络");
+										}
+									}
+								});
+								layer.msg("机构信息下载成功", {time: 1000, icon: 6, shift: 6}, function () {
+								});
+								$(".instSync img").attr("src", "${path}/res/img/instInfoSync.png");
+								$(".instSync").attr("new", "true");
+								if ($(".instSync").attr("new") == "true" && $(".basicInfoSync").attr("new") == "true") {
+									$(".dataMainIcon").removeClass("dataMainIconR");
+								}
+							} else {
+								layer.msg(r.error, {time: 1000, icon: 5, shift: 6});
+							}
+						},
+						error: function (XMLHttpRequest, textStatus, errorThrown) {
+							//捕获断网情况
+							if (XMLHttpRequest.readyState == 0) {
+								$(".hintMod").show();
+								$(".loadingMod").hide();
+								$(".hintModHead").text("失败提示").addClass("hintModHeadFail");
+								$(".modCont").text("网络已断开,请检查网络");
+							}
+						}
+					});
+					layer.close(cindex);
+				}, function (cindex) {
+					layer.close(cindex);
+				});
+//			}
+		}
+
+		//注销确认点击
+		$(document).on("click",".logoutMask .confBtn",function(){
+			window.location.href="${path}/logout.html";
+		})
+
+		//检查机构信息更新
+		$.ajax({
+			url: "${path}/teacher/checkInstitutionDataUpdate.ajax",
+			data: {},
+			success: function(data){
+				if(data.success){
+					if(data.isUpdate) {  //有更新
+						$(".instSync img").attr("src", "${path}/res/img/instInfoSyncUpdate.png");
+						$(".dataMainIcon").addClass("dataMainIconR");
+						$(".instSync").attr("new", "false");
+					}
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				//捕获断网情况
+				if(XMLHttpRequest.readyState == 0){
+					$(".mask").show();
+					$(".hintModHead").text("失败提示").addClass("hintModHeadFail");
+					$(".modCont").text("网络已断开,请检查网络");
+				}
+			}
+		})
+
+		//检查基础信息更新
+		$.ajax({
+			url: "${path}/teacher/checkCommonOptionDataUpdate.ajax",
+			data: {},
+			success: function(data){
+				if(data.success){
+					if(data.isUpdate) {  //有更新
+						$(".basicInfoSync img").attr("src", "${path}/res/img/basicInfoSyncUpdate.png");
+						$(".dataMainIcon").addClass("dataMainIconR");
+						$(".basicInfoSync").attr("new", "false");
+					}
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				//捕获断网情况
+				if(XMLHttpRequest.readyState == 0){
+					$(".mask").show();
+					$(".hintModHead").text("失败提示").addClass("hintModHeadFail");
+					$(".modCont").text("网络已断开,请检查网络");
+				}
+			}
+		})
+
+		//检查系统升级
+		$.ajax({
+			url: "${path}/teacher/checkProjectVersionUpdate.ajax",
+			data: {},
+			success: function(data){
+				if(data.success){
+					if(data.isUpdate) {  //有更新
+						$(".sysUpIcon").addClass("sysUpIconR");
+					}
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				//捕获断网情况
+				if(XMLHttpRequest.readyState == 0){
+					$(".mask").show();
+					$(".hintModHead").text("失败提示").addClass("hintModHeadFail");
+					$(".modCont").text("网络已断开,请检查网络");
+				}
+			}
+		})
+
+		//获取上次同步日期
+		$.ajax({
+			url: "${path}/teacher/getLatestCreateTime.ajax",
+			data: {},
+			success: function(data){
+				if(data.success){ //有更新
+					$(".instSync .lastSyncTime").text(data.institutionCreateTime);
+					$(".basicInfoSync .lastSyncTime").text(data.commonOptionCreateTime);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				//捕获断网情况
+				if(XMLHttpRequest.readyState == 0){
+					$(".mask").show();
+					$(".hintModHead").text("失败提示").addClass("hintModHeadFail");
+					$(".modCont").text("网络已断开,请检查网络");
+				}
+			}
+		})
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>安全生产移动考试系统</title>
+    <!--#set(path = request.contextPath)-->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="${path}/res/css/base.css">
+    <link rel="stylesheet" href="${path}/res/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="${path}/res/css/bootstrap-responsive.min.css">
+    <link rel="icon" href="${path}/res/img/logo.png">
+    <link rel="stylesheet" href="${path}/res/css/style.css">
+</head>
+
+<body class="logBody">
+		<div class="loginHeader">
+			<img src="${path}/res/img/logo.png" alt=""/>
+			<span>甘肃省安全生产移动考试系统</span>
+		</div>
+		<div class="logWin">
+			<div class="logTab">
+				<span class="stuLog act" onclick='changeStudent()'>考生登录</span>
+				<span class="invigilate" onclick='changeTeacher()'>监考登录</span>
+			</div>
+			<!--#if(message != null)-->
+            	<span class="errorHint">${message}</span>
+            <!--#end-->
+				<span class="errorHint" hidden></span>
+			<form id="studentForm"  action="${path}/login.html" method="post">
+				<!--考生登录内容 -->
+				<div class="stuLogCont">
+					<div class="IDNumber">
+						<input type="text" name="password" placeholder="请输入证件号" id=''>
+					</div>
+					<div class="examNum">
+						<input type="text" name="username" placeholder="请输入准考证号">
+					</div>
+					<input type="hidden" name="loginType" value="student">
+				</div>
+				<div class="logBtn">
+					<input type="button" value="登录">
+					<!--<input type="submit" hidden class="studentLogin">-->
+				</div>
+			</form>
+			<form id="teacherForm"  action="${path}/login.html" method="post" hidden="hidden">
+				<!--考场监考内容-->
+				<div class="invigilateLogCont">
+					<div class="userName">
+						<input type="text" name="username" placeholder="请输入用戶名">
+					</div>
+					<div class="password">
+						<input type="password" name="password" placeholder="请输入密码">
+					</div>
+					<input type="hidden" name="loginType" value="teacher">
+				</div>
+				<div class="logBtn">
+					<input type="button" value="登录">
+					<!--<input type="submit" hidden class="teacherLogin">-->
+				</div>
+			</form>
+		</div>
+
+	<script src="${path}/res/js/jquery.min.js"></script>
+	<script src="${path}/res/js/bootstrap.min.js"></script>
+	<script src="${path}/res/js/login.js"></script>
+	<script>
+			function changeStudent(){
+				$('#teacherForm').hide();
+				$('#studentForm').show();
+			}
+
+			//登录非空验证
+			$("#studentForm .logBtn input").on("click",function(){
+				if($.trim($("#studentForm .IDNumber input").val())=="" || $.trim($("#studentForm .examNum input").val())==""){
+					$(".errorHint").show().text("输入框不能为空");
+					return false;
+				}else{
+					$("#studentForm").submit();
+				}
+			})
+			$("#teacherForm .logBtn input").on("click",function(){
+				if($.trim($("#teacherForm .userName input").val())=="" || $.trim($("#teacherForm .password input").val())==""){
+					$(".errorHint").show().text("输入框不能为空");
+					return false;
+				}else{
+					$("#teacherForm").submit();
+				}
+			})
+
+			function changeTeacher(){
+				$('#studentForm').hide();
+				$('#teacherForm').show();
+			}
+
+	</script>
+</body>
+</html>

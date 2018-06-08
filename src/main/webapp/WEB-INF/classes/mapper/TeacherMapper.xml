@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.hxminco.mrms.comm.entry.Teacher" >
+    <constructor >
+      <idArg column="uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="institutionname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="institutionuid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uid, username, password, institutionname,institutionuid,status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where uid = #{uid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectTeacher4Login" resultMap="BaseResultMap" parameterType="com.hxminco.mrms.comm.entry.Teacher" >
+    select
+    <include refid="Base_Column_List" />
+    from teacher
+    where username = #{username,jdbcType=VARCHAR} and
+    password = #{password,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectTeacherByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from teacher
+    where username = #{username,jdbcType=VARCHAR} AND
+    status in ('0','2')
+  </select>
+
+  <select id="queryTeacherPage" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from teacher
+    <where>
+      status = '0'
+      <if test="querytext != null and querytext != ''.trim()" >
+        and (username like concat('%', #{querytext}, '%')
+        or institutionname like concat('%', #{querytext}, '%'))
+      </if>
+    </where>
+    limit #{start},#{size}
+  </select>
+
+  <select id="queryTeacherCount4Page" parameterType="map" resultType="int">
+    select count(*) from teacher
+    <where>
+      status = '0'
+      <if test="querytext != null and querytext != ''.trim()">
+        and username like concat('%', #{querytext}, '%')
+      </if>
+      <if test="querytext != null and querytext != ''.trim()" >
+        or institutionname like concat('%', #{querytext}, '%')
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from teacher
+    where uid = #{uid,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleTeachers" parameterType="com.hxminco.mrms.comm.model.Datas">
+    delete from teacher where id in
+    <foreach collection="ids" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+
+  <insert id="insert" parameterType="com.hxminco.mrms.comm.entry.Teacher" >
+    insert into teacher (uid, username, password, institutionname,
+      institutionuid,status)
+    values (#{uid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{institutionname,jdbcType=VARCHAR},#{institutionuid,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxminco.mrms.comm.entry.Teacher" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="institutionname != null" >
+        institutionname,
+      </if>
+      <if test="institutionuid != null" >
+        institutionuid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionname != null" >
+        #{institutionname,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionuid != null" >
+        #{institutionuid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxminco.mrms.comm.entry.Teacher" >
+    update teacher
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionname != null" >
+        institutionname = #{institutionname,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionuid != null" >
+        institutionuid = #{institutionuid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxminco.mrms.comm.entry.Teacher" >
+    update teacher
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      institutionname = #{institutionname,jdbcType=VARCHAR},
+      institutionuid = #{institutionuid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+</mapper>

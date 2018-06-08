@@ -1,0 +1,4485 @@
+ul{
+	margin: 0;
+}
+form{
+	margin: 0;
+}
+option:nth-child(even){
+	background-color: #DEDEDE;
+}
+
+/*通用提示框遮罩*/
+.mask,
+.pwdMask,
+.confMask,
+.checkMask,
+.renewMask,
+.resetMask{
+	z-index: 1;
+	display: none;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+/*拍摄框遮罩*/
+/*.imgAddModMask{*/
+/*z-index: 1;*/
+/*display: none;*/
+/*width: 100%;*/
+/*height: calc(167% + 110px);*/
+/*background-color: rgba(0,0,0,.5);*/
+/*position: absolute;*/
+/*top: 0;*/
+/*left: 0;*/
+/*}*/
+/*select:hover{*/
+/*cursor:default;*/
+/*}*/
+/*color: #CACACA;*/
+
+/*必填项placeholder*/
+input.mustInput::-webkit-input-placeholder {
+	color: red;
+}
+
+input.mustInput:-moz-placeholder{
+	color: red;
+}
+
+input.mustInput::-moz-placeholder {
+	color: red;
+}
+
+input.mustInput:-ms-input-placeholder {
+	color: red;
+}
+select option{
+	border-right: 1px solid #000;
+}
+select option:last-child{
+	border-bottom: 1px solid #000;
+}
+/* 公共部分 */
+body{
+	min-height: 718px;
+	background-color: #DBDBDB;
+	position: relative;
+}
+/*.testLogo{*/
+	/*margin-left: 15%;*/
+	/*margin-top: 10px;*/
+/*}*/
+.bannerLogo {
+	display: inline-block;
+	height: 60px;
+	width: 334px;
+	background: url("../img/bannerLogo.png") no-repeat center/cover;
+	margin-left: 15%;
+	margin-top: 10px;
+}
+.localdataLogo{
+	margin-left: 5%;
+}
+.invigilateLogo{
+	margin-left: 17%;
+}
+.examLogo{
+	margin-left: 20%;
+}
+.header{
+	height: 80px;
+	width: 100%;
+	background-color: #4da1ef;
+	 margin-bottom: 20px;
+	color: #fff;
+	position: fixed;
+	z-index: 1;
+}
+.headerTXT{
+	position: absolute;
+	right: 17%;
+	bottom: 26px;
+}
+.localdataHeaderTXT{
+	right: 8.5%;
+}
+.header i{
+	display: inline-block;
+	height: 19px;
+	width: 17px;
+	position: absolute;
+	left: 0;
+	top: -2px;
+}
+.header a{
+	color: #fff;
+	/*margin-right: 49%;*/
+	font-size: 17px;
+	position: relative;
+	padding-left: 20px;
+}
+.header a:hover{
+	color: #fff;
+}
+.timeTXT{
+	display: inline-block;
+}
+.headerTXT .newTime i{
+	background: url("../img/logout.png") no-repeat;
+}
+
+.sideBar{
+	width: 10%;
+	height: 85%;
+	background-color: #2E323B;
+	min-width: 149px;
+	position: fixed;
+	top: 100px;
+}
+.inviSideBar{
+	position: fixed;
+	left: 0;
+	top: 100px;
+}
+.sideBar a{
+	width: 100%;
+	box-sizing: border-box;
+	color: #fff;
+	height: 60px;
+	line-height: 60px;
+	display: inline-block;
+	font-size: 14px;
+	position: relative;
+	padding-left: 63px;
+}
+.sideBar a:hover,
+.sideBar a.current{
+	background-color: #24272E;
+	border-right: 3px solid #FF3A1A;
+	font-size: 15px;
+	font-weight: 700;
+}
+.sideBar a i{
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	top: 20px;
+	left: 25px;
+}
+.sideBar ul{
+	margin-bottom: 60%;
+}
+.sideBar i.userManIcon{
+	background: url('../img/userManW.png') no-repeat center center;
+}
+.sideBar i.dataMainIcon{
+	background: url('../img/dataMainW.png') no-repeat center center;
+}
+.sideBar i.dataMainIconR{
+	background: url('../img/dataMainR.png') no-repeat center center;
+}
+.sideBar i.examManIcon{
+	background: url('../img/examManIcon.png') no-repeat center center;
+}
+.sideBar i.sysUpIcon{
+	background: url('../img/systemUpdateIcon.png') no-repeat center center;
+}
+.sideBar i.sysUpIconR{
+	background: url('../img/systemUpdateIconR.png') no-repeat center center;
+}
+.sideBar .newTime{
+	padding: 0 10%;
+}
+.sideBar .newTime .timeTXT{
+	border-top: 1px solid #fff;
+	text-align: center;
+	color: #fff;
+	padding-top: 10px;
+	line-height: 24px;
+}
+.footer{
+	position: absolute;
+	bottom: 0.7%;
+	left: 45%;
+	color: #94979C;
+}
+.container{
+	min-height: 85%;
+	width: 89%;
+	background-color: #fff;
+	margin-left: 11%;
+	position: relative;
+	margin-top: 100px;
+}
+.stoManCont{
+	position: relative;
+}
+.loadingMod{
+	color:#fff;
+	position: absolute;
+	top: 43%;
+	left: 54%;
+	transform: translate(-50%,-50%);
+}
+.loadingTxt{
+	/*margin-left: 20px;*/
+	font-size: 20px;
+}
+/* 公共部分结束 */
+
+/* 首页 */
+.curPage{
+	margin: 20px 45px 0;
+	padding-left: 20px;
+	font: 18px "微软雅黑";
+	background: url("../img/dataMainB.png") no-repeat left;
+}
+.userManPage{
+	background: url("../img/userManB.png") no-repeat;
+}
+.fourBox{
+	padding: 0 4%;
+	margin-bottom: 15px;
+	height: 31.2%;
+}
+.fourBox>div{
+	margin: 0 4%;
+	float: left;
+	text-align: center;
+}
+.fourBox>div:nth-child(odd){
+	width: 15.9%;
+	height: 94.5%;
+	border: 1px solid #000;
+	border-radius: 5px 5px 0 0;
+	margin-top: 10px;
+}
+.fourBox>div:nth-child(even){
+	width: 15.9%;
+	height: 99.5%;
+	background-color: skyblue;
+	background: url('../img/paintPad.png') no-repeat center center/100% 100%;
+}
+.fourBox>div:nth-child(2){
+	margin-right: 6%;
+}
+.fourBox>div:nth-child(odd)>img{
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+.fourBox>div:nth-child(odd)>.caseRemNum{
+	color: #EDC412;
+	text-decoration: underline;
+	font-size: 18px;
+	margin-bottom: 5px;
+}
+.fourBox .caseRemNum span{
+	cursor: pointer;
+}
+.container>.fourBox>.proRem>.caseRemNum{
+	color: #F87C7E;
+}
+.caseRem p,
+.proRem p{
+	font-size: 16px;
+}
+.fourBox>div:nth-child(even)>.caseTitle{
+	margin: 23px 20px 5px;
+	border-bottom: 1px solid #000;
+	font-size: 16px;
+}
+.fourBox>div:nth-child(even)>.caseInfoNum{
+	margin: 0 40px;
+	text-align: justify;
+}
+.caseInfoNum>div{
+	margin: 9px 0;
+}
+.caseInfoNum i{
+	width: 14px;
+	height: 15px;
+	display: inline-block;
+	margin-right: 10px;
+}
+.caseInfoNum s{
+	font-size: 18px;
+}
+.caseInfoNum>.caseAdd i{
+	background: url('../img/caseAdd.png') no-repeat;
+}
+.caseInfoNum>.eviAdd i{
+	background: url('../img/caseAdd.png') no-repeat;
+}
+.caseInfoNum>.caseRev i{
+	background: url('../img/caseRev.png') no-repeat;
+}
+.caseInfoNum>.eviRev i{
+	background: url('../img/caseRev.png') no-repeat;
+}
+.caseInfoNum>.caseDel i{
+	background: url('../img/caseDel.png') no-repeat;
+}
+.caseInfoNum>.eviDel i{
+	background: url('../img/caseDel.png') no-repeat;
+}
+.caseInfoNum>.caseCall i{
+	background: url('../img/proCall.jpg') no-repeat;
+}
+.caseInfoNum>.caseReturn i{
+	background: url('../img/proReturn.png') no-repeat;
+}
+.caseInfoNum>.caseAdd s{
+	color: #3CC4D0;
+}
+.caseInfoNum>.eviAdd s{
+	color: #3CC4D0;
+}
+.caseInfoNum>.caseRev s{
+	color: #E99064;
+}
+.caseInfoNum>.eviRev s{
+	color: #E99064;
+}
+.caseInfoNum>.caseDel s{
+	color: #C43803;
+}
+.caseInfoNum>.eviDel s{
+	color: #C43803;
+}
+.caseInfoNum>.caseCall s{
+	color: #A6A6A6;
+}
+.caseInfoNum>.caseReturn s{
+	color: #676767;
+}
+.leftBar{
+	width: 53.8%;
+	height: 55.9%;
+	border: 1px solid #000;
+	margin-left: 5%;
+	position: relative;
+}
+.leftBar>.barTitle,
+.rightPie>.barTitle{
+	margin-top: 10px;
+	margin-left: 15px;
+	padding-left: 5px;
+	line-height: 14px;
+	border-left: 5px solid #F87072;
+	font-size: 16px;
+}
+.leftBar>.barDate{
+	width: 75px;
+	height: 24px;
+	background-color: #666666;
+	text-align: center;
+	line-height: 24px;
+	margin-right: 50px;
+	color: #fff;
+}
+.leftBar>.barDate>span{
+	/*color: #FFCA00;*/
+	cursor:pointer;
+}
+/*.leftBar>.barChart{*/
+/*margin-top: 24px;*/
+/*width: 700px;*/
+/*height: 312px;*/
+/*}*/
+.leftBar .yearSelMod{
+	width: 284px;
+	height: 192px;
+	/*background: url("../img/yearSel.png") no-repeat;*/
+	/*box-shadow: 0 5px 30px rgba(0, 0, 0, 1);*/
+	position: absolute;
+	top: 38px;
+	right: -38px;
+	z-index: 1;
+}
+.leftBar .monthSelMod{
+	width: 284px;
+	height: 192px;
+	/*background: url("../img/monSel.png") no-repeat;*/
+	/*box-shadow: 0 5px 30px rgba(0, 0, 0, 1);*/
+	position: absolute;
+	top: 38px;
+	right: -38px;
+	z-index: 1;
+}
+.leftBar .yearSelMod #yearStartTime,
+.leftBar .monthSelMod #monthStartTime,
+.leftBar .yearSelMod #yearEndTime,
+.leftBar .monthSelMod #monthEndTime{
+	background: url(../img/calender.png) no-repeat 92% center;
+	width: 65%;
+}
+.yearSelModQuery,.monthSelModQuery{
+	text-align: center;
+}
+.yearQueryBtn,.monthQueryBtn{
+	width: 65px;
+	height: 30px;
+	background-color: #00A0E8;
+	color: #fff;
+	line-height: 30px;
+	text-align: center;
+}
+.startYear{
+	margin-top: 50px;
+}
+.startYear,.endYear{
+	margin-left: 41px;
+}
+
+.rightPie{
+	width: 34.3%;
+	height: 55.9%;
+	border: 1px solid #000;
+	margin-right: 5%;
+}
+.pieDiv{
+	text-align: center;
+}
+/* 首页结束 */
+
+/* 案件管理页 */
+.deleteBtn{
+	color: #FD4D26;
+}
+.deleteBtn:hover{
+	color: #FD4D26;
+	text-decoration: underline;
+}
+.caseManPage{
+	background: url('../img/caseManPage.png') no-repeat 0 center/16px 16px;
+}
+.caseCont{
+	width: 85%;
+	height: 90%;
+	margin: 10px auto;
+}
+.caseType select{
+	width: 322px;
+}
+.caseForm{
+	position: relative;
+}
+.caseTime input,
+.caseTimeYear input{
+	background: url('../img/calender.png') no-repeat 138px center;
+	width: 156px;
+}
+.keyword{
+	position: absolute;
+	left: 0;
+	top: 50px;
+}
+.caseManKey{
+	position: static;
+	margin-right: 2.6%;
+}
+.keyword span{
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	/*background: url('../img/glyphicons-halflings.png') no-repeat -49px -1px/560px 240px;*/
+	position: absolute;
+	right: 184px;
+	top: 5px;
+}
+.keyWordInput{
+	width: 309px;
+}
+.twoBtn button.delBtn{
+	background-color: #FD3B15;
+	width: 80px;
+	padding-left: 0;
+}
+.queryBtn{
+	width: 65px;
+	height: 30px;
+	background-color: #00A0E8;
+	color: #fff;
+	line-height: 30px;
+	text-align: center;
+	margin-top: -10px;
+	margin-left: 15px;
+}
+.reset{
+	width: 65px;
+	height: 30px;
+	background-color: #fff;
+	color: #00A0E8;
+	line-height: 30px;
+	text-align: center;
+	margin-top: -10px;
+	margin-left: 20px;
+	border: 1px solid #00A0E8;
+}
+.twoBtn{
+	/*margin-top: 35px;*/
+	margin-bottom: 5px;
+}
+.twoBtn button{
+	margin-left: 10px;
+	width: 120px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #00A0E8;
+	color: #fff;
+	text-align: center;
+	display: inline-block;
+	position: relative;
+	padding-left: 10px;
+}
+.twoBtn .addCase{
+	width: 21px;
+	height: 21px;
+	display: inline-block;
+	background: url('../img/whiteAdd.png') no-repeat 0 0/17px;
+	position: absolute;
+	top: 6px;
+	left: 17px;
+}
+.twoBtn .outPut{
+	width: 17px;
+	height: 17px;
+	display: inline-block;
+	/*background: url('../img/whiteOut.png') no-repeat 0 0/15px;*/
+	position: absolute;
+	top: 7px;
+	left: 9px;
+}
+table{
+	border: 1px solid #ccc;
+}
+#mytab td,
+.fixed-table-container thead th{
+	border-left: none;
+}
+.fixed-table-container  thead{
+	background-color: #f0f0f0;
+}
+.singleQueryBtn{
+	color: #000;
+}
+.closeCase{
+	color:#FD4D26;
+}
+.caseManTab{
+	/*margin-top: 85px;*/
+	height: 436px;
+}
+.caseManBtn{
+	margin-top: 6%;
+	text-align: center;
+}
+.fixed-table-toolbar{
+	height: 10px;
+}
+/* 案件管理页结束 */
+
+/*数据维护*/
+.dataMainCont>div{
+	display: inline-block;
+	margin: 0 8%;
+}
+.dataMainCont{
+	text-align: center;
+	font: 14px "微软雅黑";
+	padding-top: 8%;
+}
+.dataMainCont img{
+	cursor:pointer;
+}
+.lastTime{
+	color: #333;
+	margin-top: 15px;
+}
+.lastSyncTime{
+	color: #3d94ec;
+}
+
+.orgInfo{
+	margin-bottom: 3%;
+}
+/*数据维护结束*/
+
+/* 案件新增页 */
+.devSelBtn{
+	position: absolute;
+	bottom: 1%;
+	left: 40%;
+}
+.devSelSave{
+	width: 65px;
+	height: 30px;
+	margin-right: 20px;
+	background-color: #009EE2;
+	color: #fff;
+	text-align: center;
+}
+.devSelBack{
+	width: 65px;
+	height: 30px;
+	margin-right: 20px;
+	text-align: center;
+	color: #fff;
+	background-color: #959595;
+}
+.curPage a{
+	color: #000;
+}
+.container .addForm{
+	margin-top: 20px;
+	margin-left: 30%;
+}
+.container .addForm input{
+	width: 33%;
+}
+.container .addForm select{
+	width: 34.5%;
+}
+.addForm>div{
+	margin: 30px 0;
+}
+/*.addForm .caseNum{*/
+/*margin-top: -20px;*/
+/*margin-bottom: 10px;*/
+/*}*/
+.redStar{
+	color: red;
+}
+.risingDegree{
+	margin: 5px 0;
+}
+/* .container .risingDegree input{
+	width: 5%;
+} */
+input[type="checkbox"] + label{
+	cursor: pointer;
+	font-size: 1em;
+}
+[id^="checkbox-"] + label {
+	background-color: #ffffff;
+	border: 1px solid #666666;
+	/* box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 9px; */
+	/* border-radius: 3px; */
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 15px;
+}
+[id="checkbox-1"]:checked + label {
+	background: url("../img/checked.png") no-repeat;
+}
+.caseName textarea{
+	width: 33%;
+	height: 70px;
+}
+.container .caseSite select{
+	width: 15%;
+}
+.caseSite #province{
+	width: 17%;
+}
+.caseSite #city{
+	width: 21%;
+}
+.caseSite #district{
+	width: 21%;
+}
+.caseSite input[type="text"],
+.caseSite input[type="password"]{
+	width: 25%;
+}
+.addCaseTime{
+	position: relative;
+	margin-left: -9px;
+}
+.container .addCaseTime input{
+	background: url('../img/calender.png') no-repeat 95% center;
+	width: 32.6%;
+}
+body .container input.joinDateInput{
+	width: 349px;
+	background: url('../img/calender.png') no-repeat 95% center;
+}
+.addCaseTime span.hourSpan{
+	position: absolute;
+	top: 5px;
+	left: 30%;
+}
+.addCaseTime span.minSpan{
+	position: absolute;
+	top: 5px;
+	left: 39%;
+}
+.container .addCaseTime select{
+	width: 9%;
+	padding-left: 38px;
+}
+.redTips{
+	color: red;
+	margin-left: 12%;
+}
+.caseAddBtn{
+	padding-left: 20%;
+}
+.container .caseAddBtn input{
+	width: 65px;
+	height: 30px;
+	margin-right: 20px;
+}
+.caseModSave,
+.caseAddSave{
+	background-color: #009EE2;
+	color: #fff;
+}
+#address{
+	margin-left: 11.7%;
+	width: 33%;
+}
+/* 案件新增页结束 */
+
+/* 案件查看页 */
+.caseCheckPage{
+	color: #1DADE9;
+}
+.caseCheckCont>div{
+	margin: 20px 0;
+	position: relative;
+}
+.caseCheckCont>div>div{
+	display: inline-block;
+}
+.caseCheckNum{
+	position: absolute;
+	left: 70%;
+}
+.caseCheckLaw{
+	position: absolute;
+	left: 69.3%;
+}
+.caseCheckSite{
+	position: absolute;
+	left: 69.3%;
+}
+.caseCheckInq{
+	position: absolute;
+	left: 68.2%;
+}
+.caseCheckRisingDesc{
+	width: 60%;
+}
+.caseCheckRisingDesc textarea{
+	width: 60%;
+	height: 70px;
+	border: none;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+.checkInqMan{
+	position: absolute;
+	left: 70.8%;
+}
+.checkCaseTime{
+	position: absolute;
+	left: 65.4%;
+	/*top: 40px;*/
+}
+.container .caseCheckBtn{
+	text-align: center;
+	margin: -20px 0;
+}
+.caseCheckBtn button{
+	width: 60px;
+	height: 25px;
+	margin-right: 20px;
+}
+.caseCheckBtn button:first-child{
+	background-color: #FD6816;
+	color: #fff;
+}
+.checkTabDesc{
+	padding-left: 10px;
+	border-left: 5px solid #FD6816;
+	margin-top: 10px;
+}
+.twoBtn .addCase{
+	left: 5px;
+}
+.caseCheckTab{
+	height: 300px;
+}
+.container .caseCheckTab>.bootstrap-table{
+	display: block;
+}
+/* 案件查看页结束 */
+#beySel{
+	width: 322px;
+}
+/* 涉案财物查看 */
+body{
+	position: relative;
+	min-width:1500px;
+}
+body .fixHeader{
+	margin-bottom: 0;
+	position: fixed;
+	top: 0;
+	/*background-color: #EBEEF3;*/
+	z-index: 1;
+}
+.fixSideBar{
+	position: fixed;
+	top: 110px;
+	z-index: 1;
+}
+body .fixCont{
+	margin-left: 11.2%;
+	margin-top: 110px;
+	height: 165%;
+	position: relative;
+	/* z-index: -1; */
+}
+.fixCurPage{
+	position: absolute;
+	top: 110px;
+	left: 11.2%;
+	width: 100%;
+	background-color: #fff;
+	height: 30px;
+	line-height: 30px;
+	margin-top: 0;
+}
+body .fixFooter{
+	position: fixed;
+	width: 100%;
+	text-align: center;
+	left: 0;
+	background-color: #EBEEF3;
+	height: 32px;
+	line-height: 32px;
+	bottom: 0;
+}
+.checkEvi{
+	color: #40B7F1;
+}
+.eviCont{
+	/* position: relative; */
+	margin: 42px 20px 0 156px;
+}
+.eviCont .eviHead{
+	font-size: 18px;
+	margin-top: 30px;
+}
+.storeInfoMore .eviHead{
+	margin-top: 15px;
+}
+.eviBasInfo,.storeInfo,.eviJoinInfo{
+	border-bottom: 2px solid #ccc;
+}
+.storeInfo>div,
+.eviBasInfo>div{
+	margin: 25px 0;
+}
+.storeInfoMore>div{
+	margin: 15px 0;
+}
+.eviDetail>div,
+.eviJoinInfo>div{
+	margin: 17px 0;
+	position: relative;
+}
+.storeInfo{
+	position: relative;
+}
+body .storeInfo .storagePlaceId{
+	display: none;
+}
+.storeInfo .currentSite{
+	position: absolute;
+	left: 14.5%;
+	top: 10%;
+	color:#666;
+}
+.devSelCurSite{
+	position: absolute;
+	left: 5%;
+	top: 20%;
+	color:#666;
+}
+.sideSelect button,
+.storeSite button{
+	margin-left: 15px;
+	width: 87px;
+	height: 35px;
+	line-height: 35px;
+	background-color: #00A0E8;
+	color: #fff;
+	text-align: center;
+	display: inline-block;
+}
+.sideSelect button{
+	margin-left: 83px;
+}
+.navBtn{
+	position: absolute;
+	top: 70px;
+	left: 140%;
+}
+.outStoTable{
+	height: 380px;
+}
+.outStoNav{
+	position: static;
+	text-align: center;
+	margin-bottom: 18px;
+}
+.navBtn button{
+	display: block;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #686868;
+	background-color: #ccc;
+	text-align: center;
+	font-size: 22px;
+	font-style: italic;
+	font-weight: 700;
+}
+.outStoNav button{
+	display: inline-block;
+}
+.navBtn .navBtnAct{
+	background-color: #00A0EA;
+	color: #F4C201;
+}
+
+.btnLine{
+	margin: 20px 17px;
+	width: 6px;
+	height: 100px;
+	background-color: #E6E6E6;
+	border-radius: 6px;
+}
+span.btnLine{
+	display: inline-block;
+	margin: 0 20px;
+	width: 200px;
+	height: 6px;
+}
+.eviJoinInfo>.eviHead,
+.eviDetail>.eviHead{
+	margin-top: 15px;
+}
+.rightInfo{
+	position: absolute;
+	left: 54%;
+	top: 0;
+}
+.eviDetail .detLine2{
+	margin-top: 58px;
+}
+.eviDetail img{
+	margin: 15px;
+	margin-right: 0;
+}
+.imgArea img:hover,
+.imgAreaCam img:hover{
+	transition: .5s all;
+	transform: scale(1.2, 1.2);
+	cursor: pointer;
+}
+.eviDetail textarea{
+	display: inline-block;
+	cursor: auto;
+	width: 322px;
+	height: 80px;
+	border: none;
+	background-color: #fff;
+	vertical-align: top;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	padding: 0;
+	margin: 0;
+}
+.eviBasInfo textarea[disabled]{
+	display: inline-block;
+	cursor: auto;
+	width: 322px;
+	height: 69px;
+	border: none;
+	background-color: #fff;
+	vertical-align: top;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	padding: 0;
+	margin: 0;
+}
+body .container .eviCheckTwoBtn{
+	/*text-align: center;*/
+	margin-top: 40px;
+	margin-left: 40%;
+}
+body .container .eviCheckMoreBtn{
+	margin-top: 18px;
+}
+body .container .eviAddTwoBtn{
+	margin-top: -40px;
+	margin-left: 30%;
+}
+#eviModTwoBtn{
+	margin-top: -44px;
+}
+.eviCheckTwoBtn button{
+	width: 65px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #fff;
+}
+.eviCheckTwoBtn .revise{
+	margin-right: 30px;
+	background-color: #FD6816;
+}
+.eviCheckTwoBtn .goBack{
+	background-color: #959595;
+}
+.imgPre>button{
+	/*display: none;*/
+	transform: scale(0.7,1);
+	width: 50px;
+	height: 70px;
+	line-height: 70px;
+	text-align: center;
+	background-color: rgba(0,0,0,.5);
+	color: #fff;
+	font-size: 60px;
+	position: absolute;
+	top: 40%;
+}
+.imgPre .imgPreLeft{
+	left: 5%;
+}
+.imgPre .imgPreRight{
+	right: 5%;
+}
+.imgPre .imgPreArea{
+	/*border: 1px solid #000;*/
+	overflow: hidden;
+	width: 90%;
+	height: 82%;
+	margin: 7% auto;
+	text-align: center;
+}
+.fixCont .imgPre{
+	cursor:move;
+	top: 51%;
+	left: 12%;
+	width: 53.1%;
+	height: 38.6%;
+	text-align: center;
+	position: absolute;
+	background-color: #fff;
+	border: 1px solid #000;
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 1);
+	border-radius: 8px;
+	display: none;
+}
+/* .getParMod .closeBtn,
+.imgAddMod .closeBtn,
+.imgPre .closeBtn */
+.closeBtn{
+	width: 30px;
+	height: 30px;
+	background-color: #F83D14;
+	color: #fff;
+	font-size: 20px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	text-align: center;
+	line-height: 30px;
+	border-top-right-radius: 8px;
+	cursor: pointer;
+}
+.imgPre img{
+	max-width:none;
+}
+.imgPre .imgDel{
+	width: 24px;
+	height: 24px;
+	background:url("../img/imgDel.png") no-repeat;
+	position: absolute;
+	left: 10%;
+	bottom: 5%;
+	cursor: pointer;
+}
+.imgPre .imgDel:hover{
+	background:url("../img/imgDelHover.png") no-repeat;
+}
+.eviDetail .cameraPhoto{
+	top: 20px;
+}
+.imgArea,
+.imgAreaCam{
+	display: inline-block;
+	width: 342px;
+	height: 80px;
+	overflow: hidden;
+	position: absolute;
+	top: -20px;
+}
+.cameraPhoto img,
+.macPhoto img{
+	width: 50px;
+	height: 37.5px;
+}
+.macPhoto button,
+.cameraPhoto button{
+	width: 20px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 20px;
+	font-weight: 700;
+	background-color: #DEDEDE;
+	color: #9D9D9D;
+	position: absolute;
+	top: -4px;
+}
+.imgLeftBtn{
+	left: 80px;
+}
+.imgRightBtn{
+	right: -390px;
+}
+.curPage a:hover{
+	color: #000;
+}
+/* 涉案财物查看结束 */
+
+/* 新增涉案财物 */
+body.itemAddBody{
+	min-width: 1447px;
+}
+body .eviAddCont{
+	height: 165%;
+}
+.eviAddCont input,
+.eviAddCont select{
+	margin-bottom: 0;
+	width: 349px;
+}
+.eviAddCont select{
+	width: 363px;
+}
+.eviAddCont .storeInfo>div, .eviBasInfo>div{
+	margin: 3.6% 0;
+}
+.storeSite select{
+	width: 100px;
+}
+.container .joinDate .minSel{
+	width: 102px;
+}
+.eviAddBase>div{
+	margin: 2.5% 0;
+}
+.eviAddCont .eviAddPar{
+	width: 255px;
+	margin-right: 10px;
+}
+.eviAddCont .getParBtn{
+	width: 85px;
+	height: 28px;
+	line-height: 28px;
+	background-color: #00A0E8;
+	color: #fff;
+	text-align: center;
+	display: inline-block;
+}
+.eviDetail textarea.eviAddTara{
+	width: 363px;
+	border: 1px solid #ccc;
+}
+.eviBasInfo .eviCaseName{
+	margin-bottom: 0;
+}
+.eviBasInfo .eviCaseName .caseNameSpan{
+	font-size: 16px;
+}
+#feaTxt,
+#annotation{
+	width: 363px;
+	border: 1px solid #ccc;
+	display: inline-block;
+	cursor: auto;
+	/*width: 322px;*/
+	height: 80px;
+	/*border: none;*/
+	background-color: #fff;
+	vertical-align: top;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	padding: 0;
+	margin: 0;
+}
+div[class^="baseLine"]{
+	margin: 17px 0;
+	position: relative;
+}
+.checkBase div[class^="baseLine"]{
+	margin: 2.4% 0;
+}
+#measureDateInput{
+	width: 349px;
+	background: url('../img/calender.png') no-repeat 95% center;
+}
+body .eviAddTwoBtn{
+	margin-top: -44px;
+}
+body .eviAddTwoBtn button:first-child{
+	background-color: #00A0E8;
+	width: 90px;
+	margin-right: 30px;
+}
+.eviDetail .imgAddBtn,
+.eviDetail .imgAddBtnCam{
+	margin-left: 15px;
+	background-color: #fff;
+	width: 50px;
+	height: 50px;
+	border: 1px solid #000;
+	color:  #00A0E8;
+	line-height: 50px;
+	text-align: center;
+	font-size: 38px;
+	font-weight: 700;
+	display: inline-block;
+}
+.eviDetailMod .imgAddBtn,
+.eviDetailMod .imgAddBtnCam{
+	margin-left: 370px;
+}
+.fixCont .imgAddMod{
+	z-index: 2;
+	text-align: center;
+	position: absolute;
+	left: 100px;
+	background-color: #fff;
+	border: 1px solid #000;
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 1);
+	border-radius: 8px;
+	/*display: none;*/
+	bottom: 41px;
+	width: 1160px;
+	height: 595px;
+	/*line-height: 595px;*/
+}
+.imgAddMod .deleteAllImg {
+	width: 65px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background-color: #FD3A1A;
+	color:#fff;
+	position: absolute;
+	bottom: 5%;
+	right: 5%;
+}
+form[name=Reso]{
+	display: inline-block;
+}
+form[name=Reso] #Resolution{
+	width: 110px;
+}
+form[name=Reso] #ColourMode{
+	width: 66px;
+}
+.photoTake .topBtn{
+	position: absolute;
+	top: 5px;
+	text-align: left;
+	width: 56%;
+}
+.photoTake .botBtn{
+	position: absolute;
+	width: 56.1%;
+	background-color: #666;
+	bottom: 36px;
+	/*bottom: -34px;*/
+}
+/*.photoTake .botBtn input,*/
+/*.photoTake .topBtn input{*/
+/*width: 50px;*/
+/*height: 30px;*/
+/*}*/
+.imgAddMod .imgAddShow{
+	margin: 38px auto 0;
+	width: 90%;
+	height: 82%;
+	border: 1px solid #ccc;
+}
+.imgAddMod .imgAddShow button{
+	/*background-color: #000;*/
+}
+.imgAddShow>div{
+	float: left;
+	display: inline-block;
+	width: 50%;
+	height: 100%;
+}
+.imgAddShow .photoTake{
+	background-color: pink;
+}
+.imgAddShow .imgHandle{
+	/*padding: 2%;*/
+	position: relative;
+	width: 46%;
+	height: 100%;
+	background-color: #666;
+}
+.imgHandle button{
+	width: 50px;
+	height: 30px;
+	background-color: #666666;
+}
+.imgHandle .Capture{
+	position:absolute;
+	left:178px;
+	top:170px;
+	width:50px;
+}
+.imgHandle .IDPhoto{
+	position:absolute;
+	left:178px;
+	top:240px;
+	width:50px;
+}
+#UniscanThumbnailAssistant{
+	width: 257px;
+	height:488px;
+	position: absolute;
+	right: -43px;
+}
+.imgHandle .photoShow{
+	height: 90%;
+	text-align: left;
+	line-height: 76px;
+}
+.imgHandle .photoShow img{
+	width: 76px;
+	height: 76px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+}
+.imgTakeModBtn{
+	margin-top: 35px;
+	text-align: center;
+	height: 30px;
+	position: relative;
+}
+.imgTakeModBtn button{
+	position: absolute;
+	width: 65px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #fff;
+}
+.imgTakeModBtn .savePhoto{
+	left: 43%;
+	margin-right: 10px;
+	background-color: #00A0E8;
+}
+.imgTakeModBtn .takePhotoBack{
+	background-color: #959595;
+	position: absolute;
+	left: 50%;
+}
+.photoHandleBtn{
+	position: relative;
+	height: 30px;
+}
+.photoHandleBtn button{
+	position: absolute;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+}
+.photoHandleBtn .toTakePhoto{
+	left: 0;
+	width: 65px;
+	text-align: center;
+	background-color: #30C698;
+}
+.toTakePhoto i{
+	margin-top: 6px;
+	width: 22px;
+	height: 17px;
+	display: inline-block;
+	background: url("../img/photoTake.jpg") no-repeat;
+}
+.photoHandleBtn .clearAll{
+	right: 0;
+	background-color: #F93B19;
+	width: 100px;
+	padding-left: 24px;
+}
+.photoHandleBtn .clearAll i{
+	width: 23px;
+	height: 30px;
+	position: absolute;
+	top: 6px;
+	left: 10px;
+	display: inline-block;
+	background: url("../img/clear.jpg") no-repeat;
+}
+.addCaseTime span.eviAddHour{
+	left: 31%;
+}
+.addCaseTime span.eviMinSpan{
+	left: 40%;
+}
+.getParMod{
+	width: 688px;
+	height: 487px;
+	text-align: center;
+	position: absolute;
+	bottom: 125px;
+	left: 30%;
+	background-color: #fff;
+	border: 1px solid #000;
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 1);
+	border-radius: 8px;
+	display: none;
+}
+.getParMod .e-banHead{
+	text-align: left;
+	font-size: 16px;
+	height: 30px;
+	line-height: 39px;
+	padding-left: 20px;
+	border-bottom: 1px solid #ccc;
+}
+.e-ban{
+	margin-top: 70px;
+	margin-bottom: 18px;
+}
+.COM{
+	margin-bottom: 18px;
+	text-align: left;
+	padding-left: 107px;
+}
+.getParModBtn{
+	margin-top: 50px;
+}
+.getParModBtn button{
+	width: 65px;
+	height: 30px;
+	background-color: #00A0E8;
+	color: #fff;
+	text-align: center;
+	line-height: 30px;
+	margin-right: 20px;
+}
+.makeCode{
+	width: 100px;
+	height: 28px;
+	line-height: 28px;
+	background-color: #00A0E8;
+	color: #fff;
+	text-align: center;
+	display: inline-block;
+}
+.gpyTop3Btn{
+	display: inline-block;
+	background-color: #666666;
+	width: 41%;
+	position: absolute;
+	right: 0;
+}
+.gpyTop3Btn>button{
+	width: 50px;
+	height: 30px;
+	background-color: #666666;
+	margin-left: 25px;
+}
+.botBtn>button{
+	width: 50px;
+	height: 30px;
+	background-color: #666666;
+	margin-left: 25px;
+}
+.gpyTop3Btn>span{
+	box-shadow:0 5px 30px rgba(0, 0, 0, 1);
+	position: absolute;
+	background-color: #fff;
+	top: -20px;
+	/*left: 40px;*/
+	z-index: 1;
+	width: 70px;
+	text-align: center;
+}
+.botBtn>span{
+	box-shadow:0 5px 30px rgba(0, 0, 0, 1);
+	position: absolute;
+	background-color: #fff;
+	top: 30px;
+	/*left: 40px;*/
+	z-index: 1;
+	width: 70px;
+	text-align: center;
+	display: none;
+}
+.imgHandle>span{
+	box-shadow:0 5px 30px rgba(0, 0, 0, 1);
+	position: absolute;
+	background-color: #fff;
+	right: 44%;
+	/*left: 40px;*/
+	z-index: 1;
+	width: 70px;
+	text-align: center;
+	display: none;
+}
+.imgHandle .Capture{
+	background: url("../img/CaptureW.png") no-repeat;
+}
+.imgHandle .CaptureHint{
+	top: 30%;
+}
+.imgHandle .Capture:hover{
+	background: url("../img/CaptureB.png") no-repeat;
+}
+.imgHandle .IDPhoto{
+	background: url("../img/IDPhotoW.png") no-repeat;
+}
+.imgHandle .IDPhotoHint{
+	top: 56%;
+}
+.imgHandle .IDPhoto:hover{
+	background: url("../img/IDPhotoB.png") no-repeat;
+}
+.botBtn .autoCrop{
+	background: url("../img/autoCropW.png") no-repeat;
+}
+.botBtn .autoCrop:hover{
+	background: url("../img/autoCropB.png") no-repeat;
+}
+.botBtn .cusCrop{
+	background: url("../img/cusCropW.png") no-repeat;
+}
+.botBtn .cusCropHint{
+	left: 33%;
+}
+.botBtn .SetPicMarkHint{
+	left: 47%;
+}
+.botBtn .A3Hint{
+	left: 60%;
+}
+.botBtn .A4Hint{
+	left: 70%;
+}
+.botBtn .refreshHint{
+	left: 83%;
+}
+.botBtn .cusCrop:hover{
+	background: url("../img/cusCropB.png") no-repeat;
+}
+.botBtn .SetPicMark{
+	background: url("../img/SetPicMarkW.png") no-repeat;
+}
+.botBtn .SetPicMark:hover{
+	background: url("../img/SetPicMarkB.png") no-repeat;
+}
+.botBtn .A3{
+	background: url("../img/A3W.png") no-repeat;
+}
+.botBtn .A3:hover{
+	background: url("../img/A3B.png") no-repeat;
+}
+.botBtn .A4{
+	background: url("../img/A4W.png") no-repeat;
+}
+.botBtn .A4:hover{
+	background: url("../img/A4B.png") no-repeat;
+}
+.botBtn .refresh{
+	background: url("../img/refreshW.png") no-repeat;
+}
+.botBtn .refresh:hover{
+	background: url("../img/refreshB.png") no-repeat;
+}
+.botBtn .autoCropHint{
+	left: 10%;
+}
+.gpyTop3Btn .imgSet{
+	background: url("../img/imgSetW.png") no-repeat;
+}
+.gpyTop3Btn .imgSet:hover{
+	background: url("../img/imgSetB.png") no-repeat;
+}
+.gpyTop3Btn  .imgSetHint{
+	left: 45px;
+}
+.gpyTop3Btn .videoSetHint{
+	left: 123px;
+}
+.gpyTop3Btn  .moveNoisyHint{
+	left: 205px;
+}
+.gpyTop3Btn .videoSet{
+	background: url("../img/videoSetW.png") no-repeat;
+}
+.gpyTop3Btn .videoSet:hover{
+	background: url("../img/videoSetB.png") no-repeat;
+}
+.gpyTop3Btn .moveNoisy{
+	background: url("../img/moveNoisyW.png") no-repeat;
+}
+.gpyTop3Btn .moveNoisy:hover{
+	background: url("../img/moveNoisyB.png") no-repeat;
+}
+
+/* 新增涉案财物结束 */
+
+/* 涉案财物入库 */
+.codeCheck{
+	text-align: center;
+}
+.codeCheck input{
+	width: 35%;
+}
+.codeCheckBtn{
+	width: 65px;
+	height: 30px;
+	background-color: #00A0E8;
+	color: #fff;
+	line-height: 30px;
+	text-align: center;
+	margin-left: 20px;
+	/*margin-top: -10px;*/
+}
+.inStoHint .delBtn{
+	margin-bottom: 5px;
+	margin-top: -10px;
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background-color: #FE3C18;
+	color: #fff;
+}
+.caseCont .inStoTab{
+	margin-top: 0;
+}
+.inStoBtn{
+	/*text-align: center;*/
+	margin-top: 70px;
+	margin-left: 42%;
+}
+.outStoBtn{
+	margin-top: 70px;
+	margin-left: 42%;
+	text-align: left;
+}
+.inStoBtn button{
+	width: 65px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #fff;
+	margin-right: 18px;
+}
+.inStoBtn .inStoSave{
+	background-color: #00A0E8;
+}
+.inStoBtn .inStoBack{
+	background-color: #959595;
+}
+.eviManPage{
+	background: url("../img/eviManBla.jpg") no-repeat 0 center;
+	background-color: #fff;
+}
+.outStoCont .fixed-table-body{
+	height: 90%;
+}
+/* 涉案财物入库结束 */
+
+/* 日志管理 */
+.logManPage{
+	background: url('../img/logManW.png') no-repeat;
+}
+.logManTime,.logManKey{
+	display: inline-block;
+	position: static;
+}
+.caseForm .logQuery{
+	position: absolute;
+	top: 58px;
+	left: 45%;
+}
+.logManKey span{
+	right: 15px;
+}
+.logReset{
+	position: absolute;
+	top: 58px;
+	left: 52%;
+}
+/* 日志管理结束 */
+
+/* 登录页 */
+body.logBody{
+	background: url('../img/loginBg.png') no-repeat center -30px/cover;
+	position: relative;
+	min-width: 0;
+	/*min-width: 1446px;*/
+	min-height: 440px;
+}
+.loginHeader{
+	text-align: center;
+	margin-top: 30px;
+}
+.loginHeader img{
+	margin-right: 30px;
+}
+.loginHeader span{
+	display: inline-block;
+	height: 99px;
+	color: #fff;
+	font: 38px/99px "微软雅黑";
+}
+.logBody>.logWin{
+	min-height: 220px;
+	min-width: 307px;
+	/*box-shadow: 0 5px 30px rgba(0, 0, 0, 1);*/
+	width: 45%;
+	height: 73%;
+	background-color: #fff;
+	/*border-radius: 8px;*/
+	position: absolute;
+	left: 50%;
+	top: 48%;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	/*opacity: .9;*/
+	/*position: relative;*/
+}
+.logWin form{
+	text-align: center;
+}
+.logWin .errorHint{
+	position: absolute;
+	/*left: 40%;*/
+	top: 5%;
+	width: 100%;
+	text-align: center;
+	color: red;
+}
+.regWin .regErrorHint{
+	position: absolute;
+	top: 11.5%;
+	text-align: center;
+	width: 100%;
+	color: red;
+}
+
+.logWin>div{
+	text-align: center;
+}
+.logTab{
+	margin-top: 7%;
+	margin-bottom: 5%;
+}
+.logTab>span{
+	display: inline-block;
+	border-bottom: 2px solid #999;
+	cursor:pointer;
+	padding: 2% 7.5%;
+	font: 700 16px "微软雅黑";
+	color: #999;
+}
+.logTab .invigilate{
+	margin-left: -4px;
+}
+.logTab>span.act{
+	color:#4EA1EF ;
+	border-bottom: 2px solid #4EA1EF;
+}
+.invigilateLogCont{
+	width: 100%;
+	margin-right: 17%;
+	height: 110%;
+}
+.invigilateLogCont input,
+.stuLogCont input,
+.invigilateCont input{
+	width: 48%;
+	height: 30px;
+	margin-bottom: 3%;
+}
+.errorHint{
+	text-align: center;
+	color:red;
+	position: absolute;
+	top: 17%;
+	width: 100%;
+}
+.disciplineReasonMask .errorHint{
+	top: 7%;
+}
+.examingNumber{
+	color: red;
+	font-size:16px;
+}
+.logBtn input{
+	margin-top: 3%;
+	border-radius: 4px;
+	width: 50%;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	color: #fff;
+	background-color: #4EA1EF;
+	font:  20px "微软雅黑";
+}
+.logCopyright{
+	position: absolute;
+	bottom: 5%;
+	text-align: center;
+	width: 100%;
+	color: #96979B;
+}
+/* 登录页结束 */
+
+/*考生守则*/
+.confirmBtn{
+	position: relative;
+}
+.ruleErrorHint{
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: 14%;
+	color: red;
+	font-size:20px;
+}
+.ruleLogout{
+	color:#333;
+	text-decoration: underline;
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	right: 17%;
+}
+.ruleHead{
+	margin: 0 3%;
+	color:#4EA1EF ;
+	border-bottom: 2px solid #4EA1EF;
+	padding: 2% 7.5%;
+	font:18px "微软雅黑";
+}
+.confirmBtn input{
+	margin-top: 1%;
+	border-radius: 4px;
+	width: 50%;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	color: #fff;
+	background-color: #4EA1EF;
+	font:  20px "微软雅黑";
+}
+.textImg{
+	text-align: center;
+}
+.textImg img{
+	width: 80%;
+	margin: 3% 0;
+}
+/*考生守则结束*/
+
+/*中转页面*/
+.transferWin{
+	text-align: center;
+	/*padding-top: 30%;*/
+}
+.invigilateBtn,.dataSetBtn{
+	display: inline-block;
+	width: 172px;
+	height: 20px;
+	padding-top: 180px;
+	cursor:pointer;
+	margin-top: 20%;
+	font: 500 20px "微软雅黑";
+}
+.invigilateBtn{
+	background: url("../img/invigilateG.png") no-repeat;
+	margin-right: 15%;
+}
+.invigilateBtn:hover{
+	background: url("../img/invigilateB.png") no-repeat;
+}
+.dataSetBtn{
+	background: url("../img/dataSetG.png") no-repeat;
+}
+.dataSetBtn:hover{
+	background: url("../img/dataSetB.png") no-repeat;
+}
+/*中转页面结束*/
+
+/* 涉案财物出库 */
+.secondStep .codeCheck input{
+	margin-bottom: 0;
+}
+.nextStep{
+	/*text-align: center;*/
+	position: absolute;
+	left: 50%;
+	bottom: 10%;
+}
+.nextBtn{
+	/*margin-left: 25%;*/
+	margin-top: 3%;
+	width: 80px;
+	height: 30px;
+	background-color: #00A0E8;
+	color: #fff;
+	line-height: 30px;
+	text-align: center;
+}
+.outStoForm{
+	margin-left: 20%;
+}
+.outStoForm>div{
+	margin: 1.5% 0;
+}
+.outStoForm .outStoBtn{
+	margin-left: 25%;
+}
+.outStoForm select{
+	width: 300px;
+}
+.outStoForm input{
+	width: 287px;
+}
+.outStoHint{
+	font-size: 16px;
+}
+.returnDate{
+	position: relative;
+}
+.returnDate input{
+	background: url('../img/calender.png') no-repeat 95%;
+}
+/*.returnDate i{*/
+/*width: 17px;*/
+/*height: 18px;*/
+/*display: inline-block;*/
+/*background: url('../img/calender.png') no-repeat;*/
+/*position: absolute;*/
+/*left: 404px;*/
+/*top: 6px;*/
+/*}*/
+.outStoCont{
+	height: 86%;
+}
+.outStoHtml,.outStoBody{
+	/*height: 114%;*/
+}
+.outStoBody .sideBar,
+.outStoBody .container{
+	/*height: 85%;*/
+}
+.outStoForm{
+	display: none;
+}
+.secondStep .delBtn{
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background-color: #FE3C18;
+	color: #fff;
+	/*float: right;*/
+	margin-bottom: 5px;
+}
+.outStoPart,
+.callPart{
+	margin: 0;
+}
+.outStoPart>div,
+.callPart>div{
+	margin: 1.5% 0;
+}
+.eviState{
+	margin-bottom: 0;
+}
+.outStoForm #item_status>option{
+	background-color: #fff;
+}
+/* 涉案财物出库结束 */
+
+/* 注册页面 */
+.regWin input{
+	vertical-align: baseline;
+}
+body.regBody{
+	min-height: 684px;
+}
+.logBody>.regWin{
+	min-height: 425px;
+	min-width: 254px;
+	opacity: 1;
+	top: 27.5%;
+	height: 56%;
+	color: #797979;
+	position: relative;
+}
+.regHead{
+	width: 80%;
+	height: 10%;
+	line-height: 300%;
+	border-bottom: 1px solid #FC3C15;
+	color: #FC3C15;
+	margin: 0 auto;
+	font-size: 16px;
+}
+.regUn input{
+	margin-top: 0;
+}
+body .newUserName{
+	margin-top: 7%;
+}
+.regWin input[type="text"],
+.regWin input[type="password"]{
+	padding-left: 2%;
+}
+.regUn input{
+	background: none;
+}
+.regWin>.pwdInput>input{
+	background: none;
+}
+.regWin .regBtn input{
+	width: 63.5%;
+	margin-left: 12.5%;
+	margin-top: 5%;
+}
+.regWin .regBtn .regInp{
+	margin-top: 0;
+}
+.regWin .regBtn .regBack{
+	margin-top: 1%;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color: #CACACA; opacity:1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color: #CACACA;opacity:1;
+}
+
+input:-ms-input-placeholder{
+	color: #CACACA;opacity:1;
+}
+
+input::-webkit-input-placeholder{
+	color: #CACACA;opacity:1;
+}
+
+.commonPlaceholder:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color: #D0D0D0; opacity:1;
+}
+
+.commonPlaceholder::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color: #D0D0D0;opacity:1;
+}
+
+input.commonPlaceholder:-ms-input-placeholder{
+	color: #D0D0D0;opacity:1;
+}
+
+input.commonPlaceholder::-webkit-input-placeholder{
+	color: #D0D0D0;opacity:1;
+}
+.hintMod,
+.confMod,
+.checkMod,
+.renewMod{
+	position: absolute;
+	top: 29%;
+	left: 39%;
+	background-color: #fff;
+	width: 22%;
+	height: 27%;
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 1);
+	border-radius: 5px;
+}
+.hintMod .hintTop,
+.confMod .confTop,
+.renewMod .renewTop,
+.checkMod .checkTop{
+	height: 8%;
+	padding: 3%;
+	color: #888888;
+	border-bottom: 1px solid #DDDDDD;
+}
+.hintMod .hintTop .hintCloseBtn,
+.confMod .confTop .confCloseBtn,
+.renewMod .renewTop .renewCloseBtn,
+.checkMod .checkTop .checkCloseBtn{
+	width: 36px;
+	height: 30px;
+	background: url("../img/closeW.png") no-repeat;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+.confMod .confTop .confCloseBtn:hover{
+	background: url("../img/closeR.png") no-repeat;
+}
+.hintMod .hintTop i,
+.confMod .confTop i,
+.renewMod .renewTop i,
+.checkMod .checkTop i{
+	width: 19px;
+	height: 19px;
+	display: inline-block;
+	background: url("../img/hint.png") no-repeat 0 0/cover;
+	margin-right: 6px;
+}
+.hintMod .hintCont,
+.confMod .confCont,
+.renewMod .renewCont,
+.checkMod .checkCont{
+	text-align: center;
+	margin-top: 10%;
+	color:#888888;
+}
+.disciplineReasonMask .confCont{
+	margin-top: 2%;
+	color:#000;
+}
+.reasonTxt{
+	width: 75%;
+	height: 80px;
+	margin-top: 10px;
+}
+.confMod .confTwoBtn,
+.renewMod .renewTwoBtn,
+.checkMod .checkTwoBtn
+{
+	text-align: center;
+	margin-top: 12%;
+}
+.confMod .confTwoBtn button,
+.renewMod .renewTwoBtn button,
+.checkMod .checkTwoBtn button{
+	width: 65px;
+	height: 30px;
+	background-color: #00A0E8;
+	color: #fff;
+	line-height: 30px;
+	text-align: center;
+	margin-top: 10px;
+	/*margin-left: 15px;*/
+}
+.confMod .confTwoBtn .cancelBtn,
+.renewMod .renewTwoBtn .renewCancelBtn,
+.checkMod .checkTwoBtn .refuse{
+	background-color: #FD3B15;
+	margin-left: 20px;
+}
+.disciplineReasonMask .confTwoBtn button{
+	margin-top: 0;
+}
+
+.disciplineReasonMask .confTwoBtn{
+	margin-top: 0;
+}
+#renewSel>option{
+	background-color: #fff;
+}
+/* 注册页面结束 */
+
+/* 顶部通用栏修改 */
+.headerBtn{
+	position: absolute;
+	right: 25%;
+	height: 100px;
+}
+.headerBtn>div{
+	display: inline-block;
+}
+.headerBtn>div a{
+	display: inline-block;
+	padding-top: 52px;
+	margin-top: 9px;
+}
+.inSto{
+	margin: 0 45px;
+}
+.newAdd a{
+	background: url('../img/newAdd.png') no-repeat 7px 6px;
+}
+.inSto a{
+	background: url('../img/inSto.png') no-repeat 7px 6px;
+}
+.stoMan a{
+	background: url('../img/bigOutSto.png') no-repeat 15px 6px;
+}
+.newAdd a:hover{
+	background: url('../img/newAddSel.png') no-repeat 0 0px;
+	font-weight: 700;
+}
+.inSto a:hover{
+	background: url('../img/inStoSel.png') no-repeat 0 0px;
+	font-weight: 700;
+}
+.stoMan a:hover{
+	background: url('../img/bigOutStoSel.png') no-repeat 8px 0px;
+	font-weight: 700;
+}
+/* 顶部通用栏修改结束 */
+
+/* 电子标签管理页面 */
+.eLabPage{
+	background: url('../img/eLabB.png') no-repeat;
+	margin-bottom: 4%;
+}
+.addELab{
+	width: 21px;
+	height: 21px;
+	display: inline-block;
+	background: url('../img/addELab.png') no-repeat;
+	position: absolute;
+	top: 3px;
+	left: 6px;
+}
+.twoBtn .eLabDel{
+	background-color: #FD3B15;
+	width: 80px;
+}
+.eLabTab{
+	margin-top: 0;
+}
+.newLabMod{
+	cursor:move;
+	display: none;
+	width: 45%;
+	height: 33%;
+	position: absolute;
+	top: 30%;
+	left: 30%;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 1);
+}
+.newLabMod>.readLab{
+	text-align: center;
+	margin-top: 12%;
+}
+.readLab input{
+	height: 25px;
+	width: 40%;
+	margin-bottom: 0;
+}
+.readLab button{
+	width: 90px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #00A0E8;
+	color: #fff;
+	text-align: center;
+	margin-left: 30px;
+}
+.labModBtn{
+	margin-top: 8%;
+	text-align: center;
+}
+.labModBtn button{
+	width: 70px;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	text-align: center;
+}
+.labModBtn button:first-child{
+	background-color: #00A0E8;
+	margin-right: 30px;
+}
+.labModBtn button:last-child{
+	background-color: #999;
+}
+/* 电子标签管理页面结束 */
+
+/* 财物查看更多 */
+.caseNameMore,.eviNameMore,.eviNoMore,.eviTypeMore,.eviNatMore{
+	position: relative;
+}
+.eviBaseMore>div{
+	margin: 15px 0;
+}
+.eviBaseMore .eviHead{
+	margin-left: -35px;
+}
+.flexLessBtn,.flexMoreBtn{
+	text-align: center;
+}
+.flexLessBtn button,
+.flexMoreBtn button{
+	background-color: #fff;
+	border: none;
+	text-decoration: underline;
+	color: #0F9CEB;
+}
+.eviDetMore .stoTabHead{
+	border-left: 6px solid #FF0101;
+	padding-left: 15px;
+	margin-bottom: 0;
+}
+.eviDetMore>.eviHead{
+	margin-top: 2px;
+}
+.eviDetMore>div{
+	margin: 10px 0;
+}
+.eviDetMore textarea{
+	height: 59px;
+}
+.eviDetMore .detLine2{
+	margin-top: 39px;
+}
+.fixed-table-toolbar{
+	height: 0;
+}
+.eviDetMore .caseManTab{
+	margin: 0;
+	height: 285px;
+}
+.eviDetMore .fixed-table-container{
+	height: 220px;
+}
+.eviDetMore .macPhoto{
+	top: -10px;
+}
+/* 财物查看更多结束 */
+
+/* 财物管理 */
+.codeQueryBtn{
+	width: 65px;
+	height: 30px;
+	background-color: #00A0E8;
+	color: #fff;
+	line-height: 30px;
+	text-align: center;
+	margin-left: 20px;
+	margin-top: -10px;
+}
+.eviForm{
+	display: none;
+}
+.codeQuery{
+	text-align: center;
+	margin-bottom: 30px;
+}
+.codeQuery input{
+	width: 35%;
+}
+.codeQuery .codeQuery{
+
+}
+.eviManCont{
+	margin-top: 0;
+}
+.eviManCont .queryWay{
+	margin-bottom: 10px;
+}
+.eviManCont .queryWay a{
+	margin-left: 25px;
+}
+.eviManCont select{
+	width: 322px;
+}
+.eviManCont .keyword{
+	position: static;
+}
+.eviManCont .keyword span{
+	right: 10px;
+	top: 46px;
+}
+.eviManSub button{
+	margin-top: 85px;
+}
+.eviManCont form{
+	margin-bottom: 0;
+}
+.eviManCont .twoBtn{
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+.eviManCont .caseManTab{
+	margin-top: 35px;
+	height: 390px;
+}
+.eviManCont .eviManTab{
+	margin-top: 0;
+}
+.twoBtn .inStoS{
+	background: url('../img/inStoS.png') no-repeat 0 0/17px;
+}
+.twoBtn .outStoS{
+	width: 21px;
+	height: 21px;
+	display: inline-block;
+	background: url("../img/outStoS.png") no-repeat 0 0/17px;
+	position: absolute;
+	top: 6px;
+	left: 4px;
+}
+.twoBtn .eviOutStoBtn{
+	width: 133px;
+	/*background-color: #999999;*/
+	/*cursor: not-allowed;*/
+}
+/* 财物管理结束 */
+
+/* 库存管理 */
+.imgExample{
+	position: absolute;
+	left: 5%;
+	bottom: 9%;
+}
+.imgExample>div{
+	margin-bottom: 8%;
+}
+.imgExample i{
+	vertical-align: top;
+	width: 30px;
+	height: 20px;
+	display: inline-block;
+}
+.emptyExa i{
+	background-color: #AFF4DF;
+}
+.oneExa i{
+	background-color: #35E1B1;
+}
+.fullExa i{
+	background-color: #FB8C55;
+}
+.iceImgEca .emptyExa i{
+	background-color: #f0e6db;
+}
+.iceImgEca .oneExa i{
+	background-color: #ccbaa7;
+}
+.iceImgEca .fullExa i{
+	background-color: #b59479;
+}
+.stoManPage{
+	background: url("../img/stoManPage.png") no-repeat 0 center/16px 16px;
+}
+.navType{
+	margin: 3px 0 0px 50px;
+}
+.sideSelect ul,
+.navType ul{
+	display: inline-block;
+	margin-left: 20px;
+}
+.sideSelect ul{
+	margin-left: 10px;
+}
+.sideSelect li,
+.navType li{
+	display: inline-block;
+	margin: 0 10px;
+}
+.sideSelect li a,
+.navType li a{
+	color: #000;
+	display: inline-block;
+	width: 60px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	border-radius: 3px;
+}
+.sideSelect li a.act,
+.sideSelect li a:hover,
+.navType li a.act,
+.navType li a:hover{
+	background-color: #4083D4;
+	color: #fff;
+	text-decoration: none;
+}
+.densePart{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.sideSelect{
+	position: absolute;
+	/*left: 5%;*/
+	top: 48%;
+}
+.sideSelect button{
+	background-color: #4083D4;
+}
+.smallSto{
+	display: inline-block;
+	width: 25%;
+	height: 35%;
+	margin-left: 20px;
+	margin-top: 5%;
+	border: 1px solid #949494;
+	background-color: #FDBB0D;
+}
+.smallSto>.stoTop{
+	height: 6%;
+	border-bottom: 1px solid #949494;
+}
+.smallSto>.stoTop2{
+	height: 1%;
+	border-bottom: 1px solid #949494;
+}
+.stoCol{
+	/*margin-left: 5%;*/
+	text-align: center;
+	height: 89%;
+}
+.stoCol li{
+	box-sizing: border-box;
+	border: 1px solid #949494;
+	cursor: pointer;
+	/*background-color: #DDDDDD;*/
+	background: url("../img/matrix.png") no-repeat;
+	background-size: 100% 100%;
+	margin: 0 2px;
+	height: 100%;
+	display: inline-block;
+	width: 16.6%;
+	text-align: center;
+	position: relative;
+}
+.stoCol li.act,
+.stoCol li:hover{
+	/*background-color: #6EE6C2;*/
+	background: url("../img/matrixAct.png") no-repeat;
+	background-size: 100% 100%;
+}
+.stoCol li span{
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	color: #fff;
+	/*background-color: #FE3C18;*/
+	background-color: #969696;
+	border-radius: 50%;
+	margin-top: 15px;
+}
+.stoCol li:hover span,
+.stoCol li.act span{
+	background-color: #FE3C18;
+}
+/*.stoCol li i{*/
+/*display: inline-block;*/
+/*display: none;*/
+/*width: 78px;*/
+/*height: 34px;*/
+/*position: absolute;*/
+/*bottom: -45px;*/
+/*left: 5px;*/
+/*background: url('../img/openSto.png') no-repeat;*/
+/*}*/
+/*.stoCol li:first-child i{*/
+/*display: block;*/
+/*}*/
+.smallSto .stoFoot{
+	background-color: #949494;
+	height: 4%;
+}
+.bigSto{
+	margin-top: -2.5%;
+	display: inline-block;
+	width: 55%;
+	height: 88%;
+	margin-right: 10%;
+	background-color: #B5B5B5;
+	position: relative;
+	text-align: center;
+}
+.bigSto>.stoTop{
+	height: 6%;
+	line-height: 226%;
+	color: #fff;
+	background-color: #EB6100;
+	text-align: center;
+}
+.bigSto>ul{
+	vertical-align: top;
+	display: inline-block;
+	margin: 1% 2%;
+	/*width: 13.7%;*/
+	height: 86%;
+}
+.bigSto>ul li{
+	position: relative;
+	width: 100%;
+	text-align: left;
+	height: 14.5%;
+	padding: 2px 5px;
+	background-color: #AFF4DF;
+	cursor: pointer;
+}
+.coldArea .markFull,
+.coldArea .clearFull,
+.frozenArea .markFull,
+.frozenArea .clearFull,
+.num5 .markFull,
+.num5 .clearFull,
+.fcgBody li span,
+ul[dom] li span{
+	width: 70px;
+	height: 30px;
+	line-height: 30px;
+	text-decoration: underline;
+	color:#fff;
+	display: none;
+	background-color: #000;
+	opacity: .5;
+	text-align: center;
+	position: absolute;
+	right: 0;
+	top: 0;
+	cursor:pointer;
+}
+.num5 .markFull,
+.num5 .clearFull{
+	right: 10px;
+	top: 10px;
+}
+.coldArea:hover .markFull,
+.coldArea:hover .clearFull,
+.frozenArea:hover .markFull,
+.frozenArea:hover .clearFull,
+.coldArea:hover .markFull,
+.frozenArea:hover .clearFull,
+.num5:hover .markFull,
+.num5:hover .clearFull{
+	display: inline-block;
+}
+.fcgBody li:hover span,
+ul[dom] li:hover span{
+	display: inline-block;
+}
+.iceBox img,
+.num5 img,
+ul[dom] li img{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	height: 50%;
+	width: 15%;
+	display: inline-block;
+}
+.iceBox img{
+	height: 25%;
+	width: 20%;
+}
+.num5 img{
+	width: 15%;
+	height: 15%;
+}
+.bigSto>ul li.act{
+	background-color: #37E1B2;
+}
+.bigSto>ul li.fullState{
+	background-color: #FB8C55;
+}
+.bigSto>ul li.sel{
+	background-color: #FCB937;
+}
+.bigSto .stoFoot{
+	height: 5%;
+	background-color: #959595;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+.KAIGE-FCG{
+	/*display: inline-block;*/
+	width: 26%;
+	height: 88%;
+	margin-left: 35%;
+	margin-top: -2.5%;
+	background-color: #B5B5B5;
+	position: relative;
+	text-align: center;
+}
+.KAIGE-FCG>.fcgTop{
+	height: 6%;
+	line-height: 226%;
+	color: #fff;
+	background-color: #EB6100;
+	text-align: center;
+}
+.KAIGE-FCG ul{
+	vertical-align: top;
+	display: inline-block;
+	margin-top: 1%;
+	text-align: center;
+	width: 100%;
+	height: 86%;
+}
+.KAIGE-FCG ul li{
+	position: relative;
+	width: 88%;
+	text-align: left;
+	margin: 2% auto;
+	height: 10%;
+	padding: 2px 5px;
+	background-color: #AFF4DF;
+	cursor: pointer;
+}
+.KAIGE-FCG ul li.act{
+	background-color: #37E1B2;
+}
+.KAIGE-FCG>ul li.fullState{
+	background-color: #FB8C55;
+}
+.KAIGE-FCG ul li.sel{
+	background-color: #FCB937;
+}
+.KAIGE-FCG .fcgFoot{
+	height: 5%;
+	background-color: #959595;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+.iceBox{
+	margin-top: -2.5%;
+	display: none;
+	border: 2px solid #48443B;
+	width: 24%;
+	height: 85%;
+	margin-left: 35%;
+	position: relative;
+	background-color: #f0e6db;
+	box-shadow: 20px 28px 34px rgba(0, 0, 0, 0.4);
+}
+.coldArea{
+	position: relative;
+	cursor: pointer;
+	height: 50%;
+	border-bottom: 8px solid #707070;
+}
+.coldAreaLeft{
+	padding: 5% 0 0 5%;
+	width: 47%;
+	border-right: 1px solid #8F8880;
+	height: 94%;
+}
+.frozenAreaLeft{
+	padding: 5% 0 0 5%;
+	width: 47%;
+	border-right: 1px solid #8F8880;
+	height: 94%;
+}
+.frozenArea{
+	position: relative;
+	cursor: pointer;
+	height: 48.5%;
+}
+.leftIceFooter,.rightIceFooter{
+	border-top: 2px solid #2D2A25;
+	width: 7%;
+	height: 3%;
+	position: absolute;
+	bottom: -3.5%;
+	box-shadow: 20px 28px 34px rgba(0, 0, 0, 0.4);
+}
+.leftIceFooter{
+	left: 0;
+}
+.rightIceFooter{
+	right: 0;
+}
+.wheel{
+	height: 100%;
+	background-color: #707070;
+	border: 1px solid #4C4944;
+	border-radius: 0 0 50% 50%;
+}
+/*第5柜*/
+.num5 {
+	position: relative;
+	width: 90%;
+	height: 81%;
+	margin: 3% auto;
+	background-color: #fff;
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 1);
+	border-radius: 8px 8px 0 0;
+	overflow: auto;
+}
+.num5Info,
+.num1Info{
+	border-bottom: 2px solid #C8C8C8;
+	width: 90%;
+	margin: 0 auto;
+}
+.num5 .num5Info:first-child,
+.num5 .num5Info:nth-child(2),
+.bigStoMod .num1Info:nth-child(2){
+	margin-top: 2%;
+}
+.num5 .num5Info:last-child,
+.bigStoMod .num1Info:last-child{
+	border-bottom: none;
+	margin-bottom: 2%;
+}
+.num5 .leftCaseNameNum5,
+.bigStoMod .leftCaseNameNum1{
+	vertical-align: top;
+	display: inline-block;
+	margin-top: 3%;
+	/*height: 90%;*/
+	margin-left: 5%;
+	width: 20%;
+}
+.num5 .rightEviUlNum5,
+.bigStoMod .rightEviUlNum1{
+	display: inline-block;
+	/*margin: 2% 5% 0 0;*/
+	width: 60%;
+	/*height: 85%;*/
+	border-left: 2px solid #C8C8C8;
+	/*overflow: auto;*/
+}
+.num5 .rightEviUlNum5 li,
+.bigStoMod .rightEviUlNum1 li{
+	position: relative;
+	padding-left: 10px;
+	text-align: left;
+	width: 96%;
+	height: 19.5%;
+	line-height: 350%;
+	border-bottom: 1px solid #C8C8C8;
+}
+.num5 .rightEviUlNum5 li:last-child,
+.bigStoMod .rightEviUlNum1 li:last-child{
+	border-bottom: none;
+}
+
+
+/*密集柜单元格存储情况弹出框*/
+.bigStoMod{
+	width: 40%;
+	height: 50%;
+	background-color: #fff;
+	position: absolute;
+	top: 30%;
+	left: 38%;
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 1);
+	border-radius: 8px;
+	display: none;
+}
+.bigStoMod .leftCaseName{
+	display: inline-block;
+	margin-top: 5%;
+	height: 90%;
+	margin-left: 5%;
+	width: 25%;
+}
+.leftCaseNameNum1 span,
+.leftCaseNameNum5 span{
+	width: 70px;
+	height: 28px;
+	line-height: 28px;
+	display: inline-block;
+	border-radius:15%;
+	text-align: center;
+	background-color: #FF3D17;
+	color:#fff;
+}
+.bigStoMod .rightEviUl{
+	display: inline-block;
+	margin: 5% 5% 0 0;
+	width: 62%;
+	height: 85%;
+	border-left: 1px solid #C8C8C8;
+	overflow: auto;
+}
+.bigStoMod .rightEviUl li{
+	position: relative;
+	padding-left: 10px;
+	text-align: left;
+	width: 96%;
+	height: 19.5%;
+	line-height: 350%;
+	border-bottom: 1px solid #C8C8C8;
+}
+.num5 .rightEviUlNum1 li span,
+.num5 .rightEviUlNum5 li span,
+.rightEviUl li span{
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	text-align: center;
+	background-color: #2281D1;
+	position: absolute;
+	right: 0;
+	top: 20%;
+	color:#fff;
+	border-radius:25%;
+}
+.num5 .rightEviUlNum1 li span,
+.num5 .rightEviUlNum5 li span{
+	top: 30%;
+}
+.bigStoMod .rightEviUl li:last-child{
+	border-bottom: none;
+}
+/* 库存管理结束 */
+
+/*统计报表开始*/
+.staChrtsPage{
+	background: url(../img/staChartsPage.jpg) no-repeat;
+}
+#staForm{
+	margin-left: 15%;
+}
+#staForm>div{
+	margin-bottom: 1%;
+}
+.staType span{
+	cursor:pointer;
+	border-radius: 3px;
+	display: inline-block;
+	margin-right: 3%;
+	width: 70px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+
+}
+.staType span.act{
+	background-color: #4383DB;
+	color:#fff;
+}
+.staCaseType label{
+	margin-right: 2%;
+	display: inline-block;
+}
+.staCaseType input,
+.staEviType input{
+	display: none;
+}
+#staFilSelect option{
+	background-color: #fff;
+}
+[id^="type_"] + label,
+[id^="status_"] + label{
+	background-color: #ffffff;
+	border: 1px solid #C5C5C5;
+	/* border-radius: 3px; */
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 5px 0 15px;
+	cursor: pointer;
+	font-size: 1em;
+}
+label[for=type_all],
+label[for=status_all]{
+	margin-left: 0;
+}
+[id^="type_"]:checked + label,
+[id^="status_"]:checked + label{
+	background: url(../img/checked.png) no-repeat;
+}
+#staForm .caseTime{
+	display: inline-block;
+}
+#staForm .queryBtn{
+	margin-left: 50px;
+}
+#staForm .logReset{
+	position: static;
+}
+.chartTag{
+	margin-right: 10%;
+	position: relative;
+	z-index: 1;
+}
+.chartTag .excelBtn{
+	margin-left: 10px;
+	width: 114px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #00A0E8;
+	color: #fff;
+	text-align: center;
+	display: inline-block;
+	position: relative;
+	padding-left: 21px;
+	margin-top: -26px;
+}
+.chartTag .excelBtn i{
+	width: 17px;
+	height: 17px;
+	display: inline-block;
+	background: url(../img/whiteOut.png) no-repeat 0 0/15px;
+	position: absolute;
+	top: 7px;
+	left: 9px;
+}
+.chartTag span{
+	display: inline-block;
+	width: 44px;
+	height: 35px;
+	cursor:pointer;
+	margin-right: 15px;
+}
+.staCharts{
+	text-align: center;
+	/*margin-top: -5%;*/
+}
+.casePieCharts,
+.eviPieCharts{
+	width: 100%;
+	height: 61%;
+	margin-top: 3.1%;
+	position: relative;
+}
+.casePieCharts>div,
+.eviPieCharts>div{
+	overflow: hidden;
+	text-align: center;
+	display: inline-block;
+	width: 25%;
+	height: 48%;
+	/*margin-left: 5%;*/
+	/*background-color: skyblue;*/
+	/*margin-bottom: 1%;*/
+}
+.casePieCharts>div>span,
+.eviPieCharts>div>span{
+	position: relative;
+	z-index: 1;
+}
+.casePieCharts>div>div[id],
+.eviPieCharts>div>div[id]{
+	margin: 0 auto;
+	margin-top: -37px;
+	width: 220px;
+	height: 220px;
+}
+ul.pieLegend,
+ul.pieLegendYear{
+	position: absolute;
+	right: 65px;
+	top: 42px;
+	width: 195px;
+	height: 270px;
+}
+/*.eviCharts ul.pieLegend,*/
+/*.eviCharts ul.pieLegendYear{*/
+/*height: 120%;*/
+/*top: 20%;*/
+/*}*/
+ul.pieLegend>li,
+ul.pieLegendYear>li{
+	display: inline-block;
+	width: 78px;
+	height: 38px;
+	margin-right: 15px;
+	margin-bottom: 14px;
+}
+ul.pieLegend>li>i,
+ul.pieLegendYear>li>i{
+	display: inline-block;
+	width: 20px;
+	height: 16px;
+	margin-right: 6px;
+	background-color: red;
+}
+.chartCont ul>li:nth-child(1)>i{
+	background-color: #2f8aff;
+}
+.chartCont ul>li:nth-child(2)>i{
+	background-color: #2282cf;
+}
+.chartCont ul>li:nth-child(3)>i{
+	background-color: #8cceff;
+}
+.chartCont ul>li:nth-child(4)>i{
+	background-color: #31859b;
+}
+.chartCont ul>li:nth-child(5)>i{
+	background-color: #7fadf8;
+}
+.chartCont ul>li:nth-child(6)>i{
+	background-color: #20aec4;
+}
+.chartCont ul>li:nth-child(7)>i{
+	background-color: #51bbed;
+}
+.chartCont ul>li:nth-child(8)>i{
+	background-color: #f9b552;
+}
+.chartCont ul>li:nth-child(9)>i{
+	background-color: #ffde5d;
+}
+.chartCont ul>li:nth-child(10)>i{
+	background-color: #c4e7d1;
+}
+.chartCont ul>li:nth-child(11)>i{
+	background-color: #6cb1ba;
+}
+.chartCont ul>li:nth-child(12)>i{
+	background-color: #0b445b;
+}
+#staCaseBar {
+	width: 1200px;
+	height: 400px;
+	margin: 0 auto;
+}
+#staEviBar {
+	width: 1200px;
+	height: 400px;
+	margin: 0 auto;
+}
+.chartCont{
+	overflow: hidden;
+}
+/*统计报表开始结束*/
+
+/*用户管理*/
+.sideBar .userManTab{
+	background: url("../img/userManW.png") no-repeat;
+}
+.userPage{
+	background: url('../img/userManB.png') no-repeat;
+	margin-bottom: 4%;
+}
+.resetPwd{
+	color:#FF6817;
+}
+.isPassed{
+	color:#22C590;
+}
+.noPassed{
+	color:#999999;
+}
+.userCheck{
+	/*margin-left: 15px;*/
+	width: 65px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #00A0E8;
+	color: #fff;
+	text-align: center;
+	/*display: inline-block;*/
+}
+.twoBtn .userManDel{
+	padding-left: 0;
+	margin-left: 0;
+	background-color: #FD3B15;
+	width: 65px;
+}
+.newPwd{
+	width: 65%;
+}
+.resetPwdBtn{
+	color: #fff;
+	background-color: #FC3C15;
+	margin-top: 3%;
+	border-radius: 4px;
+	width: 65%;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+}
+.hintCont .redStar{
+	position: absolute;
+	left: 50%;
+	top: -32%;
+	transform:translate(-50%,0);
+}
+.resetMask .hintCont{
+	position: relative;
+}
+
+/*用户管理结束*/
+
+/*新用户管理*/
+.centerCont{
+	width: 90%;
+	margin: 0 auto;
+}
+.keywordSearch{
+	margin: 1% 0;
+	position: relative;
+}
+.tableBtn{
+	position: relative;
+	z-index: 1;
+}
+.keywordSearch input{
+	border-radius:0;
+}
+.keywordSearch .seaBtn{
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+	background: url(../img/search.png) no-repeat center;
+	border: 1px solid #ccc;
+	position: absolute;
+	top: 0;
+	left: 280px;
+}
+.tableBtn .addUser{
+	margin: 15% 0;
+}
+.commonBlueBtn{
+	color: #fff;
+	background-color: #00A0E8;
+	border-radius: 1px;
+	width: 75px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+}
+.commonGreyBtn{
+	color: #fff;
+	background-color: #959595;
+	border-radius: 1px;
+	width: 75px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+}
+.modify{
+	color: #F79D5F;
+	text-decoration: underline;
+}
+.delete{
+	color: #FD3E14;
+	text-decoration: underline;
+}
+.userAddMod{
+	position: absolute;
+	width: 30%;
+	height: 55%;
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 1);
+	background-color: #fff;
+	left: 25%;
+	top: 20%;
+	border-radius: 3px;
+	display: none;
+}
+.modHead{
+	padding-left: 20px;
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #ccc;
+}
+.userAddMod i,
+.hintMod i{
+	width: 36px;
+	height: 30px;
+	display: inline-block;
+	background: url("../img/closeW.png");
+	/*float: right;*/
+	position: absolute;
+	right: 0;
+	top: 0;
+	cursor:pointer;
+}
+.hintMod i:hover,
+.userAddMod i:hover{
+	background: url("../img/closeR.png");
+}
+.pwdModHint{
+	position: absolute;
+	top: 17%;
+	font-size: 16px;
+	font-weight: 400;
+	color:red;
+	left: 28%;
+}
+.modCont{
+	padding: 50px 0;
+	text-align: center;
+}
+.modBtn{
+	text-align: center;
+}
+.modBtn .save{
+	margin-right: 30px;
+	width: 65px;
+}
+.modBtn .back{
+	width: 65px;
+}
+/*用户管理结束*/
+
+/*数据配置*/
+.dataAssignCont{
+	background-color: #fff;
+	height: 82%;
+}
+.dataAssignPage{
+	background: url(../img/examMan.png) no-repeat 0;
+	padding: 15px 30px;
+	margin: 0;
+}
+.examTypeTab{
+	margin-bottom: 18px;
+}
+.examTypeTab>button{
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border: 1px solid #ccc;
+	border-radius:5px;
+	margin-right: 30px;
+	background-color: #fff;
+}
+.examTypeTab>button.act{
+	background-color: #4EA1EF;
+	color:#fff;
+}
+.assignCenter{
+	width: 95%;
+	margin: 0 auto;
+}
+.hintMod{
+	/*display: none;*/
+}
+#operateState,#endTime{
+	/*margin-right: 120px;*/
+}
+/*.uploadOp .downloadOp{*/
+	/*display: none;*/
+/*}*/
+.assignQuery select{
+	width: 155px;
+}
+@media screen and (max-width: 1800px){
+	.assignQuery select{
+		width: 130px;
+	}
+	#examObject{
+		width: 140px;
+	}
+}
+@media screen and (max-width: 1603px){
+	.assignQuery select{
+		width: 100px;
+	}
+	#startTime, #endTime{
+		width: 100px;
+	}
+	.querytext{
+		width: 160px;
+	}
+}
+	#startTime,#endTime{
+	width: 120px;
+	background: url(../img/calender.png) no-repeat 90%;
+}
+.assignQuery button{
+	margin-top: -10px;
+}
+.dataAssignTab{
+	/*margin-top: 25px;*/
+}
+.hintMod{
+	position: absolute;
+	width: 20%;
+	height: 25%;
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 1);
+	background-color: #fff;
+	left: 40%;
+	top: 22%;
+	border-radius: 3px;
+	/*display: none;*/
+}
+.hintModHead{
+	background: url(../img/successHint.png) no-repeat 10px;
+	padding-left: 30px;
+}
+.hintModHeadFail{
+	background: url(../img/failHint.png) no-repeat 10px;
+	/*padding-left: 30px;*/
+}
+/*数据配置结束*/
+
+.welcome{
+	display: inline-block;
+	margin-right: 25px;
+	float: left;
+}
+/*考试监考页面*/
+.invigilateCont{
+	width: 66%;
+	margin-right: 17%;
+	margin-bottom: 50px;
+	/*height: 110%;*/
+	padding-bottom: 100px;
+	margin-top: 100px;
+}
+.inviPlanUid{
+	display: none;
+}
+.reexamPwd .inviKeyword{
+	margin-bottom: 0;
+	width: 300px;
+	height: 23px;
+	/*background: url("../img/keywordSearch.png") no-repeat 95%;*/
+}
+.invigCenter{
+	width: 90%;
+	margin: 0 auto;
+	position: relative;
+}
+.examPlan{
+	margin: 20px 0;
+}
+.manNumber>div{
+	display: inline-block;
+	margin: 12px 60px;
+	cursor: pointer;
+	width: 157px;
+	height: 61px;
+	position: relative;
+}
+#invigilateStatisticsDiv span{
+	font: 700 italic 27px "微软雅黑";
+	color: #459CFD;
+	position: absolute;
+	top: 22px;
+	left: 95px;
+}
+.allNum{
+	background: url(../img/allNumBg.png) no-repeat center/cover;
+}
+.noExamNum{
+	background: url(../img/noExamBg.png) no-repeat center/cover;
+}
+.examingNum{
+	background: url(../img/examingBg.png) no-repeat center/cover;
+}
+.examedNum{
+	background: url(../img/examedBg.png) no-repeat center/cover;
+}
+.absentNum{
+	background: url(../img/absentBg.png) no-repeat center/cover;
+}
+.disMan{
+	background: url(../img/disciplineBg.png) no-repeat center/cover;
+}
+#invigilateStatisticsDiv .noExamNum span,
+#invigilateStatisticsDiv .absentNum span{
+	color: #ED6102;
+}
+.breadcrumbs{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	background-color: #FFF7D3;
+	border: 1px solid #FFDB47;
+}
+.reexamPwd{
+	margin-bottom: 10px;
+	position: relative;
+}
+.inviSearchBtn{
+	display: inline-block;
+	width: 21px;
+	height: 21px;
+	position: absolute;
+	top: 6px;
+	left: 310px;
+	background: url("../img/keywordSearch.png") no-repeat;
+	cursor: pointer;
+}
+
+.reexamPwd button{
+	border-radius:3px;
+}
+.someone{
+	box-sizing: border-box;
+	position: relative;
+	width: 50%;
+	border: 1px solid #CCCCCC;
+	height: 320px;
+	display: inline-block;
+}
+.fixHeader{
+	position: fixed;
+	z-index: 1;
+}
+.state{
+	vertical-align: middle;
+	display: inline-block;
+	width: 29px;
+	height: 29px;
+}
+.absentIcon{
+	background: url("../img/absentIcon.png") no-repeat center/cover;
+}
+.noExamIcon{
+	background: url("../img/noExamIcon.png") no-repeat center/cover;
+}
+.discIcon{
+	background: url("../img/discIcon.png") no-repeat center/cover;
+}
+.examedIcon{
+	background: url("../img/examedIcon.png") no-repeat center/cover;
+}
+.examingIcon{
+	background: url("../img/examingIcon.png") no-repeat center/cover;
+}
+.headPhoto{
+	margin: 20px 50px;
+	width: 128px;
+	height: 172px;
+	display: inline-block;
+}
+@media screen and (max-width: 1605px){
+	.headPhoto{
+		margin: 20px 25px;
+	}
+}
+.basicInfo{
+	margin-top: 20px;
+	/*margin-right: 50px;*/
+}
+.basicInfo>div{
+	margin-bottom: 10px;
+}
+.nameInfo{
+	color: #00A1E9;
+	font-size: 20px;
+}
+.nopassGrade{
+	color: #fb3434;
+}
+.markBtn{
+	margin-left: 250px;
+}
+.invigilateMarkBtn{
+	position: absolute;
+	left: 228px;
+	bottom: 50px;
+	margin-left: 0;
+}
+@media screen and (max-width:1605px){
+	.invigilateMarkBtn{
+		left: 180px;
+	}
+}
+.fixed-table-body{
+	position: relative;
+}
+.fixed-table-loading{
+	position: absolute;
+	top: 45px;
+	left: 35%;
+}
+.backToTop{
+	display: inline-block;
+	height: 57px;
+	height: 67px;
+	position: fixed;
+	bottom: 50px;
+	right: 13%;
+	background: url("../img/backToTop.png") no-repeat;
+	cursor:pointer;
+	display: none;
+}
+.disciplineReason{
+	position: absolute;
+	bottom: 17px;
+	left: 229px;
+}
+.markBtn>button{
+	width: 120px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-radius:3px;
+	font-size: 18px;
+}
+.invigilateMarkBtn>button{
+	width: 75px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+}
+.markAbsent{
+	color: #FBAE14;
+	background-color: #fff;
+	border: 1px solid #FBAE14;
+}
+.markDiscipline{
+	color: #EB6100;
+	background-color: #fff;
+	border: 1px solid #EB6100;
+}
+.cancelAbsent{
+	color: #fff;
+	background-color: #FBAE14;
+	border: 1px solid #FBAE14;
+}
+.cancelDiscipline{
+	color: #fff ;
+	background-color: #EB6100;
+	border: 1px solid #EB6100;
+}
+.reexamPwdMod{
+	display: none;
+	width: 22%;
+	height: 230px;
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 1);
+	position: absolute;
+	top: 117px;
+	left: 39%;
+	z-index: 1;
+	background-color: #fff;
+	border-radius: 5px;
+}
+.reexamInput{
+	width: 300px;
+}
+.pwdMod{
+	display: none;
+}
+.pwdModHead{
+	border-bottom: 1px solid #DDDDDD;
+	height: 30px;
+	line-height: 30px;
+	padding-left: 30px;
+}
+.pwdModHead i{
+	width: 19px;
+	height: 19px;
+	background: url(../img/hint.png) no-repeat;
+	display: inline-block;
+	margin-right: 5px;
+	float: left;
+	margin-top: 5px;
+}
+.closeButton{
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: inline-block;
+	width: 36px;
+	height: 30px;
+	background: url(../img/closeW.png) no-repeat;
+	cursor: pointer;
+}
+.closeButton:hover{
+	background: url(../img/closeR.png) no-repeat;
+}
+.reexamPwdMod .modCont{
+	font: 700 25px "微软雅黑";
+	padding: 35px 0;
+}
+.confirm{
+	width: 200px;
+}
+/*考试监考页面结束*/
+
+/*信息确认开始*/
+.infoConfCont{
+	width: 66%;
+	margin-right: 17%;
+	background-color: #fff;
+	position: relative;
+	padding-bottom: 100px;
+	min-height:68%;
+	margin-top: 100px;
+}
+.infoContCenter{
+	width: 90%;
+	margin-top: 1.5%;
+	margin-left: 5%;
+	position: relative;
+}
+.moduleHead{
+	border-left: 4px solid #00A0EA;
+	padding-left: 12px;
+	height: 20px;
+	line-height: 20px;
+}
+.personInfo .someone{
+	border:none;
+	width: 100%;
+	height:230px;
+}
+.personInfo .someone .nameInfo{
+	color: #000;
+}
+.personInfo .markBtn{
+	margin-left: 226px;
+}
+.personHint{
+	margin-left: 33px;
+	width: 300px;
+	height: 25px;
+	line-height: 25px;
+	border: 1px solid #FFDB47;
+	background-color: #FFF6D3;
+	text-align: center;
+	display: inline-block;
+	position: relative;
+}
+.alertIcon{
+	background: url(../img/alertIcon.png) no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-right: 10px;
+	display: inline-block;
+	position: absolute;
+	left: 30px;
+	top: 4px;
+}
+.outSystem{
+	border-radius: 3px;
+	position: absolute;
+	right: 0;
+	background-color: #fd850f;
+}
+.personInfo .headPhoto{
+	margin: 10px 50px;
+}
+.personInfo .basicInfo{
+	margin-top: 8px;
+}
+.scoreCase{
+	margin: 10px 17px;
+	border: 1px solid #ccc;
+	padding-left: 20px;
+	width: 90%;
+	height: 60px;
+	font: 700 35px/60px "微软雅黑";
+}
+.passedScoreNum{
+	color: #4BCB1E;
+}
+.noPassedScoreNum{
+	color:red;
+}
+.historyInfo{
+	margin-top: 30px;
+}
+.examInfo{
+	/*border: 1px solid #ccc;*/
+	width: 432px;
+	margin: 10px 0 0;
+	height: 380px;
+	display: inline-block;
+	float: left;
+	padding: 50px 0 0 35px;
+	position: relative;
+	background:url(../img/historyBg.png) no-repeat;
+}
+.hisCont{
+	margin-top: 80px;
+}
+.hisHead{
+	color: #00a0e9;
+	font-size:22px;
+}
+.hisCont>div{
+	margin: 20px 0;
+}
+.nopassImg{
+	width: 72px;
+	height: 71px;
+	background: url(../img/fail.png) no-repeat;
+	position: absolute;
+	right: 35px;
+	top: 20px;
+}
+.passImg{
+	width: 72px;
+	height: 71px;
+	position: absolute;
+	right: 140px;
+	top: 30px;
+	/*background: url(../img/success.png) no-repeat;*/
+}
+.passGrade{
+	color: #4acb1e;
+}
+/*信息确认开始结束*/
+
+/*考试答题开始*/
+.headerBlank{
+	height: 20px;
+	width: 100%;
+	background-color: #DBDBDB;
+	position: fixed;
+	top: 80px;
+	z-index: 1;
+}
+.examHeader{
+	height: 80px;
+	z-index: 1;
+	position: fixed;
+}
+.answerQuestion{
+	margin-top: 80px;
+}
+.answerCont{
+	margin-top: 100px;
+	width: 62%;
+	margin-right: 18%;
+	background-color: #fff;
+	position: relative;
+}
+.fixInfo{
+	position: fixed;
+	right: 20px;
+	top: 100px;
+	width: 15%;
+}
+.fixInfo img{
+	display: inline-block;
+	width: 128px;
+	height: 172px;
+}
+.fixInfo .nameInfo{
+	font-size:14px;
+	color:#333;
+}
+.fixInfo .basicInfo{
+	margin-right: 10px;
+}
+input[type="radio"], input[type="checkbox"]{
+	margin: 0;
+}
+.answerHead{
+	position: fixed;
+	background-color: #fff;
+	width: 59.5%;
+	z-index: 1;
+	margin-left: 2%;
+	height: 60px;
+	font: 16px/60px "微软雅黑";
+	border-bottom: 1px solid #ccc;
+}
+.restTime{
+	font-size:26px;
+	color: red;
+	font-weight:700;
+}
+.answerSheet{
+	width: 15%;
+	height: 780px;
+	border: 1px solid #ccc;
+	position: fixed;
+	top: 180px;
+}
+.sheetHead{
+	margin-left: 10px;
+	height: 20px;
+	line-height: 20px;
+	border-left: 4px solid #00A0EA;
+	padding-left: 15px;
+}
+.answerLegend{
+	margin: 6px 10px;
+}
+.answerLegend li{
+	display: inline-block;
+	margin-right: 15px;
+}
+.answerLegend span,.quesTag{
+	vertical-align: middle;
+	width: 18px;
+	height: 18px;
+	display: inline-block;
+	border: 1px solid #BBBBBB;
+}
+.markLegend{
+	background-color: red;
+}
+.answeredLegend{
+	background-color: #00A0EA;
+}
+.quesTag{
+	width: 25px;
+	height: 25px;
+	cursor:pointer;
+	margin: 2px 12px;
+	line-height: 25px;
+	text-align: center;
+	font-size:12px;
+}
+@media screen and (max-width: 1600px){
+	.quesTag{
+		margin: 1px 7px;
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
+	}
+}
+.questionNum{
+	margin: 0 5%;
+	/*margin-left: 46px;*/
+	/*margin-right: 25px;*/
+}
+.subTest{
+	text-align: center;
+	margin-top: 10px;
+}
+.subPage{
+	width: 180px;
+	border-radius:3px;
+	background-color: #EB6100;
+	height: 35px;
+	line-height: 35px;
+}
+.quesHint{
+	margin-left: 24.4%;
+	margin-top: 18px;
+}
+.quesHint .personHint{
+	margin-left: 0;
+	width: 98%;
+	text-align: left;
+	box-sizing: border-box;
+	padding-left: 66px;
+	color: #666668;
+	font-size:12px;
+}
+.singleQuestion{
+	margin: 0px 10px;
+	border-bottom: 1px solid #ccc;
+	padding: 15px 0;
+}
+.flagW{
+	display: inline-block;
+	cursor: pointer;
+	width: 13px;
+	height: 16px;
+	background: url(../img/flagW.png) no-repeat;
+}
+.flagR{
+	display: inline-block;
+	cursor: pointer;
+	width: 13px;
+	height: 16px;
+	background: url(../img/flagR.png) no-repeat;
+}
+.allQuestion{
+	margin-left: 24.4%;
+}
+/*.allQuestion img{*/
+	/*height: 14px;*/
+/*}*/
+.quesAsk{
+	margin-bottom: 15px;
+}
+.allOption{
+	margin-left: 40px;
+}
+.singleQuestion label{
+	display: inline-block;
+	width: 95%;
+}
+.singleQuestion label:hover{
+	background-color: #ccc;
+}
+.allOption input{
+	width: 19px;
+	height: 19px;
+	background-color: #fff;
+}
+.singleSelect{
+	color: #017842;
+}
+.judge{
+	color: #039FEC;
+}
+.multSel{
+	color: #FBA200;
+}
+.questionNum .answered{
+	color: #fff;
+	background-color: #00A0EA;
+}
+.questionNum .marked{
+	color: #fff;
+	background-color: red;
+}
+/*考试答题结束*/
+
+/*本地数据配置*/
+.upLoadSuccessTxt{
+	color: #2eb068;
+}
+.naike{
+	display: inline-block;
+	width: 17px;
+	height: 17px;
+	background: url("../img/successHint.png") no-repeat;
+}
+.edit{
+	cursor:pointer;
+	color: #F68827;
+	text-decoration: underline;
+}
+button[disabled]{
+	background-color: grey;
+	border:none;
+}
+.beginExam{
+	background-color: #2EB068;
+}
+.changePwd{
+	color: #F68827;
+	background-color: #fff;
+	text-decoration: underline;
+}
+.endExam{
+	background-color: #eb5300;
+}
+.reexamPwdBtn,.resetTrainPlan{
+	margin-right: 23px;
+}
+.beginInvigilate{
+	background-color: #80c269;
+}
+/*.beginInvigilate,.changePwd{*/
+	/*margin-bottom: 5px;*/
+/*}*/
+.localdataAssignCont{
+	/*background-color: #fff;*/
+	 /*height: 80%;*/
+	/*margin-bottom: 30px;*/
+}
+.modifyPasswordMod{
+	right: 40%;
+	display: block;
+}
+.hintInfo{
+	color:red;
+	position: absolute;
+	top: 25%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+#asTab{
+	border:1px solid #ccc;
+}
+.hide{
+	display: none;
+}
+/*本地数据配置结束*/
+
+/*系统升级页面*/
+.sysUpPage{
+	background: url("../img/sysUpB.png") no-repeat left;
+}
+.systemUpdateCont{
+	color: #333;
+}
+.currentVersion{
+	font-size: 18px;
+}
+.curVerNum{
+	color: #3d94ec;
+}
+.systemUpdateCont img{
+	margin-bottom: 15px;
+}
+.newestVersionInfo>li{
+	font-size: 14px;
+	display: inline-block;
+	padding: 0 15px;
+	position: relative;
+	vertical-align: top;
+}
+.newestVersionInfo i{
+	width: 1px;
+	height: 10px;
+	background-color: #ccc;
+	position: absolute;
+	right: 0;
+	top: 3px;
+}
+.newestVersionInfo span{
+	color: #666;
+	display: block;
+	margin-top: 10px;
+}
+.newestVersionInfo span li{
+	margin-bottom: 10px;
+}
+/*系统升级页面结束*/
+
+/* 错误页面 */
+.errorCont{
+	margin-top: 4%;
+	text-align: center;
+}
+.errorHead{
+	margin-top: 40px;
+	font-size: 32px;
+	color: #333;
+	font-weight: 700;
+}
+.errorTxt{
+	margin-top: 20px;
+	font-size: 20px;
+	color: #333;
+}
+.errorBtn{
+	margin-top: 40px;
+}
+.errorBtn button{
+	border: none;
+	width: 90px;
+	height: 32px;
+	line-height: 32px;
+	border-radius: 3px;
+	font-size: 14px;
+	background-color: #489ff7;
+}
+.backToBefore{
+	margin-right: 50px;
+}
+.errorBody{
+	background-color: #fff;
+}
+/* 错误页面结束 */
+
+/*1280兼容*/
+@media screen and (max-width: 1370px){
+	#invigilateStatisticsDiv span{
+		font-size: 22px;
+		top: 15px;
+		left: 86px;
+	}
+	.manNumber>div{
+		margin: 4px 38px;
+		width: 140px;
+		height: 45px;
+	}
+	.examPlan{
+		margin: 5px 0;
+	}
+	th[data-field="trainPlanUid"]{
+		width: 28px;
+	}
+	th[data-field="assessmentName"],
+	th[data-field="examLimit"]{
+		width: 49px;
+	}
+	th[data-field="examBeginDate"],
+	th[data-field="examEndDate"]{
+		width: 73px;
+	}
+	.table th, .table td{
+		padding: 3px;
+	}
+	.assignQuery select{
+		width: 83px;
+	}
+	#examObject{
+		width: 110px;
+	}
+	#startTime, #endTime{
+		width: 83px;
+		height: 16px;
+		line-height: 16px;
+	}
+	.querytext{
+		width: 104px;
+	}
+	.examTypeTab>button{
+		width: 75px;
+		height: 25px;
+		line-height: 25px;
+	}
+	.examTypeTab{
+		margin-bottom: 10px;
+	}
+	.dataAssignPage{
+		padding: 10px 30px;
+	}
+	.commonBlueBtn{
+		width: 65px;
+		height: 20px;
+		line-height: 20px;
+	}
+	body{
+		min-width: 1257px;
+		font-size: 12px;
+		min-height: 580px;
+	}
+	.updateCont{
+		padding-top: 0;
+	}
+	.dataMainCont{
+		padding-top: 2%;
+	}
+	.breadcrumbs{
+		height: 20px;
+		line-height: 20px;
+	}
+	.reexamPwd .inviKeyword{
+		width: 240px;
+		height: 15px;
+	}
+	.inviSearchBtn{
+		width: 18px;
+		height: 18px;
+		top: 3px;
+		left: 262px;
+		background: url("../img/keywordSearch.png") no-repeat center/cover;
+	}
+	.headPhoto{
+		margin: 15px;
+		width: 110px;
+		height: 140px;
+	}
+	.basicInfo{
+		margin-top: 15px;
+	}
+	.basicInfo>div{
+		margin-bottom: 6px;
+	}
+	.invigilateMarkBtn>button{
+		width: 65px;
+		height: 20px;
+		line-height: 20px;
+		font-size: 12px;
+	}
+	.invigilateMarkBtn{
+		left: 140px;
+		bottom: 56px;
+	}
+	.someone{
+		height: 280px;
+	}
+	.disciplineReason{
+		bottom: 20px;
+		left: 140px;
+	}
+	.header a{
+		font-size: 15px;
+	}
+	.hintMod, .confMod, .checkMod, .renewMod{
+		width: 300px;
+		height: 210px;
+	}
+	.reexamPwdMod{
+		width: 300px;
+		height: 210px;
+		left: 40%;
+	}
+	.state{
+		width: 20px;
+		height: 20px;
+	}
+	input[type="text"]{
+		font-size: 12px;
+	}
+	.ruleHead{
+		padding: 3px 7.5%;
+	}
+	.textImg img{
+		margin: 1% 0;
+	}
+	.confirmBtn input{
+		width: 35%;
+		height: 30px;
+		line-height: 30px;
+		font-size: 16px;
+	}
+	.infoConfCont{
+		margin-top: 70px;
+	}
+	.nameInfo{
+		font-size: 18px;
+	}
+	.markBtn>button{
+		width: 75px;
+		height: 25px;
+		line-height: 25px;
+		font-size: 12px;
+	}
+	.scoreCase{
+		margin: 5px 17px;
+		height: 50px;
+		line-height: 50px;
+		font-size: 25px;
+	}
+	.disciplineInfo{
+		color: red;
+		font-size: 25px;
+	}
+	.personInfo .someone{
+		height: 210px;
+	}
+	.examInfo{
+		width: 308px;
+		margin: 0 10px 0;
+		height: 282px;
+		background: url(../img/historyBg.png) no-repeat center/cover;
+	}
+	.passImg{
+		width: 46px;
+		height: 44px;
+		right: 48px;
+	}
+	.hisCont{
+		margin-top: 42px;
+	}
+	.headerBlank{
+		top: 60px;
+	}
+	.answerCont{
+		margin-top: 80px;
+	}
+	.answerHead{
+		height: 40px;
+		font: 14px/40px "微软雅黑";
+	}
+	.restTime{
+		font-size: 24px;
+	}
+	.answerQuestion{
+		margin-top: 50px;
+	}
+	.answerSheet{
+		top: 130px;
+	}
+	.answerLegend li{
+		margin-right: 5px;
+	}
+	.quesTag{
+		margin: 1px 4px;
+		width: 18px;
+		height: 18px;
+		line-height: 18px;
+	}
+	.answerLegend{
+		margin: 3px 10px;
+	}
+	.alertIcon{
+		left: 10px;
+	}
+	.quesHint .personHint{
+		padding-left: 40px;
+	}
+	.singleQuestion{
+		padding: 5px 0;
+	}
+	.quesAsk{
+		margin-bottom: 0;
+	}
+	.allOption input{
+		width: 15px;
+	}
+	label{
+		height: 19px;
+		line-height: 19px;
+		margin-bottom: 3px;
+	}
+	.fixInfo{
+		top: 80px;
+	}
+	.fixInfo img{
+		width: 100px;
+		height: 135px;
+	}
+	.keywordSearch{
+		margin-top: 3px;
+	}
+	.keywordSearch .seaBtn{
+		left: 270px;
+	}
+	.commonGreyBtn{
+		height: 20px;
+		line-height: 20px;
+	}
+	.reexamPwdMod .modCont{
+		font-size: 18px;
+	}
+	.backToTop{
+		right: 11%;
+	}
+	/*.testLogo{*/
+		/*margin-top: 10px;*/
+		/*height: 40px;*/
+	/*}*/
+	.bannerLogo{
+		height: 40px;
+		width: 228px;
+	}
+	.header{
+		height: 60px;
+		margin-bottom: 10px;
+	}
+	.sideBar{
+		height: 78%;
+		min-width: 130px;
+		top: 70px;
+	}
+	.sideBar a{
+		font-size: 12px;
+	}
+	.sideBar a:hover,
+	.sideBar a.current{
+		font-size: 13px;
+	}
+	.container{
+		min-height: 78%;
+		width: 88.6%;
+		margin-top: 70px;
+	}
+
+	.invigilateCont{
+		margin-right: 7%;
+		margin-top: 70px;
+		width: 78%;
+	}
+	.curPage{
+		font-size: 16px;
+	}
+	label,body input, button, select, textarea{
+		font-size: 12px;
+		height: 25px;
+		line-height: 25px;
+	}
+}
+/*1280兼容结束*/

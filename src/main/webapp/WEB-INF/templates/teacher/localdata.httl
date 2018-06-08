@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<!--#set(path = request.contextPath)-->
+		<!--#set(Teacher teacher = session.getAttribute("currentUser"))-->
+		<title>安全生产移动考试系统</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="${path}/res/css/base.css">
+		<link rel="stylesheet" href="${path}/res/css/bootstrap.min.css" media="screen">
+		<link rel="stylesheet" href="${path}/res/css/bootstrap-datetimepicker.css">
+		<!--<link rel="stylesheet" href="${path}/res/css/bootstrap-table.css">-->
+		<link rel="stylesheet" href="${path}/res/css/bootstrap-responsive.min.css">
+		<link rel="icon" href="${path}/res/img/logo.png">
+		<link rel="stylesheet" href="${path}/res/css/style.css">
+	</head>
+
+	<body>
+		<!-- 顶部 -->
+		<div class="header">
+			<span class="bannerLogo"></span>
+			<!--<img class="testLogo localdataLogo" src="${path}/res/img/testLogo.png" alt=""/>-->
+			<div class="headerTXT localdataHeaderTXT">
+				<div class="newTime">
+					<div class="timeTXT"></div>&emsp;&emsp;
+					<a href="#"><i></i>&nbsp;注销</a>
+					<div class="welcome">你好,${teacher.username}</div>
+				</div>
+			</div>
+		</div>
+		<!-- 侧边栏 -->
+		<div class="sideBar fl">
+			<ul>
+				<li><a href="${path}/main.html"><i class="dataMainIcon"></i>数据维护</a></li>
+				<li><a href="#" class="current"><i class="examManIcon"></i>考试管理</a></li>
+				<li><a href="${path}/teacher/toSystemUpdatePage.html"><i class="sysUpIcon"></i>系统升级</a></li>
+			</ul>
+		</div>
+
+		<!--中间内容-->
+		<div class="localdataAssignCont container fr">
+			<!--版心-->
+			<div class="assignCenter">
+				<div class="curPage dataAssignPage">考试管理</div>
+				<div class="examTypeTab">
+					<button class="noExamBtn act">未完成考试</button>
+					<button class="examedBtn">已完成考试</button>
+					<button class="downloadExamBtn">待下载考试</button>
+				</div>
+				<form class="assignQuery">
+					操作状态:&ensp;
+					<select name="" id="operateState">
+						<option value="">所有状态</option>
+						<option value="0" class="startExamOp">开始考试</option>
+						<option value="1" class="startExamOp">开始监考</option>
+						<!--<option value="0"  class="downloadOp" disabled>未下载</option>-->
+						<!--<option value="1"  class="downloadOp" disabled>已下载</option>-->
+					</select>&emsp;
+					考核对象:&ensp;
+					<select name="" id="examObject">
+						<option value="">所有对象</option>
+						<option value="sw">特种作业人员</option>
+						<option value="charge">主要负责人</option>
+						<option value="manager">安全生产管理人员</option>
+					</select>&emsp;
+					考试性质:&ensp;
+					<select name="" id="examNature">
+						<option value="">所有性质</option>
+						<option value="drawing">初领</option>
+						<option value="review">复审</option>
+						<option value="renewal">换证</option>
+					</select>&emsp;
+					时间范围:&ensp;<input type="text" id="startTime" placeholder="开始" style="ime-mode:disabled" /> - <input type="text" id="endTime" placeholder="结束" style="ime-mode:disabled" />&emsp;
+					关键词搜索:&ensp;
+					<input type="text" class="querytext" placeholder="计划名称/培训机构" />&emsp;
+					<button class="commonBlueBtn seaBtn" type="button">查询</button>
+					<button class="resetBtn" type="reset" hidden></button>
+				</form>
+				<!-- 表格 -->
+				<div class="dataAssignTab">
+					<table id="asTab" class="table table-hover"></table>
+				</div>
+
+
+			</div>
+
+		</div>
+		<!--修改密码弹框-->
+		<div class="pwdMask">
+			<div class="reexamPwdMod modifyPasswordMod">
+				<span class="hintInfo"></span>
+				<div class="pwdModHead"><i></i>修改密码</div>
+				<i class="closeButton"></i>
+				<div class="modCont">
+					<input type="text" placeholder="请输入6位数字密码" maxlength="6" style="IME-MODE: disabled;" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+				</div>
+				<div class="modBtn">
+					<button class="confirm commonBlueBtn">确定</button>
+				</div>
+			</div>
+		</div>
+
+		<!--通用确认弹出框-->
+		<div class="confMask">
+			<div class="confMod">
+				<div class="confTop clearfix">
+					<div class="leftConf fl"><i></i>确认提示</div>
+					<button class="confCloseBtn fr"></button>
+				</div>
+				<div class="confCont"></div>
+				<div class="confTwoBtn">
+					<button class="confBtn">确定</button>
+					<button class="cancelBtn">取消</button>
+				</div>
+			</div>
+		</div>
+		<!--成功提示模态框-->
+		<div class="mask">
+			<div class="loadingMod" hidden>
+				<div class="loadingTxt">正在<span class="loadingTxtChange"></span>中,请稍后...</div>
+				<img src="${path}/res/img/loading2.gif" class="loading"/>
+			</div>
+			<div class="hintMod">
+				<div class="modHead hintModHead">成功提示</div><i></i>
+				<div class="modCont">
+					你选择的考试计划已上传成功~
+				</div>
+			</div>
+		</div>
+		<script src="${path}/res/js/jquery.min.js"></script>
+		<script src="${path}/res/js/bootstrap.min.js"></script>
+		<script src="${path}/res/js/bootstrap-table.js"></script>
+		<script src="${path}/res/js/bootstrap-table-zh-CN.js"></script>
+		<script src="${path}/res/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="${path}/res/js/bootstrap-datetimepicker.zh-CN.js"></script>
+		<script src="${path}/res/js/common.js"></script>
+		<script type="text/javascript" src="${path}/res/js/localdata.js"></script>
+		<script>
+			//注销确认点击
+			$(document).on("click",".logoutMask .confBtn",function(){
+				window.location.href="${path}/logout.html";
+			})
+		</script>
+	</body>
+
+</html>

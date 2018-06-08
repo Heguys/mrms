@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.RsExamPlanMapper" >
+  <resultMap id="BaseResultMap" type="com.hxminco.mrms.comm.entry.RsExamPlan" >
+    <constructor >
+      <idArg column="uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="institution_uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="train_plan_uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="exam_begin_date" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="exam_end_date" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="allow_exam_times" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="paper_form" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="exam_limit" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uid, institution_uid, train_plan_uid, exam_begin_date, exam_end_date, allow_exam_times, 
+    paper_form,exam_limit
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from rs_exam_plan
+    where uid = #{uid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectTotalStudentCount" parameterType="java.lang.String" resultType="int">
+    select count(*)
+    from rs_student_info
+    where train_plan_uid=#{trainPlanUid}
+  </select>
+
+  <select id="selectOnTestStudentCount" parameterType="java.lang.String" resultType="int">
+    select count(*)
+    from rs_student_info
+    where train_plan_uid=#{trainPlanUid}
+    and is_exam_finished='2'
+  </select>
+
+  <select id="selectUntestedStudentCount" resultType="int" parameterType="java.lang.String">
+    select count(*) from
+    rs_student_info
+    where train_plan_uid=#{trainPlanUid} and is_exam_finished ='1'
+  </select>
+
+  <select id="selectTestedStudentCount" resultType="int" parameterType="java.lang.String">
+    select count(*) from
+    rs_student_info
+    where is_exam_finished='3' and train_plan_uid=#{trainPlanUid}
+  </select>
+
+  <select id="selectExamPlanByTrainPlanUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rs_exam_plan
+    where train_plan_uid = #{trainPlanUid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectExamPlanDataUnfinished" parameterType="map" resultType="com.hxminco.mrms.comm.model.ExamPlanData">
+    select
+    tp.uid trainPlanUid,
+    ri.name trainInstitutionName,
+    tp.name trainPlanName,
+    com1.name qualificationName,
+    com2.name assessmentName,
+    FROM_UNIXTIME(ep.exam_begin_date/1000,'%Y-%m-%d %H:%i:%s') examBeginDate,
+    FROM_UNIXTIME(ep.exam_end_date/1000,'%Y-%m-%d %H:%i:%s') examEndDate,
+    ep.exam_limit examLimit,
+    tp.status,
+    tp.update_time
+    from  rs_train_plan tp
+    inner join rs_exam_plan ep on tp.uid=ep.train_plan_uid
+    left join rs_institution ri on tp.institution_uid=ri.uid
+    left join  rs_common_option com1 on tp.qualification_id=com1.id
+    left join rs_common_option com2 on tp.assessment_nature_id=com2.id
+    where
+    tp.status in ('0','1')
+    <if test="startTime != null">
+      and
+      <![CDATA[exam_begin_date>=#{startTime}]]>
+    </if>
+    <if test="endTime != null" >
+      and
+      <![CDATA[exam_end_date<=#{endTime}]]>
+    </if>
+    <if test="querytext != null and querytext != ''.trim()" >
+      and (tp.name like concat('%', #{querytext}, '%')
+      or ri.name like concat('%', #{querytext}, '%'))
+    </if>
+    <if test="status != null and status != ''.trim()" >
+      and
+      tp.status =#{status}
+    </if>
+    <if test="assessmentNature != null and assessmentNature != ''.trim()" >
+      and
+      tp.assessment_nature_id=#{assessmentNature}
+    </if>
+    <if test="qualification != null and qualification != ''.trim()" >
+      and
+      tp.qualification_id=#{qualification}
+    </if>
+    ORDER by
+    tp.status,
+    tp.update_time desc
+    limit #{start},#{limit}
+  </select>
+  <select id="selectCountUnfinished" resultType="int" parameterType="map">
+    select
+    count(*)
+    from  rs_train_plan tp
+    inner join rs_exam_plan ep on tp.uid=ep.train_plan_uid
+    where
+    tp.status in ('0','1')
+    <if test="startTime != null">
+      and
+      <![CDATA[exam_begin_date>=#{startTime}]]>
+    </if>
+    <if test="endTime != null" >
+      and
+      <![CDATA[exam_end_date<=#{endTime}]]>
+    </if>
+    <if test="querytext != null and querytext != ''.trim()" >
+      and
+      tp.name like concat('%', #{querytext}, '%')
+    </if>
+    <if test="querytext != null and querytext != ''.trim()" >
+      or
+      ri.name like concat('%', #{querytext}, '%')
+    </if>
+    <if test="assessmentNature != null and assessmentNature != ''.trim()" >
+      and
+      tp.assessment_nature_id=#{assessmentNature}
+    </if>
+    <if test="qualification != null and qualification != ''.trim()" >
+      and
+      tp.qualification_id=#{qualification}
+    </if>
+  </select>
+
+  <select id="selectExamPlanDataFinished" parameterType="map" resultType="com.hxminco.mrms.comm.model.FinishedExamPlanData">
+    select
+    tp.uid trainPlanUid,
+    ri.name trainInstitutionName,
+    tp.name trainPlanName,
+    com1.name qualificationName,
+    com2.name assessmentName,
+    FROM_UNIXTIME(ep.exam_begin_date/1000,'%Y-%m-%d %H:%i:%s') examBeginDate,
+    FROM_UNIXTIME(ep.exam_end_date/1000,'%Y-%m-%d %H:%i:%s') examEndDate,
+    ep.exam_limit examLimit,
+    tp.status,
+    tp.update_time,
+    er.miss_exam_count missExamCount,
+    er.broken_rule_count brokenRuleCount,
+    er.invigilator
+    from  rs_train_plan tp
+    inner join rs_exam_plan ep on tp.uid=ep.train_plan_uid
+    left join rs_institution ri on tp.institution_uid=ri.uid
+    left join  rs_common_option com1 on tp.qualification_id=com1.id
+    left join rs_common_option com2 on tp.assessment_nature_id=com2.id
+    left join exam_record er on tp.uid=er.train_plan_uid
+    where
+    tp.status in('2','3')
+    <if test="status != null and status != ''.trim()" >
+      and
+      tp.status =#{status}
+    </if>
+    <if test="startTime != null">
+      and
+      <![CDATA[exam_begin_date>=#{startTime}]]>
+    </if>
+    <if test="endTime != null" >
+      and
+      <![CDATA[exam_end_date<=#{endTime}]]>
+    </if>
+    <if test="querytext != null and querytext != ''.trim()" >
+      and (tp.name like concat('%', #{querytext}, '%')
+      or ri.name like concat('%', #{querytext}, '%'))
+    </if>
+    <if test="assessmentNature != null and assessmentNature != ''.trim()" >
+      and
+      tp.assessment_nature_id=#{assessmentNature}
+    </if>
+    <if test="qualification != null and qualification != ''.trim()" >
+      and
+      tp.qualification_id=#{qualification}
+    </if>
+    ORDER by
+    tp.status,
+    tp.update_time
+    limit #{start},#{limit}
+  </select>
+  <select id="selectCountFinished" resultType="int" parameterType="map">
+    select
+    count(*)
+    from  rs_train_plan tp ,
+    rs_exam_plan ep
+    where
+    tp.uid=ep.train_plan_uid and
+    tp.status in('2','3')
+    <if test="status != null and status != ''.trim()" >
+      and
+      tp.status =#{status}
+    </if>
+    <if test="startTime != null">
+      and
+      <![CDATA[exam_begin_date>=#{startTime}]]>
+    </if>
+    <if test="endTime != null" >
+      and
+      <![CDATA[exam_end_date<=#{endTime}]]>
+    </if>
+    <if test="querytext != null and querytext != ''.trim()" >
+      and
+      tp.name like concat('%', #{querytext}, '%')
+      or
+      ri.name like concat('%', #{querytext}, '%')
+    </if>
+    <if test="assessmentNature != null and assessmentNature != ''.trim()" >
+      and
+      tp.assessment_nature_id=#{assessmentNature}
+    </if>
+    <if test="qualification != null and qualification != ''.trim()" >
+      and
+      tp.qualification_id=#{qualification}
+    </if>
+  </select>
+
+  <select id="selectExamPlanDataByTrainPlanUid" parameterType="java.lang.String" resultType="com.hxminco.mrms.comm.model.ExamPlanData">
+     select
+    tp.uid trainPlanUid,
+    ri.name trainInstitutionName,
+    tp.name trainPlanName,
+    tp.make_up_password makeUpPassword,
+    tp.status
+    from  rs_train_plan tp ,
+    rs_institution ri
+    where
+    tp.institution_uid=ri.uid and
+    tp.uid=#{trainPlanUid}
+  </select>
+
+
+  <insert id="insertExamPlanList" parameterType="map">
+    insert into rs_exam_plan (uid, institution_uid, train_plan_uid,
+      exam_begin_date, exam_end_date, allow_exam_times,
+      paper_form,exam_limit)
+    values
+    <foreach collection="examPlans" item="examPlan" separator=",">
+    (#{examPlan.uid,jdbcType=VARCHAR}, #{examPlan.institutionUid,jdbcType=VARCHAR}, #{examPlan.trainPlanUid,jdbcType=VARCHAR},
+      #{examPlan.examBeginDate,jdbcType=DECIMAL}, #{examPlan.examEndDate,jdbcType=DECIMAL}, #{examPlan.allowExamTimes,jdbcType=INTEGER},
+      #{examPlan.paperForm,jdbcType=VARCHAR},#{examPlan.examLimit,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+</mapper>

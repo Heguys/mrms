@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.MockUsersMapper" >
+  <resultMap id="BaseResultMap" type="com.hxminco.mrms.comm.entry.MockUsers" >
+    <constructor >
+      <arg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="login_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="salt" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="super_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="register_time" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="last_login_time" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="institution_uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="institution_administrator" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="locked" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="login_secret_uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mobile" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="find_password_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="find_password_code_expire_time" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="last_update_time" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="email_retrieve_url_hash" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="email_retrieve_url_hash_expire_time" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.hxminco.mrms.comm.entry.MockUsers" >
+    insert into mock_users (id, login_id, name, 
+      password, salt, super_user, 
+      register_time, last_login_time, institution_uid, 
+      institution_administrator, locked, login_secret_uid, 
+      email, mobile, find_password_code, 
+      find_password_code_expire_time, last_update_time, 
+      email_retrieve_url_hash, email_retrieve_url_hash_expire_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{loginId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{superUser,jdbcType=VARCHAR}, 
+      #{registerTime,jdbcType=BIGINT}, #{lastLoginTime,jdbcType=BIGINT}, #{institutionUid,jdbcType=VARCHAR}, 
+      #{institutionAdministrator,jdbcType=VARCHAR}, #{locked,jdbcType=VARCHAR}, #{loginSecretUid,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{findPasswordCode,jdbcType=VARCHAR}, 
+      #{findPasswordCodeExpireTime,jdbcType=BIGINT}, #{lastUpdateTime,jdbcType=BIGINT}, 
+      #{emailRetrieveUrlHash,jdbcType=VARCHAR}, #{emailRetrieveUrlHashExpireTime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxminco.mrms.comm.entry.MockUsers" >
+    insert into mock_users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="loginId != null" >
+        login_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="superUser != null" >
+        super_user,
+      </if>
+      <if test="registerTime != null" >
+        register_time,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="institutionUid != null" >
+        institution_uid,
+      </if>
+      <if test="institutionAdministrator != null" >
+        institution_administrator,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="loginSecretUid != null" >
+        login_secret_uid,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="findPasswordCode != null" >
+        find_password_code,
+      </if>
+      <if test="findPasswordCodeExpireTime != null" >
+        find_password_code_expire_time,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="emailRetrieveUrlHash != null" >
+        email_retrieve_url_hash,
+      </if>
+      <if test="emailRetrieveUrlHashExpireTime != null" >
+        email_retrieve_url_hash_expire_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="loginId != null" >
+        #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="superUser != null" >
+        #{superUser,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=BIGINT},
+      </if>
+      <if test="institutionUid != null" >
+        #{institutionUid,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionAdministrator != null" >
+        #{institutionAdministrator,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=VARCHAR},
+      </if>
+      <if test="loginSecretUid != null" >
+        #{loginSecretUid,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="findPasswordCode != null" >
+        #{findPasswordCode,jdbcType=VARCHAR},
+      </if>
+      <if test="findPasswordCodeExpireTime != null" >
+        #{findPasswordCodeExpireTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=BIGINT},
+      </if>
+      <if test="emailRetrieveUrlHash != null" >
+        #{emailRetrieveUrlHash,jdbcType=VARCHAR},
+      </if>
+      <if test="emailRetrieveUrlHashExpireTime != null" >
+        #{emailRetrieveUrlHashExpireTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="findUserByLoginId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select *
+    from mock_users
+    where login_id = #{loginId,jdbcType=VARCHAR}
+  </select>
+</mapper>

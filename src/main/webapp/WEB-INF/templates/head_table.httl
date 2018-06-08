@@ -1,0 +1,11 @@
+<!--#set(path = request.contextPath)-->
+<link rel="stylesheet" href="${path}/res/js/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${path}/res/js/bootstrap-table/bootstrap-table.min.css">
+<script src="${path}/res/js/jquery/jquery-1.11.3.min.js"></script>
+<script src="${path}/res/js/jquery/jquery.json.min.js"></script>
+<script src="${path}/res/js/bootstrap/js/bootstrap.min.js"></script>
+<script src="${path}/res/js/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="${path}/res/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="${path}/res/js/qb/popTipEWin.js"></script>
+
+

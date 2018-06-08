@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<!--#set(path = request.contextPath)-->
+		<!--#set(RsTrainPlan trainPlan)-->
+		<!--#set(RsStudentInfo student = session.getAttribute("currentUser"))-->
+		<title>甘肃省安全生产移动考试系统</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="${path}/res/css/base.css">
+		<link rel="stylesheet" href="${path}/res/css/bootstrap.min.css" media="screen">
+		<link rel="stylesheet" href="${path}/res/css/bootstrap-responsive.min.css">
+		<link rel="icon" href="${path}/res/img/logo.png">
+		<link rel="stylesheet" href="${path}/res/css/style.css">
+	</head>
+
+	<body>
+
+		<!-- 顶部 -->
+		<div class="header">
+			<img class="testLogo examLogo" src="${path}/res/img/testLogo.png" alt=""/>
+			<div class="headerTXT">
+				<div class="newTime">
+					<div class="timeTXT"></div>&emsp;&emsp;
+					<!--<a href="#"><i></i>&nbsp;注销</a>&emsp;&emsp;&emsp;&emsp;&emsp;-->
+				</div>
+			</div>
+		</div>
+		<!--留白-->
+		<div class="headerBlank"></div>
+
+		<!--内容-->
+		<div class="fr answerCont">
+			<div class="answerHead clearfix">
+				<div class="answer-head-l fl">					
+					考试名称 : <span class="examName">${trainPlan.name}</span>
+				</div>
+				<div class="answer-head-r fr">
+					剩余时间 : <span class="restTime"></span>
+				</div>
+			</div>
+			<div class="answerSheet">
+				<div class="sheetHead">答题卡</div>
+				<div class="answerLegend">
+					<ul>
+						<li><span class="markLegend"></span> 标注</li>
+						<li><span class="answeredLegend"></span> 已答</li>
+						<li><span class="noAnsLegend"></span> 未答</li>
+					</ul>
+				</div>
+				<div class="questionNum">
+					<ul></ul>
+				</div>
+				<div class="subTest">
+					<button class="commonBlueBtn subPage">提交试卷</button>
+				</div>
+			</div>
+			<div class="answerQuestion">
+				<div class="quesHint">
+					<span class="personHint"><i class="alertIcon"></i>题干左侧旗帜可点击用于标记不确定的答案,并可再次点击消除.</span>
+				</div>
+				<div class="allQuestion"></div>
+			</div>
+		</div>
+		
+		<!--右侧浮动信息-->
+		<div class="fixInfo">
+			<img src="${student.photoUrl}" alt="" class="" /><br />
+			<div class="basicInfo">
+				<div class="nameInfo">姓名: <span class="name">${student.name}</span></div>
+				<div class="genderInfo">性别: <span class="gender">
+						<!--#if(student.genderId == 'male')-->
+							男
+						<!--#else(student.genderId == 'female')-->
+							女
+						<!--#end-->
+				</span></div>
+				<div class="idInfo">证件号: <span class="idNumber">${student.identityId}</span></div>
+				<div class="licenseInfo">准考证号: <span class="license">${student.examCode}</span></div>
+			</div>
+		</div>
+		<!--成功提示模态框-->
+		<div class="mask">
+			<div class="hintMod">
+				<div class="modHead hintModHead">成功提示</div><i></i>
+				<div class="modCont">
+					你选择的考试计划已上传成功~
+				</div>
+			</div>
+		</div>
+
+		<script src="${path}/res/js/jquery.min.js"></script>
+		<script src="${path}/res/js/bootstrap.min.js"></script>
+		<script src="${path}/res/js/common.js"></script>
+		<script type="text/javascript" src="${path}/res/js/examAnswer.js"></script>
+		<script>
+			//防止页面后退
+			history.pushState(null, null, document.URL);
+			window.addEventListener('popstate', function () {
+				history.pushState(null, null, document.URL);
+			});
+		</script>
+	</body>
+
+</html>

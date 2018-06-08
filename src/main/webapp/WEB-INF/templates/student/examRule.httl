@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>安全生产移动考试系统</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!--#set(path = request.contextPath)-->
+    <link rel="stylesheet" href="${path}/res/css/base.css">
+    <link rel="stylesheet" href="${path}/res/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="${path}/res/css/bootstrap-responsive.min.css">
+    <link rel="icon" href="${path}/res/img/logo.png">
+    <link rel="stylesheet" href="${path}/res/css/style.css">
+</head>
+
+<body class="logBody">
+
+	<form action="${path}/student/studentInfo.html" class="logWin">
+        <!--#if(msg)-->
+            <span class="ruleErrorHint">${msg}</span>
+        <!--#end-->
+		<div class="ruleHead">考场纪律</div>
+		<div class="textImg">
+			<img src="${path}/res/img/ruleText.png" alt="" />
+		</div>
+		<div class="confirmBtn">
+			<input type="submit" value="确认并进入考试">
+            <span class="ruleLogout">注销登录</span>
+            <h5>${error}</h5>
+		</div>
+	</form>
+    <!--通用确认弹出框-->
+    <div class="confMask">
+        <div class="confMod">
+            <div class="confTop clearfix">
+                <div class="leftConf fl"><i></i>确认提示</div>
+                <button class="confCloseBtn fr"></button>
+            </div>
+            <div class="confCont"></div>
+            <div class="confTwoBtn">
+                <button class="confBtn">确定</button>
+                <button class="cancelBtn">取消</button>
+            </div>
+        </div>
+    </div>
+    <script src="${path}/res/js/jquery.min.js"></script>
+    <script src="${path}/res/js/common.js"></script>
+    <script>
+        //注销确认点击
+        $(document).on("click",".confBtn",function(){
+            window.location.href="${path}/logout.html";
+            document.documentElement.style.overflow='hidden';
+        })
+    </script>
+</body>
+
+</html>

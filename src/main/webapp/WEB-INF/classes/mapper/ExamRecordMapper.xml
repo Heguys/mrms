@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.ExamRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.hxminco.mrms.comm.entry.ExamRecord" >
+    <constructor >
+      <arg column="train_plan_uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="miss_exam_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="broken_rule_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="invigilator" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.hxminco.mrms.comm.entry.ExamRecord" >
+    insert into exam_record (train_plan_uid, miss_exam_count, broken_rule_count, 
+      invigilator)
+    values (#{trainPlanUid,jdbcType=VARCHAR}, #{missExamCount,jdbcType=INTEGER}, #{brokenRuleCount,jdbcType=INTEGER}, 
+      #{invigilator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxminco.mrms.comm.entry.ExamRecord" >
+    insert into exam_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="trainPlanUid != null" >
+        train_plan_uid,
+      </if>
+      <if test="missExamCount != null" >
+        miss_exam_count,
+      </if>
+      <if test="brokenRuleCount != null" >
+        broken_rule_count,
+      </if>
+      <if test="invigilator != null" >
+        invigilator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="trainPlanUid != null" >
+        #{trainPlanUid,jdbcType=VARCHAR},
+      </if>
+      <if test="missExamCount != null" >
+        #{missExamCount,jdbcType=INTEGER},
+      </if>
+      <if test="brokenRuleCount != null" >
+        #{brokenRuleCount,jdbcType=INTEGER},
+      </if>
+      <if test="invigilator != null" >
+        #{invigilator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!--#set(path = request.contextPath)-->
+    <title>安全生产移动考试系统</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/mrms/res/css/base.css">
+    <link rel="stylesheet" href="/mrms/res/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="/mrms/res/css/bootstrap-responsive.min.css">
+    <link rel="icon" href="/mrms/res/img/logo.png">
+    <link rel="stylesheet" href="/mrms/res/css/style.css">
+</head>
+<body class="errorBody">
+    <div class="errorCont">
+        <img src="/mrms/res/img/500.png" alt=""/>
+        <div class="errorHead">Server Error</div>
+        <div class="errorTxt">很抱歉!服务器出现错误,请联系管理员...</div>
+        <div class="errorBtn">
+            <button class="backToBefore commonBlueBtn">返回上一页</button>
+            <button class="backToIndex commonBlueBtn">返回首页</button>
+        </div>
+    </div>
+    <script>
+        document.getElementsByClassName("backToBefore")[0].onclick = function(){
+            window.history.go(-1);
+        }
+        document.getElementsByClassName("backToIndex")[0].onclick = function(){
+            window.location.href = "/mrms/main.html";
+        }
+    </script>
+</body>
+</html>

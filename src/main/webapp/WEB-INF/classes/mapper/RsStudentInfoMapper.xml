@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxminco.mrms.ioc.d.RsStudentInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hxminco.mrms.comm.entry.RsStudentInfo" >
+    <constructor >
+      <idArg column="uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <idArg column="candidate_uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="identity_type_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="identity_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="examCode" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="identity_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="photo_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="gender_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="train_plan_uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="exam_plan_uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="qualification_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="certificate_type_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="company_type_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="work_class_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="work_item_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="theory_exam_score" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="theory_exam_score1" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="theory_exam_score2" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="theory_exam_passed" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="train_institution_uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="exam_finish_times" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="rule_broken" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rule_broken_about" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="missing_examination" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="make_up" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="is_exam_finished" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uid, candidate_uid,name, identity_type_id,identity_id, examCode, identity_name, photo_url, gender_id, train_plan_uid,
+    exam_plan_uid, qualification_id, certificate_type_id, company_type_id, work_class_id, 
+    work_item_id, theory_exam_score, theory_exam_score1,theory_exam_score2,theory_exam_passed, train_institution_uid,exam_finish_times,
+    rule_broken,rule_broken_about,missing_examination,make_up,is_exam_finished
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from rs_student_info
+    where uid = #{uid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectRsStudentInfoListByTrainPlanUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rs_student_info
+    WHERE train_plan_uid=#{trainPlanUid}
+  </select>
+
+  <select id="selectUnFinishedStudentList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    FROM rs_student_info
+    where train_plan_uid=#{uid}
+    and is_exam_finished in('1','2')
+  </select>
+
+  <select id="selectStudentByLoginExamCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select
+    <include refid="Base_Column_List" />
+    from rs_student_info
+    where examCode=#{examCode}
+  </select>
+
+  <select id="selectStudentExamRecord" resultType="int" parameterType="java.lang.String">
+    select count(*) from
+    rs_student_info rsi inner JOIN
+    qb_exam_info qei
+    on rsi.examCode=qei.examCode
+    where rsi.uid=#{uid}
+  </select>
+
+  <select id="selectMissExamStudentCount" parameterType="java.lang.String" resultType="int">
+     select count(*)
+      from rs_student_info
+      where
+      train_plan_uid=#{trainPlanUid} And
+      missing_examination = '1'
+  </select>
+
+  <select id="selectBrokenRuleStudentCount" parameterType="java.lang.String" resultType="int">
+      select count(*)
+      from rs_student_info
+      where rule_broken = '1'
+      and train_plan_uid=#{trainPlanUid}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  delete from rs_student_info
+  where uid = #{uid,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteRsStudentInfoListByTrainPlanUid" parameterType="java.lang.String" >
+    delete from rs_student_info
+    where train_plan_uid = #{trainPlanUid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertStudentInfoList" parameterType="map" >
+    insert into rs_student_info (uid,candidate_uid, name, identity_type_id,identity_id,
+    examCode, identity_name, photo_url,
+    gender_id, train_plan_uid, exam_plan_uid,
+    qualification_id, certificate_type_id, company_type_id,
+    work_class_id, work_item_id, theory_exam_score,theory_exam_score1,theory_exam_score2,
+    theory_exam_passed, train_institution_uid,exam_finish_times,
+    rule_broken,rule_broken_about,missing_examination,make_up,is_exam_finished)
+    values
+    <foreach collection="studentInfos" item="studentInfo" separator=",">
+    (#{studentInfo.uid,jdbcType=VARCHAR},#{studentInfo.candidateUid,jdbcType=VARCHAR}, #{studentInfo.name,jdbcType=VARCHAR}, #{studentInfo.identityTypeId,jdbcType=VARCHAR},#{studentInfo.identityId,jdbcType=VARCHAR},
+    #{studentInfo.examCode,jdbcType=VARCHAR}, #{studentInfo.identityName,jdbcType=VARCHAR}, #{studentInfo.photoUrl,jdbcType=VARCHAR},
+    #{studentInfo.genderId,jdbcType=VARCHAR}, #{studentInfo.trainPlanUid,jdbcType=VARCHAR}, #{studentInfo.examPlanUid,jdbcType=VARCHAR},
+    #{studentInfo.qualificationId,jdbcType=VARCHAR}, #{studentInfo.certificateTypeId,jdbcType=VARCHAR}, #{studentInfo.companyTypeId,jdbcType=VARCHAR},
+    #{studentInfo.workClassId,jdbcType=VARCHAR}, #{studentInfo.workItemId,jdbcType=VARCHAR}, #{studentInfo.theoryExamScore,jdbcType=DOUBLE},#{studentInfo.theoryExamScore1,jdbcType=DOUBLE},
+    #{studentInfo.theoryExamScore2,jdbcType=DOUBLE},#{studentInfo.theoryExamPassed,jdbcType=VARCHAR}, #{studentInfo.trainInstitutionUid,jdbcType=VARCHAR},#{studentInfo.examFinishTimes,jdbcType=INTEGER},
+    #{studentInfo.ruleBroke,jdbcType=VARCHAR},#{studentInfo.ruleBrokeAbout,jdbcType=VARCHAR},#{studentInfo.missingExamination,jdbcType=VARCHAR},#{studentInfo.makeUp,jdbcType=VARCHAR},#{studentInfo.isExamFinished,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <select id="selectInvigilatePageModelByStudentUid" parameterType="java.lang.String" resultType="com.hxminco.mrms.comm.model.InvigilatePageModel">
+     select
+    rsi.uid as uid,
+    rsi.name as name,
+    rsi.identity_id as identityId,
+    rsi.examCode,
+    rsi.photo_url as photoUrl,
+    rsi.gender_id as genderId,
+    rsi.train_plan_uid as trainPlanUid,
+    rsi.missing_examination as missingExamination,
+    rsi.rule_broken as ruleBroken,
+    qei.status,
+    case when rsi.theory_exam_score &lt; 0 then null else theory_exam_score end score,
+    qei.examTime as examtime,
+    qei.passed as passed
+    from rs_student_info rsi left join qb_exam_info qei
+     on rsi.examCode = qei.examCode
+     where rsi.uid=#{uid}
+     ORDER BY qei.examTime DESC
+     limit 1
+  </select>
+
+  <select id="selectLstInvigilatePageModelByTrainPlanUid" parameterType="java.lang.String" resultType="com.hxminco.mrms.comm.model.InvigilatePageModel">
+    select
+    rsi.uid as uid,
+    rsi.name as name,
+    rsi.identity_id as identityId,
+    rsi.examCode,
+    rsi.photo_url as photoUrl,
+    rsi.gender_id as genderId,
+    rsi.train_plan_uid as trainPlanUid,
+    rsi.missing_examination as missingExamination,
+    rsi.rule_broken as ruleBroken,
+    rsi.rule_broken_about as ruleBrokenAbout,
+    qei.status,
+    case when rsi.theory_exam_score &lt; 0 then null else theory_exam_score end score,
+    qei.examTime as examtime,
+    qei.passed as passed
+    from rs_student_info rsi left join qb_exam_info qei
+     on rsi.examCode = qei.examCode
+     where rsi.train_plan_uid=#{trainPlanUid}
+     ORDER BY rsi.examCode,qei.examTime DESC
+  </select>
+
+  <select id="selectLstInvigilatePageModelByMap" parameterType="map" resultType="com.hxminco.mrms.comm.model.InvigilatePageModel">
+    select
+    rsi.uid as uid,
+    rsi.name as name,
+    rsi.identity_id as identityId,
+    rsi.examCode,
+    rsi.photo_url as photoUrl,
+    rsi.gender_id as genderId,
+    rsi.train_plan_uid as trainPlanUid,
+    rsi.missing_examination as missingExamination,
+    rsi.rule_broken as ruleBroken,
+    rsi.rule_broken_about as ruleBrokenAbout,
+    qei.status,
+    case when rsi.theory_exam_score &lt; 0 then null else theory_exam_score end score,
+    qei.examTime as examtime,
+    qei.passed as passed
+    from rs_student_info rsi left join qb_exam_info qei
+    on rsi.examCode = qei.examCode
+    <where> rsi.train_plan_uid=#{trainPlanUid}
+      <if test="keyWord != null and keyWord != ''.trim()" >
+        and (rsi.name like concat('%', #{keyWord}, '%')
+        or rsi.identity_id like concat('%', #{keyWord}, '%')
+        or rsi.examCode like concat('%', #{keyWord}, '%'))
+      </if>
+      <if test="status != null and status != ''.trim()" >
+        and rsi.is_exam_finished=#{status}
+      </if>
+      <if test="ruleBroken != null and ruleBroken != ''.trim()" >
+        and rsi.rule_broken=#{ruleBroken}
+      </if>
+     </where>
+     ORDER BY rsi.examCode,qei.examTime DESC
+  </select>
+
+  <select id="selectStudentInfoListByTrainPlanUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rs_student_info
+    where train_plan_uid=#{trainPlanUid}
+  </select>
+
+  <select id="selectRsStudentInfo4Login" parameterType="com.hxminco.mrms.comm.entry.RsStudentInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rs_student_info
+    where examCode = #{examCode,jdbcType=VARCHAR} AND
+    identity_id = #{identityId,jdbcType=VARCHAR}
+  </select>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxminco.mrms.comm.entry.RsStudentInfo" >
+    update rs_student_info
+    <set >
+      <if test="candidateUid != null" >
+        candidate_uid = #{candidateUid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="identityId != null" >
+        identity_id = #{identityId,jdbcType=VARCHAR},
+      </if>
+      <if test="examCode != null" >
+        examCode = #{examCode,jdbcType=VARCHAR},
+      </if>
+      <if test="identityName != null" >
+        identity_name = #{identityName,jdbcType=VARCHAR},
+      </if>
+      <if test="photoUrl != null" >
+        photo_url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="genderId != null" >
+        gender_id = #{genderId,jdbcType=VARCHAR},
+      </if>
+      <if test="trainPlanUid != null" >
+        train_plan_uid = #{trainPlanUid,jdbcType=VARCHAR},
+      </if>
+      <if test="examPlanUid != null" >
+        exam_plan_uid = #{examPlanUid,jdbcType=VARCHAR},
+      </if>
+      <if test="qualificationId != null" >
+        qualification_id = #{qualificationId,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateTypeId != null" >
+        certificate_type_id = #{certificateTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTypeId != null" >
+        company_type_id = #{companyTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="workClassId != null" >
+        work_class_id = #{workClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="workItemId != null" >
+        work_item_id = #{workItemId,jdbcType=VARCHAR},
+      </if>
+      <if test="theoryExamScore != null" >
+        theory_exam_score = #{theoryExamScore,jdbcType=DOUBLE},
+      </if>
+      <if test="theoryExamScore1 != null" >
+        theory_exam_score1 = #{theoryExamScore1,jdbcType=DOUBLE},
+      </if>
+      <if test="theoryExamScore2 != null" >
+        theory_exam_score2 = #{theoryExamScore2,jdbcType=DOUBLE},
+      </if>
+      <if test="theoryExamPassed != null" >
+        theory_exam_passed = #{theoryExamPassed,jdbcType=VARCHAR},
+      </if>
+      <if test="trainInstitutionUid != null" >
+        train_institution_uid = #{trainInstitutionUid,jdbcType=VARCHAR},
+      </if>
+      <if test="examFinishTimes != null" >
+      exam_finish_times = #{examFinishTimes,jdbcType=INTEGER},
+      </if>
+      <if test="ruleBroken != null" >
+      rule_broken = #{ruleBroken,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleBrokenAbout != null" >
+      rule_broken_about = #{ruleBrokenAbout,jdbcType=VARCHAR},
+      </if>
+      <if test="missingExamination != null" >
+      missing_examination = #{missingExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="makeUp != null" >
+        make_up = #{makeUp,jdbcType=VARCHAR},
+      </if>
+      <if test="isExamFinished != null" >
+        is_exam_finished = #{isExamFinished,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateListStudentInfo" parameterType="map">
+      <foreach collection="lstStudent" item="val" open="" close="" separator=";">
+        update rs_student_info
+        set theory_exam_score = #{val.theoryExamScore,jdbcType=DOUBLE},
+        theory_exam_passed = #{val.theoryExamPassed,jdbcType=VARCHAR},
+        missing_examination = #{val.missingExamination,jdbcType=VARCHAR},
+        is_exam_finished = #{val.isExamFinished,jdbcType=VARCHAR}
+        where uid = #{val.uid,jdbcType=VARCHAR}
+      </foreach>
+  </update>
+</mapper>

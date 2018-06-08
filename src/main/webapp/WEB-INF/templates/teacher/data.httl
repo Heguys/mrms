@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<!--#set(path = request.contextPath)-->
+		<title>甘肃省安全生产移动考试系统</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="${path}/res/css/base.css">
+		<link rel="stylesheet" href="${path}/res/css/bootstrap.min.css" media="screen">
+		<link rel="stylesheet" href="${path}/res/css/bootstrap-responsive.min.css">
+		<link rel="icon" href="${path}/res/img/logo.png">
+		<link rel="stylesheet" href="${path}/res/css/style.css">
+	</head>
+
+	<body>
+		<!-- 顶部 -->
+		<div class="header">
+			<img class="testLogo localdataLogo" src="${path}/res/img/testLogo.png" alt=""/>
+			<div class="headerTXT">
+				<div class="newTime">
+					<div class="timeTXT"></div>&emsp;&emsp;
+					<a href="#"><i></i>&nbsp;注销</a>&emsp;&emsp;&emsp;&emsp;&emsp;</div>
+			</div>
+		</div>
+
+		<!--中间内容-->
+		<div class="dataAssignCont">
+			<!--版心-->
+			<div class="assignCenter">
+				<div class="curPage dataAssignPage">远程数据配置</div>
+				<div action="" class="assignQuery">
+					<!--操作状态:&emsp;-->
+					<!--<select name="" id="operateState"></select>-->
+					时间范围:&emsp;<input type="text" id="startTime" placeholder="开始" /> - <input type="text" id="endTime" placeholder="结束" /> 关键词搜索:&emsp;
+					<input type="text" class="querytext" placeholder="计划名称/培训机构" />&emsp;&emsp;
+					<button class="commonBlueBtn seaBtn">查询</button>
+				</div>
+				<!-- 表格 -->
+				<div class="dataAssignTab">
+					<table id="asTab" class="table table-hover"></table>
+				</div>
+				<!--成功提示模态框-->
+				<div class="hintMod">
+					<div class="modHead hintModHead">成功提示<i></i></div>
+					<div class="modCont">
+						你选择的考试计划已上传成功~
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!--通用确认弹出框-->
+		<div class="confMask">
+			<div class="confMod">
+				<div class="confTop clearfix">
+					<div class="leftConf fl"><i></i>确认提示</div>
+					<button class="confCloseBtn fr"></button>
+				</div>
+				<div class="confCont"></div>
+				<div class="confTwoBtn">
+					<button class="confBtn">确定</button>
+					<button class="cancelBtn">取消</button>
+				</div>
+			</div>
+		</div>
+		<!--成功提示模态框-->
+		<div class="mask">
+			<div class="hintMod">
+				<div class="modHead hintModHead">成功提示</div><i></i>
+				<div class="modCont">
+					你选择的考试计划已上传成功~
+				</div>
+			</div>
+		</div>
+
+		<script src="${path}/res/js/jquery.min.js"></script>
+		<script src="${path}/res/js/bootstrap.min.js"></script>
+		<script src="${path}/res/js/bootstrap-table.js"></script>
+		<script src="${path}/res/js/bootstrap-table-zh-CN.js"></script>
+		<script src="${path}/res/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="${path}/res/js/bootstrap-datetimepicker.zh-CN.js"></script>
+		<script src="${path}/res/js/common.js"></script>
+		<script type="text/javascript" src="${path}/res/js/dataAssign.js"></script>
+		<script>
+			//注销确认点击
+			$(document).on("click",".logoutMask .confBtn",function(){
+				window.location.href="${path}/logout.html";
+			})
+		</script>
+	</body>
+
+</html>
